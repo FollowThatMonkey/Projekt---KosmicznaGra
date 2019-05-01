@@ -27,9 +27,12 @@ public class CalculationThread extends Thread
 				currentObj.calcForce(iterator, xForce, yForce);
 				currentObj.calculateVelocity(xForce, yForce, dt);
 				currentObj.calculatePosition(dt);
+				//if(currentObj.getName().equals("Ziemia"))
+					//System.out.println("Licze sile ziemii z " + iterator.getName());
 			}
 		}
-		System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
+		if(currentObj.getName().equals("Ziemia"))
+			System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
 		
 	}
 	
