@@ -27,6 +27,16 @@ public class GameLogic
 		// Here will be drawing to buffImage
 	}
 	
+	public void keyPressed(int key)
+	{
+		
+	}
+	
+	public void keyReleased(int key)
+	{
+		
+	}
+	
 	// Gets
 	public Spaceship getShip() 
 	{

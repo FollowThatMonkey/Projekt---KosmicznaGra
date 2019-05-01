@@ -1,5 +1,6 @@
 package windows;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,8 +17,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 
 	public GamePanel(GameLogic logic) 
 	{
+		this.logic = logic;
+		setBackground(Color.BLACK);
 		setFocusable(true);
 		requestFocus();
+		
+		// Starting game thread!
+		running = true;
+		if(thread == null)
+		{
+			thread = new Thread(this);
+			addKeyListener(this);
+			thread.start();
+		}
 	}
 	
 	@Override
@@ -48,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		}
 	}
 	
+	
 	private void update()
 	{
 		logic.update();
@@ -64,22 +77,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
+	public void keyTyped(KeyEvent key)
 	{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
+	public void keyPressed(KeyEvent key)
 	{
-		// TODO Auto-generated method stub
-		
+		logic.keyPressed(key.getKeyCode());
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
+	public void keyReleased(KeyEvent key)
 	{
-		// TODO Auto-generated method stub
-		
+		logic.keyReleased(key.getKeyCode());
 	}
 	
 	// Game Thread
