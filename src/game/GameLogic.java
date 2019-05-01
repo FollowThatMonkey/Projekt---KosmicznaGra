@@ -16,16 +16,30 @@ public class GameLogic
 	{
 		// initialize ship and stuff
 		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 100);
+		
+		planetThread = new CalculationThread[planetarySystem.length];
+		for(int i = 1; i < planetThread.length; i++)
+		{
+			planetThread[i] = new CalculationThread(planetarySystem[i], planetarySystem, dt);
+		}
+		
 	}
 	
 	public void update()
 	{
 		// Here will be calculations - can be done better
 		// Probably threads will slow everything down
-		CalculationThread planetThread[] = new CalculationThread[planetarySystem.length];
-		for(int i = 1; i < planetThread.length; i++)
+		for(CalculationThread iterator : planetThread)
+			iterator.start();
+		for(CalculationThread iterator : planetThread)
 		{
-			planetThread[i] = new CalculationThread(planetarySystem[i], planetarySystem, dt);
+			try
+			{
+				iterator.join();
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
 		// Create similar thread for the spaceship!
@@ -81,5 +95,9 @@ public class GameLogic
 	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
 	
+	private CalculationThread planetThread[];
+	private CalculationThread rocketThread;
+	
+	// Global constants
 	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 }
