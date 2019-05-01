@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import objects.CelestialBody;
 import objects.CosmicObjects;
@@ -17,10 +19,10 @@ public class GameLogic
 		// initialize ship and stuff
 		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 100);
 		
-		planetThread = new CalculationThread[planetarySystem.length];
+		planetThread = new CalculationThread[planetarySystem.size()];
 		for(int i = 1; i < planetThread.length; i++)
 		{
-			planetThread[i] = new CalculationThread(planetarySystem[i], planetarySystem, dt);
+			planetThread[i] = new CalculationThread(planetarySystem.get(i), planetarySystem, dt);
 		}
 		
 	}
@@ -67,7 +69,7 @@ public class GameLogic
 		return ship;
 	}
 	
-	public CelestialBody[] getPlanetarySystem()
+	public List<CelestialBody> getPlanetarySystem()
 	{
 		return planetarySystem;
 	}
@@ -81,16 +83,25 @@ public class GameLogic
 		return timeLeft;
 	}
 	
+	public int getObjectNumber()
+	{
+		return objectNumber;
+	}
 	// Sets
 	public void setDT(int newDT) 
 	{
 		dt = newDT;
 	}
 	
+	public void setObjectNumber(int N)
+	{
+		objectNumber = N;
+	}
+	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
-	private CelestialBody planetarySystem[]; // star and planets - maybe list would be better?
-	int objectNumber; // number of celestial bodies in planetarySystem
+	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?
+	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
 	private int dt = HOUR; // DT in seconds!!!
 	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more

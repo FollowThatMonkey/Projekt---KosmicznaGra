@@ -28,7 +28,7 @@ public class ParametersDialog extends JDialog
 		add(questionLabel, BorderLayout.PAGE_START);
 		
 		// button which closes the application
-		JButton closeButton = new JButton("Zamknij grę");
+		JButton closeButton = new JButton("Wyjdź");
 		closeButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -63,14 +63,16 @@ public class ParametersDialog extends JDialog
 			{
 				remove(questionLabel);
 				remove(buttonPanel);
-				add(new ChooseParametersPanel(logic), BorderLayout.PAGE_START);
+				ChooseParametersPanel chooseParametersPanel = new ChooseParametersPanel(logic);
+				add(chooseParametersPanel, BorderLayout.PAGE_START);
 				
-				JButton saveButton = new JButton("Zapisz!");
+				JButton saveButton = new JButton("Zapisz");
 				saveButton.addActionListener(new ActionListener() 
 				{
 					@Override
 					public void actionPerformed(ActionEvent e) 
 					{
+						chooseParametersPanel.setParameters(logic);
 						dispose();
 					}
 				});

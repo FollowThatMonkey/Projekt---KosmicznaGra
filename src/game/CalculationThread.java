@@ -1,10 +1,13 @@
 package game;
 
+import java.util.List;
+
+import objects.CelestialBody;
 import objects.CosmicObjects;
 
 public class CalculationThread extends Thread
 {
-	public CalculationThread(CosmicObjects obj, CosmicObjects objArray[], int setDT)
+	public CalculationThread(CosmicObjects obj, List<CelestialBody> objArray, int setDT)
 	{
 		this.objArray = objArray;
 		currentObj = obj;
@@ -16,7 +19,7 @@ public class CalculationThread extends Thread
 	public void run()
 	{
 		super.run();
-		for(CosmicObjects iterator : objArray)
+		for(CelestialBody iterator : objArray)
 		{
 			if(currentObj != iterator)
 			{
@@ -30,6 +33,7 @@ public class CalculationThread extends Thread
 		
 	}
 	
-	private CosmicObjects currentObj, objArray[];
+	private CosmicObjects currentObj;
+	private List<CelestialBody> objArray;
 	private int dt;
 }
