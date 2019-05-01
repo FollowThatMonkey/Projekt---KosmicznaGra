@@ -15,6 +15,24 @@ public abstract class CosmicObjects
 		yVelocity = yVel;
 	}
 	
+	void calcForce(CosmicObjects obj, double xForce, double yForce)
+	{
+		xForce = -G * obj.getMass() * mass / Math.pow(obj.getXPos() - xPosition, 2);
+		yForce = -G * obj.getMass() * mass / Math.pow(obj.getYPos() - yPosition, 2);
+	}
+	
+	void calculateVelocity(double xForce, double yForce, int dt) 
+	{
+		xVelocity += xForce * dt;
+		yVelocity += yForce * dt;
+	}
+	
+	void calculatePosition(double xVel, double yVel, int dt)
+	{
+		xPosition += xVel * dt;
+		yPosition += yVel * dt;
+	}
+	
 	// Gets
 	public String getName() 
 	{
@@ -51,6 +69,6 @@ public abstract class CosmicObjects
 	private double xPosition, xVelocity;
 	private double yPosition, yVelocity;
 	
-	abstract void calculateVelocity();
-	abstract void calculatePosition();
+	// Gravitational constant
+	public final static double G = 6.67e-11;
 }

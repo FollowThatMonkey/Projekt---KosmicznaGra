@@ -10,19 +10,4 @@ public class CelestialBody extends CosmicObjects
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	void calculateVelocity() 
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	void calculatePosition() 
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 }

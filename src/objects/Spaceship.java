@@ -10,20 +10,6 @@ public class Spaceship extends CosmicObjects
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		fuel = ff;
 	}
-	
-	@Override
-	void calculateVelocity() 
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	void calculatePosition() 
-	{
-		// TODO Auto-generated method stub
-
-	}
 
 	//calculates spaceship's speed at the current moment
 	public double speed() 
