@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import objects.CelestialBody;
+import objects.CosmicObjects;
 import objects.Spaceship;
 
 // ZL & RJ?
@@ -16,12 +17,37 @@ public class GameLogic
 	public GameLogic() 
 	{
 		// initialize ship and stuff
-		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 100, 0.008);
+		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 0.008);
+	}
+	
+	// making threads
+	private void objectThreads()
+	{
+		CalculationThread planetsThreads[] = new CalculationThread[planetarySystem.size() - 1];
+		for(int i = 0; i < planetsThreads.length; i++)
+			planetsThreads[i] = new CalculationThread(planetarySystem.get(i + 1), planetarySystem, dt);
+		for(CalculationThread iterator : planetsThreads)
+			iterator.start();
+		for(CalculationThread iterator : planetsThreads)
+		{
+			try
+			{
+				iterator.join();
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void update()
 	{
-		// Here will be calculations
+		
+		// Here will be calculations - can be done better
+		// Probably threads will slow everything down
+		objectThreads();
+		
+		// Create similar thread for the spaceship!
 		
 	}
 	
@@ -65,7 +91,7 @@ public class GameLogic
 		return objectNumber;
 	}
 	// Sets
-	public void setDT(double newDT) 
+	public void setDT(int newDT) 
 	{
 		dt = newDT;
 	}
@@ -79,9 +105,10 @@ public class GameLogic
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private double dt = HOUR; // DT in seconds!!!
-	public final double initDT = dt;
+	private int dt = DAY; // DT in seconds!!!
+	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
 	
+	// Global constants
 	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 }

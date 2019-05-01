@@ -5,10 +5,9 @@ package objects;
 public class Spaceship extends CosmicObjects 
 {
 
-	public Spaceship(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double ff, double dC) 
+	public Spaceship(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double dC) 
 	{
 		super(nn, mm, xPos, yPos, xVel, yVel);
-		fuel = ff;
 		dConsumption = dC;
 	}
 
@@ -28,6 +27,6 @@ public class Spaceship extends CosmicObjects
 		dConsumption = dC;
 	}
 	
-	double fuel; // Fuel status in %%
+	double fuel = 100; // Fuel status in %%
 	double dConsumption;
 }
