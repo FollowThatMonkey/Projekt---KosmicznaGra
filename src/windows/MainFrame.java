@@ -2,6 +2,7 @@ package windows;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -17,8 +18,12 @@ public class MainFrame extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setMinimumSize(getSize());
+		setLocationRelativeTo(null); //centering 
 		setTitle("Kosmiczna gra");
 		setLayout(new BorderLayout());
+		
+		// Dialog - choosing game parameters
+		ParametersDialog parametersDialog = new ParametersDialog(this, logic);
 		
 		// Here to add Panels!
 		upperPanel = new UpperPanel(logic.getShip());

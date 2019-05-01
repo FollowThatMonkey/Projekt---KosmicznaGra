@@ -46,6 +46,37 @@ public abstract class CosmicObjects
 		return yVelocity;
 	}
 	
+	// Sets
+	public void setName(String nn)
+	{
+		name = nn;
+	}
+	
+	public void setMass(double mm) 
+	{
+		 mass = mm;
+	}
+	
+	public void setXPos(double xPos) 
+	{
+		 xPosition = xPos;
+	}
+	
+	public void setXVel(double xVel) 
+	{
+		 xVelocity = xVel;
+	}
+	
+	public void setYPos(double yPos) 
+	{
+		 yPosition = yPos;
+	}
+	
+	public void setYVel(double yVel) 
+	{
+		 yVelocity = yVel;
+	}
+	
 	private String name;
 	private double mass;
 	private double xPosition, xVelocity;

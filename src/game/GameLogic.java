@@ -22,6 +22,10 @@ public class GameLogic
 		return ship;
 	}
 	
+	public CelestialBody[] getPlanetarySystem()
+	{
+		return planetarySystem;
+	}
 	public double getDT() 
 	{
 		return dt;
