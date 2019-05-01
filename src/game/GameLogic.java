@@ -20,6 +20,7 @@ public class GameLogic
 		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 0.008);
 	}
 	
+	// making threads
 	private void objectThreads()
 	{
 		CalculationThread planetsThreads[] = new CalculationThread[planetarySystem.size() - 1];
@@ -104,7 +105,7 @@ public class GameLogic
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = HOUR; // DT in seconds!!!
+	private int dt = DAY; // DT in seconds!!!
 	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
 	
