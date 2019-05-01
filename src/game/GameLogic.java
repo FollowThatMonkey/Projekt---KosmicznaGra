@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 import objects.CelestialBody;
 import objects.Spaceship;
@@ -14,6 +15,16 @@ public class GameLogic
 	{
 		// initialize ship and stuff
 		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 100);
+	}
+	
+	public void update()
+	{
+		// Here will be calculations
+	}
+	
+	public void draw(Graphics2D g2d)
+	{
+		// Here will be drawing to buffImage
 	}
 	
 	// Gets
