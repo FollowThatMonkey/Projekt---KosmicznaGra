@@ -8,7 +8,7 @@ import objects.Spaceship;
 
 // ZL & RJ?
 
-public class GameLogic 
+public class GameLogic
 {
 
 	public GameLogic() 
@@ -20,6 +20,7 @@ public class GameLogic
 	public void update()
 	{
 		// Here will be calculations
+		
 	}
 	
 	public void draw(Graphics2D g2d)
@@ -63,11 +64,13 @@ public class GameLogic
 		dt = newDT;
 	}
 	
-	private Color backgroundColor = Color.black;
+	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	CelestialBody planetarySystem[]; // star and planets - maybe list would be better?
 	int objectNumber; // number of celestial bodies in planetarySystem
-	public final double initDT = 11;
-	private double dt = 11;
-	private int timeLeft = 700;
+	private double dt = HOUR; // DT in seconds!!!
+	public final double initDT = dt;
+	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
+	
+	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 }

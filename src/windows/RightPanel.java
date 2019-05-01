@@ -86,7 +86,7 @@ public class RightPanel extends JPanel
 	
 	JSlider setTimeSlider(GameLogic logic) 
 	{
-		JSlider slider = new JSlider(-10, 0, 0);
+		JSlider slider = new JSlider((int)-(logic.initDT - 1), 0, 0);
 		slider.addChangeListener(new ChangeListener() 
 		{
 			@Override
