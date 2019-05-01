@@ -18,13 +18,19 @@ public class GameLogic
 	{
 		// initialize ship and stuff
 		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 100);
-		
-		planetThread = new CalculationThread[planetarySystem.size()];
-		for(int i = 1; i < planetThread.length; i++)
+	}
+	
+	// set threads for future calculations
+	public void setThreads()
+	{
+		int i = 1;
+		planetThread = new CalculationThread[planetarySystem.size() - 1];
+		for(CalculationThread iterator : planetThread)
 		{
-			planetThread[i] = new CalculationThread(planetarySystem.get(i), planetarySystem, dt);
+			iterator = new CalculationThread(planetarySystem.get(i), planetarySystem, dt);
+			i++;
+			System.out.println("Set thread for planet nr: " + iterator.getName());
 		}
-		
 	}
 	
 	public void update()

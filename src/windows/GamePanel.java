@@ -22,6 +22,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		setFocusable(true);
 		requestFocus();
 		
+		logic.setThreads();
+		
 		// Starting game thread!
 		running = true;
 		if(thread == null)
