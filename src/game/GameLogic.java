@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import objects.CelestialBody;
+import objects.CosmicObjects;
 import objects.Spaceship;
 
 // ZL & RJ?
@@ -19,7 +20,15 @@ public class GameLogic
 	
 	public void update()
 	{
-		// Here will be calculations
+		// Here will be calculations - can be done better
+		// Probably threads will slow everything down
+		CalculationThread planetThread[] = new CalculationThread[planetarySystem.length];
+		for(int i = 1; i < planetThread.length; i++)
+		{
+			planetThread[i] = new CalculationThread(planetarySystem[i], planetarySystem, dt);
+		}
+		
+		// Create similar thread for the spaceship!
 		
 	}
 	
@@ -59,7 +68,7 @@ public class GameLogic
 	}
 	
 	// Sets
-	public void setDT(double newDT) 
+	public void setDT(int newDT) 
 	{
 		dt = newDT;
 	}
@@ -68,8 +77,8 @@ public class GameLogic
 	private Spaceship ship;
 	CelestialBody planetarySystem[]; // star and planets - maybe list would be better?
 	int objectNumber; // number of celestial bodies in planetarySystem
-	private double dt = HOUR; // DT in seconds!!!
-	public final double initDT = dt;
+	private int dt = HOUR; // DT in seconds!!!
+	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
 	
 	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
