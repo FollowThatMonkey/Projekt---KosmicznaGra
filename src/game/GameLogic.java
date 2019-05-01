@@ -20,26 +20,14 @@ public class GameLogic
 		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 100);
 	}
 	
-	// set threads for future calculations
-	public void setThreads()
+	private void objectThreads()
 	{
-		int i = 1;
-		planetThread = new CalculationThread[planetarySystem.size() - 1];
-		for(CalculationThread iterator : planetThread)
-		{
-			iterator = new CalculationThread(planetarySystem.get(i), planetarySystem, dt);
-			i++;
-			System.out.println("Set thread for planet nr: " + iterator.getName());
-		}
-	}
-	
-	public void update()
-	{
-		// Here will be calculations - can be done better
-		// Probably threads will slow everything down
-		for(CalculationThread iterator : planetThread)
+		CalculationThread planetsThreads[] = new CalculationThread[planetarySystem.size() - 1];
+		for(int i = 0; i < planetsThreads.length; i++)
+			planetsThreads[i] = new CalculationThread(planetarySystem.get(i + 1), planetarySystem, dt);
+		for(CalculationThread iterator : planetsThreads)
 			iterator.start();
-		for(CalculationThread iterator : planetThread)
+		for(CalculationThread iterator : planetsThreads)
 		{
 			try
 			{
@@ -49,6 +37,14 @@ public class GameLogic
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void update()
+	{
+		
+		// Here will be calculations - can be done better
+		// Probably threads will slow everything down
+		objectThreads();
 		
 		// Create similar thread for the spaceship!
 		
@@ -111,9 +107,6 @@ public class GameLogic
 	private int dt = HOUR; // DT in seconds!!!
 	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
-	
-	private CalculationThread planetThread[];
-	private CalculationThread rocketThread;
 	
 	// Global constants
 	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;

@@ -29,7 +29,7 @@ public class CalculationThread extends Thread
 				currentObj.calculatePosition(dt);
 			}
 		}
-		System.out.println("Name: " + currentObj.getName() + "Xpos, yPos:" + currentObj.getXPos() + " " + currentObj.getYPos());
+		System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
 		
 	}
 	
