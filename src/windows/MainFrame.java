@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 import game.GameLogic;
 
+// ZL
+
 public class MainFrame extends JFrame 
 {
 	

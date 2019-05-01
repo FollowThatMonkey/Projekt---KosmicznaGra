@@ -1,5 +1,7 @@
 package objects;
 
+// ZL
+
 public class Spaceship extends CosmicObjects 
 {
 
@@ -22,7 +24,8 @@ public class Spaceship extends CosmicObjects
 		// TODO Auto-generated method stub
 
 	}
-	
+
+	//calculates spaceship's speed at the current moment
 	public double speed() 
 	{
 		return Math.sqrt(Math.pow(getXVel(), 2) + Math.pow(getYVel(), 2));

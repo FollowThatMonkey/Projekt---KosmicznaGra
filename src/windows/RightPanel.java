@@ -12,6 +12,8 @@ import javax.swing.event.ChangeListener;
 
 import game.GameLogic;
 
+// RJ
+
 public class RightPanel extends JPanel 
 {
 
@@ -24,7 +26,7 @@ public class RightPanel extends JPanel
 		
 		timeSlider = setTimeSlider(logic);
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
-		massStat = setBoldLabel(String.format(".2f", logic.getShip().getMass()) + " kg", boldTextSize);
+		massStat = setBoldLabel(String.format("%.2f", logic.getShip().getMass()) + " kg", boldTextSize);
 		timeStat = setBoldLabel(logic.getTimeLeft() + "s", boldTextSize);
 		restartButton = setGameOverButton("Rozpocznij ponownie");
 		endButton = setGameOverButton("Zakończ");

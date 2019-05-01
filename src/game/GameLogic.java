@@ -5,6 +5,8 @@ import java.awt.Color;
 import objects.CelestialBody;
 import objects.Spaceship;
 
+// ZL & RJ?
+
 public class GameLogic 
 {
 
