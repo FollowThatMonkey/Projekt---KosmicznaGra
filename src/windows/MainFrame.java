@@ -3,6 +3,7 @@ package windows;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import game.GameLogic;
 
@@ -38,6 +39,13 @@ public class MainFrame extends JFrame
 	public static void main(String[] args) 
 	{
 		GameLogic logic = new GameLogic();
-		MainFrame frame = new MainFrame(logic);
+		SwingUtilities.invokeLater(new Runnable() 
+		{
+
+			public void run() 
+			{
+				MainFrame frame = new MainFrame(logic);
+			}
+		});
 	}
 }
