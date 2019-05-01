@@ -77,7 +77,7 @@ public class GameLogic
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
-	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?
+	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
 	private double dt = HOUR; // DT in seconds!!!
 	public final double initDT = dt;

@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 
 import objects.CelestialBody;
 
-//Z - doesn't work yet
+//Z
 public class ChooseParametersPanel extends JPanel
 {
 
