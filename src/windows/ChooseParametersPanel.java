@@ -107,6 +107,32 @@ public class ChooseParametersPanel extends JPanel
 			System.out.println(e.toString());
 			System.exit(1);
 		}
+		
+		//reading ship parameters from file
+		try
+		{
+			BufferedReader br = new BufferedReader(new FileReader(shipOptions[shipOption]));
+			String temp = br.readLine();
+			String tempSplited[] = temp.split("\\s+");
+			double mass = Double.parseDouble(tempSplited[0]);
+			double xPosition = Double.parseDouble(tempSplited[1]);
+			double yPosition = Double.parseDouble(tempSplited[2]);
+			double xVelocity = Double.parseDouble(tempSplited[3]);
+			double yVelocity = Double.parseDouble(tempSplited[4]);
+			double dConsumption = Double.parseDouble(tempSplited[5]);
+			logic.getShip().setMass(mass);
+			logic.getShip().setXPos(xPosition);
+			logic.getShip().setYPos(yPosition);
+			logic.getShip().setXVel(xVelocity);
+			logic.getShip().setYVel(yVelocity);
+			logic.getShip().setDConsumption(dConsumption);
+			br.close();
+		} 
+		catch (IOException e)
+		{
+			System.out.println(e.toString());
+			System.exit(1);
+		}
 	}
 	
 	int systemOption = 0;
