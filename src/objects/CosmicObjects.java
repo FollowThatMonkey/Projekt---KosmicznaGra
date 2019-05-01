@@ -1,8 +1,10 @@
 package objects;
 
-public abstract class CosmicObjects {
+public abstract class CosmicObjects 
+{
 
-	public CosmicObjects(String nn, double mm, double xPos, double yPos, double xVel, double yVel) {
+	public CosmicObjects(String nn, double mm, double xPos, double yPos, double xVel, double yVel) 
+	{
 		name = nn;
 		mass = mm;
 		xPosition = xPos;
@@ -12,27 +14,33 @@ public abstract class CosmicObjects {
 	}
 	
 	// Gets
-	String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 	
-	double getMass() {
+	public double getMass() 
+	{
 		return mass;
 	}
 	
-	double getXPos() {
+	public double getXPos() 
+	{
 		return xPosition;
 	}
 	
-	double getXVel() {
+	public double getXVel() 
+	{
 		return xVelocity;
 	}
 	
-	double getYPos() {
+	public double getYPos() 
+	{
 		return yPosition;
 	}
 	
-	double getYVel() {
+	public double getYVel() 
+	{
 		return yVelocity;
 	}
 	

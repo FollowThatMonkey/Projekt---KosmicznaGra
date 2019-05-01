@@ -2,6 +2,13 @@ package windows;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel {
+import game.GameLogic;
 
+public class GamePanel extends JPanel 
+{
+
+	public GamePanel(GameLogic logic) 
+	{
+		
+	}
 }
