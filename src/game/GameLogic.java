@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import objects.CelestialBody;
 import objects.Spaceship;
@@ -44,7 +46,7 @@ public class GameLogic
 		return ship;
 	}
 	
-	public CelestialBody[] getPlanetarySystem()
+	public List<CelestialBody> getPlanetarySystem()
 	{
 		return planetarySystem;
 	}
@@ -58,16 +60,25 @@ public class GameLogic
 		return timeLeft;
 	}
 	
+	public int getObjectNumber()
+	{
+		return objectNumber;
+	}
 	// Sets
 	public void setDT(double newDT) 
 	{
 		dt = newDT;
 	}
 	
+	public void setObjectNumber(int N)
+	{
+		objectNumber = N;
+	}
+	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
-	CelestialBody planetarySystem[]; // star and planets - maybe list would be better?
-	int objectNumber; // number of celestial bodies in planetarySystem
+	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?
+	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
 	private double dt = HOUR; // DT in seconds!!!
 	public final double initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
