@@ -8,7 +8,7 @@ public class Spaceship extends CosmicObjects
 	public Spaceship(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double ff) 
 	{
 		super(nn, mm, xPos, yPos, xVel, yVel);
-		fuel = ff;
+		dConsumption = ff;
 	}
 
 	//calculates spaceship's speed at the current moment
@@ -22,5 +22,6 @@ public class Spaceship extends CosmicObjects
 		return fuel;
 	}
 	
-	double fuel; // Fuel status in %%
+	double fuel = 100; // Fuel status in %%
+	double dConsumption;
 }

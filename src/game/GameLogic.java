@@ -75,7 +75,7 @@ public class GameLogic
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
-	CelestialBody planetarySystem[]; // star and planets - maybe list would be better?
+	private CelestialBody planetarySystem[]; // star and planets - maybe list would be better?
 	int objectNumber; // number of celestial bodies in planetarySystem
 	private int dt = HOUR; // DT in seconds!!!
 	public final int initDT = dt;

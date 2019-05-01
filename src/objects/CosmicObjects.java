@@ -17,8 +17,8 @@ public abstract class CosmicObjects
 	
 	public void calcForce(CosmicObjects obj, double xForce, double yForce)
 	{
-		xForce = -G * obj.getMass() * mass / Math.pow(obj.getXPos() - xPosition, 2);
-		yForce = -G * obj.getMass() * mass / Math.pow(obj.getYPos() - yPosition, 2);
+		xForce = -G * obj.getMass() / Math.pow(obj.getXPos() - xPosition, 2);
+		yForce = -G * obj.getMass() / Math.pow(obj.getYPos() - yPosition, 2);
 	}
 	
 	public void calculateVelocity(double xForce, double yForce, int dt) 
