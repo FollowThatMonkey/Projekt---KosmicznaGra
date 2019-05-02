@@ -20,16 +20,15 @@ public class CalculationThread extends Thread
 	public void run()
 	{
 		super.run();
-		double xAcc = 0, yAcc = 0;
 		// counting forces etc. for planets from sun
 		if(currentObj.getType() == ObjectType.celestialBody)
 		{
-			currentObj.calcAcc(objArray.get(0), xAcc, yAcc);
-			currentObj.calculateVelocity(xAcc, yAcc, dt);
+			currentObj.calcAcc(objArray.get(0));
+			currentObj.calculateVelocity(dt);
 			currentObj.calculatePosition(dt);
 		}
-		if(currentObj.getName().equals("Ziemia"))
-			System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
+		//if(currentObj.getName().equals("Ziemia"))
+			//System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
 		
 	}
 	
