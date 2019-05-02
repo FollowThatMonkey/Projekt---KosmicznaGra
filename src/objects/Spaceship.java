@@ -26,6 +26,8 @@ public class Spaceship extends CosmicObjects
 				setXVel(getXVel() + Math.sin(theta) * engineThrust);
 				setYVel(getYVel() + Math.cos(theta) * engineThrust);
 			}
+			if(fuel < 0)
+				fuel = 0;
 		}
 	}
 	

@@ -125,6 +125,11 @@ public class GameLogic
 		objectNumber = N;
 	}
 	
+	public void setTimeLeft(int newTimeLeft)
+	{
+		timeLeft = newTimeLeft;
+	}
+	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?

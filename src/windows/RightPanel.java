@@ -14,11 +14,12 @@ import game.GameLogic;
 
 // RJ
 
-public class RightPanel extends JPanel 
+public class RightPanel extends JPanel implements Runnable
 {
 
 	public RightPanel(GameLogic logic, MainFrame frame) 
 	{
+		this.logic = logic;
 		setPreferredSize(new Dimension((int)(frame.getWidth() / 4), getHeight()));
 		
 		int boldTextSize = 17;
@@ -27,7 +28,7 @@ public class RightPanel extends JPanel
 		timeSlider = setTimeSlider(logic);
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
 		massStat = setBoldLabel(String.format("%.2f", logic.getShip().getMass()) + " kg", boldTextSize);
-		timeStat = setBoldLabel(logic.getTimeLeft() + "s", boldTextSize);
+		timeStat = new TimeLabel(logic, boldTextSize);
 		restartButton = setGameOverButton("Rozpocznij ponownie");
 		endButton = setGameOverButton("Zakończ");
 		
@@ -42,6 +43,27 @@ public class RightPanel extends JPanel
 		add(timeStat);
 		add(restartButton);
 		add(endButton);
+		
+		new Thread(this).start();
+	}
+	
+	@Override
+	public void run()
+	{
+		while(true)
+		{
+			fuelStat.setText(String.format("%.2f", logic.getShip().getFuel()) + "%");
+			massStat.setText(String.format("%.2f", logic.getShip().getMass()) + " kg");
+			try
+			{
+				Thread.sleep(SLEEP_TIME);
+			} 
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	// Making label with certain font size
@@ -110,7 +132,12 @@ public class RightPanel extends JPanel
 		return button;
 	}
 	
+	GameLogic logic;
 	JSlider timeSlider;
-	JLabel fuelStat, massStat, timeStat;
+	JLabel fuelStat, massStat;
+	TimeLabel timeStat;
 	JButton restartButton, endButton;
+
+	// Sleep time in ms
+	final int SLEEP_TIME = 500;
 }

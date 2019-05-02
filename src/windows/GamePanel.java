@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		while(running)
 		{
 			start = System.nanoTime();
+			this.requestFocus();
 			
 			update(); // calculations and stuff
 			draw(); // draw everything to buffImage
