@@ -19,11 +19,9 @@ public abstract class CosmicObjects
 	public void calcAcc(CosmicObjects obj)
 	{
 		double r = Math.sqrt(Math.pow(obj.getXPos() - xPosition, 2) + Math.pow(obj.getYPos() - yPosition, 2));
-		double acceleration = -G * obj.getMass() / Math.pow(r, 2);
-		double phi = Math.atan2(yPosition - obj.getYPos(), xPosition - getXPos());
-		
-		xAcc = Math.cos(phi) * acceleration;
-		yAcc = Math.sin(phi) * acceleration;
+		double force = -G * obj.getMass() / Math.pow(r, 2);
+		xAcc = force * (xPosition - obj.getXPos()) / r;
+		yAcc = force * (yPosition - obj.getYPos()) / r;
 	}
 	
 	

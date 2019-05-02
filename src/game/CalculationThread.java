@@ -27,7 +27,8 @@ public class CalculationThread extends Thread
 			currentObj.calculateVelocity(dt);
 			currentObj.calculatePosition(dt);
 		}
-		//if(currentObj.getName().equals("Ziemia"))
+		if(currentObj.getName().equals("Ziemia"))
+			System.out.println(System.currentTimeMillis() + " " + currentObj.getXPos() + " " + currentObj.getYPos());
 			//System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
 		
 	}
