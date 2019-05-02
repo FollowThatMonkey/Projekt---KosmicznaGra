@@ -1,5 +1,7 @@
 package objects;
 
+import objects.CosmicObjects.ObjectType;
+
 // ZL
 
 public class Spaceship extends CosmicObjects 
@@ -9,6 +11,7 @@ public class Spaceship extends CosmicObjects
 	{
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
+		setType(ObjectType.spaceship);
 	}
 
 	//calculates spaceship's speed at the current moment

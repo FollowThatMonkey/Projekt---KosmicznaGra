@@ -15,13 +15,24 @@ public abstract class CosmicObjects
 		yVelocity = yVel;
 	}
 	
-	public void calcForce(CosmicObjects obj, double xForce, double yForce)
+	// Calculate acceleration
+	public void calcAcc(CosmicObjects obj, double xAcc, double yAcc)
 	{
 		double r = Math.sqrt(Math.pow(obj.getXPos() - xPosition, 2) + Math.pow(obj.getYPos() - yPosition, 2));
-		double force = -G * obj.getMass() / Math.pow(r, 2);
-		xForce = force * (obj.getXPos() - xPosition) / r;
-		yForce = force * (obj.getYPos() - yPosition) / r;
+		double acceleration = -G * obj.getMass() / Math.pow(r, 2);
+		double phi = Math.atan2(xPosition - obj.getXPos(), yPosition - obj.getYPos());
+		
+		xAcc = Math.sin(phi) * acceleration;
+		yAcc = Math.cos(phi) * acceleration;
+		
+		if(name.equals("Ziemia"))
+		{
+			System.out.println("Acceleration: " + acceleration);
+			System.out.println("xAcc: " + xAcc);
+			System.out.println("yAcc: " + yAcc);
+		}
 	}
+	
 	
 	public void calculateVelocity(double xForce, double yForce, int dt) 
 	{
@@ -66,6 +77,11 @@ public abstract class CosmicObjects
 		return yVelocity;
 	}
 	
+	public ObjectType getType()
+	{
+		return type;
+	}
+	
 	// Sets
 	public void setName(String nn)
 	{
@@ -97,11 +113,25 @@ public abstract class CosmicObjects
 		 yVelocity = yVel;
 	}
 	
+	public void setType(ObjectType newType)
+	{
+		type = newType;
+	}
+	
 	private String name;
 	private double mass;
 	private double xPosition, xVelocity;
 	private double yPosition, yVelocity;
+	private ObjectType type = ObjectType.UFO;
 	
 	// Gravitational constant
 	public final static double G = 6.67e-11;
+
+	// Enum to see what type of object it is
+	public enum ObjectType
+	{
+		celestialBody,
+		spaceship,
+		UFO
+	}
 }
