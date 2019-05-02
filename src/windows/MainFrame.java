@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 import game.GameLogic;
 
-// ZL
+// Z
 
 public class MainFrame extends JFrame 
 {

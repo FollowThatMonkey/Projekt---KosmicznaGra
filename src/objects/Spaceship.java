@@ -58,6 +58,18 @@ public class Spaceship extends CosmicObjects
 	{
 		dConsumption = dC;
 	}
+
+	public void setParameters(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double dC)
+	{
+		super.setParameters(nn, mm, xPos, yPos, xVel, yVel);
+		dConsumption = dC;
+	}
+	
+	public void setParameters(double mm, double xPos, double yPos, double xVel, double yVel, double dC)
+	{
+		super.setParameters(mm, xPos, yPos, xVel, yVel);
+		dConsumption = dC;
+	}
 	
 	private double engineThrust = 100;
 	// Deegrees to X axis

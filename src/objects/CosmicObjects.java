@@ -109,6 +109,25 @@ public abstract class CosmicObjects
 		type = newType;
 	}
 	
+	public void setParameters(String nn, double mm, double xPos, double yPos, double xVel, double yVel)
+	{
+		name = nn;
+		mass = mm;
+		xPosition = xPos;
+		yPosition = yPos;
+		xVelocity = xVel;
+		yVelocity = yVel;
+	}
+	
+	public void setParameters(double mm, double xPos, double yPos, double xVel, double yVel) //without name
+	{
+		mass = mm;
+		xPosition = xPos;
+		yPosition = yPos;
+		xVelocity = xVel;
+		yVelocity = yVel;
+	}
+	
 	private String name;
 	private double mass;
 	private double xPosition, xVelocity;

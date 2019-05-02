@@ -18,7 +18,7 @@ public class GameLogic
 	public GameLogic() 
 	{
 		// initialize ship and stuff
-		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 0.008);
+		ship = new Spaceship("", 3000000, 0, 0, 10, 40, 0.008);
 	}
 	
 	// making threads
@@ -132,7 +132,7 @@ public class GameLogic
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
-	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?
+	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
 	private int dt = DAY / 15; // DT in seconds!!!
 	public final int initDT = dt;

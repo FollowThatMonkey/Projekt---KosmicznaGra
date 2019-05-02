@@ -5,8 +5,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -14,14 +17,13 @@ import javax.swing.event.ListSelectionListener;
 
 import objects.CelestialBody;
 
-//Z - doesn't work yet
+//Z
 public class ChooseParametersPanel extends JPanel
 {
 
 	public ChooseParametersPanel(game.GameLogic logic)
 	{
 		setLayout(new GridLayout(6,1));
-		
 		JLabel shipNameLabel = new JLabel("Nazwa statku kosmicznego: ");
 		add(shipNameLabel);
 		
@@ -83,7 +85,9 @@ public class ChooseParametersPanel extends JPanel
 		//reading system parameters from file
 		try
 		{
-			BufferedReader br = new BufferedReader(new FileReader(systemOptions[systemOption]));
+			InputStreamReader isr = new InputStreamReader(new FileInputStream(systemOptions[systemOption]),
+			        Charset.forName("UTF-8").newDecoder());
+			BufferedReader br = new BufferedReader(isr);
 			String temp = br.readLine();
 			String tempSplited[];
 			logic.setObjectNumber(Integer.parseInt(temp));
@@ -91,16 +95,20 @@ public class ChooseParametersPanel extends JPanel
 			for (int i=0; i<logic.getObjectNumber(); i++)
 			{
 				temp = br.readLine();
+				String name = temp;
+				temp = br.readLine();
 				tempSplited = temp.split("\\s+");
-				double mass = Double.parseDouble(tempSplited[1]);
-				double xPosition = Double.parseDouble(tempSplited[2]);
-				double yPosition = Double.parseDouble(tempSplited[3]);
-				double xVelocity = Double.parseDouble(tempSplited[4]);
-				double yVelocity = Double.parseDouble(tempSplited[5]);
-				CelestialBody celestialBody = new CelestialBody(tempSplited[0], mass, xPosition, yPosition, xVelocity, yVelocity);
+				//setting parameters
+				double mass = Double.parseDouble(tempSplited[0]);
+				double xPosition = Double.parseDouble(tempSplited[1]);
+				double yPosition = Double.parseDouble(tempSplited[2]);
+				double xVelocity = Double.parseDouble(tempSplited[3]);
+				double yVelocity = Double.parseDouble(tempSplited[4]);
+				CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity);
 				logic.getPlanetarySystem().add(celestialBody);
 			}
 			br.close();
+			isr.close();
 		} 
 		catch (IOException e)
 		{
@@ -114,18 +122,14 @@ public class ChooseParametersPanel extends JPanel
 			BufferedReader br = new BufferedReader(new FileReader(shipOptions[shipOption]));
 			String temp = br.readLine();
 			String tempSplited[] = temp.split("\\s+");
+			//setting parameters
 			double mass = Double.parseDouble(tempSplited[0]);
 			double xPosition = Double.parseDouble(tempSplited[1]);
 			double yPosition = Double.parseDouble(tempSplited[2]);
 			double xVelocity = Double.parseDouble(tempSplited[3]);
 			double yVelocity = Double.parseDouble(tempSplited[4]);
 			double dConsumption = Double.parseDouble(tempSplited[5]);
-			logic.getShip().setMass(mass);
-			logic.getShip().setXPos(xPosition);
-			logic.getShip().setYPos(yPosition);
-			logic.getShip().setXVel(xVelocity);
-			logic.getShip().setYVel(yVelocity);
-			logic.getShip().setDConsumption(dConsumption);
+			logic.getShip().setParameters(mass, xPosition, yPosition, xVelocity, yVelocity, dConsumption);
 			br.close();
 		} 
 		catch (IOException e)
