@@ -16,28 +16,21 @@ public abstract class CosmicObjects
 	}
 	
 	// Calculate acceleration
-	public void calcAcc(CosmicObjects obj, double xAcc, double yAcc)
+	public void calcAcc(CosmicObjects obj)
 	{
 		double r = Math.sqrt(Math.pow(obj.getXPos() - xPosition, 2) + Math.pow(obj.getYPos() - yPosition, 2));
 		double acceleration = -G * obj.getMass() / Math.pow(r, 2);
-		double phi = Math.atan2(xPosition - obj.getXPos(), yPosition - obj.getYPos());
+		double phi = Math.atan2(yPosition - obj.getYPos(), xPosition - getXPos());
 		
-		xAcc = Math.sin(phi) * acceleration;
-		yAcc = Math.cos(phi) * acceleration;
-		
-		if(name.equals("Ziemia"))
-		{
-			System.out.println("Acceleration: " + acceleration);
-			System.out.println("xAcc: " + xAcc);
-			System.out.println("yAcc: " + yAcc);
-		}
+		xAcc = Math.cos(phi) * acceleration;
+		yAcc = Math.sin(phi) * acceleration;
 	}
 	
 	
-	public void calculateVelocity(double xForce, double yForce, int dt) 
+	public void calculateVelocity(int dt) 
 	{
-		xVelocity += xForce * dt;
-		yVelocity += yForce * dt;
+		xVelocity += xAcc * dt;
+		yVelocity += yAcc * dt;
 	}
 	
 	public void calculatePosition(int dt)
@@ -122,6 +115,7 @@ public abstract class CosmicObjects
 	private double mass;
 	private double xPosition, xVelocity;
 	private double yPosition, yVelocity;
+	private double xAcc, yAcc;
 	private ObjectType type = ObjectType.UFO;
 	
 	// Gravitational constant
