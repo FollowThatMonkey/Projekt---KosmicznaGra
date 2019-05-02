@@ -26,7 +26,7 @@ public class TimeLabel extends JLabel implements Runnable
 	@Override
 	public void run()
 	{
-		while(true)
+		while(logic.getTimeLeft() > 0)
 		{
 			setText(logic.getTimeLeft() + "s");
 			try
@@ -40,6 +40,7 @@ public class TimeLabel extends JLabel implements Runnable
 			}
 			logic.setTimeLeft(logic.getTimeLeft() - 1);
 		}
+		setText(logic.getTimeLeft() + "s");
 	}
 	
 	

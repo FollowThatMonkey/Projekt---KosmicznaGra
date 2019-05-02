@@ -73,6 +73,16 @@ public abstract class CosmicObjects
 		return type;
 	}
 	
+	public double getXAcc()
+	{
+		return xAcc;
+	}
+	
+	public double getYAcc()
+	{
+		return yAcc;
+	}
+	
 	// Sets
 	public void setName(String nn)
 	{

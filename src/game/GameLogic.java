@@ -136,7 +136,7 @@ public class GameLogic
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
 	private int dt = DAY / 15; // DT in seconds!!!
 	public final int initDT = dt;
-	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
+	private int timeLeft = 10; // Only 700 sec?! Maybe will change to more
 	
 	// Global constants
 	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
