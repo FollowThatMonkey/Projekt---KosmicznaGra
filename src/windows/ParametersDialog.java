@@ -50,7 +50,26 @@ public class ParametersDialog extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				remove(questionLabel);
+				remove(buttonPanel);
+				revalidate();
+				setTitle("Wczytaj parametry gry z pliku");
+				JButton saveButton = new JButton("Zapisz");
+				saveButton.setEnabled(false);
+				saveButton.addActionListener(new ActionListener() 
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) 
+					{
+						dispose();
+					}
+				});
+				ReadParametersPanel readParametersPanel = new ReadParametersPanel(logic, saveButton);
+				add(readParametersPanel, BorderLayout.CENTER);
 				
+				
+				closeButtonPanel.add(saveButton, BorderLayout.PAGE_END);
+				pack();
 			}
 		});
 		buttonPanel.add(fileButton);
@@ -64,6 +83,7 @@ public class ParametersDialog extends JDialog
 			{
 				remove(questionLabel);
 				remove(buttonPanel);
+				revalidate();
 				ChooseParametersPanel chooseParametersPanel = new ChooseParametersPanel(logic);
 				add(chooseParametersPanel, BorderLayout.PAGE_START);
 				

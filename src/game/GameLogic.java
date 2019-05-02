@@ -17,7 +17,7 @@ public class GameLogic
 	public GameLogic() 
 	{
 		// initialize ship and stuff
-		ship = new Spaceship("Turbopogromca grawitacji", 3000000, 0, 0, 10, 40, 0.008);
+		ship = new Spaceship("", 3000000, 0, 0, 10, 40, 0.008);
 	}
 	
 	// making threads
