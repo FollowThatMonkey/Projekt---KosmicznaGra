@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,14 @@ public class GameLogic
 	// making threads
 	private void objectThreads()
 	{
+		// Creating threads for planets' calculations and starting them
 		CalculationThread planetsThreads[] = new CalculationThread[planetarySystem.size() - 1];
+		CalculationThread shipThread = new CalculationThread(ship, planetarySystem, dt);
 		for(int i = 0; i < planetsThreads.length; i++)
 			planetsThreads[i] = new CalculationThread(planetarySystem.get(i + 1), planetarySystem, dt);
 		for(CalculationThread iterator : planetsThreads)
 			iterator.start();
+		shipThread.start();
 		for(CalculationThread iterator : planetsThreads)
 		{
 			try
@@ -37,6 +41,13 @@ public class GameLogic
 			{
 				e.printStackTrace();
 			}
+		}
+		try
+		{
+			shipThread.join();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -58,13 +69,26 @@ public class GameLogic
 	
 	public void keyPressed(int key)
 	{
+		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W)
+			ship.moveUp(true);
+		if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)
+			ship.rotateLeft(true);
+		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)
+			ship.rorateRight(true);
 		
 	}
 	
 	public void keyReleased(int key)
 	{
-		
+		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W)
+			ship.moveUp(false);
+		if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)
+			ship.rotateLeft(false);
+		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)
+			ship.rorateRight(false);
 	}
+	
+	
 	
 	// Gets
 	public Spaceship getShip() 
@@ -105,7 +129,7 @@ public class GameLogic
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets - maybe list would be better?
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = DAY; // DT in seconds!!!
+	private int dt = DAY / 15; // DT in seconds!!!
 	public final int initDT = dt;
 	private int timeLeft = 700; // Only 700 sec?! Maybe will change to more
 	

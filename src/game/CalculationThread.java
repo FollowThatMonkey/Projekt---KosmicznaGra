@@ -27,10 +27,16 @@ public class CalculationThread extends Thread
 			currentObj.calculateVelocity(dt);
 			currentObj.calculatePosition(dt);
 		}
-		if(currentObj.getName().equals("Ziemia"))
-			System.out.println(System.currentTimeMillis() + " " + currentObj.getXPos() + " " + currentObj.getYPos());
-			//System.out.println("Name: " + currentObj.getName() + ",\tXpos, yPos: " + currentObj.getXPos() + "\t" + currentObj.getYPos());
-		
+		else
+		{
+			for(CelestialBody iterator : objArray)
+			{
+				currentObj.calcAcc(iterator);
+				currentObj.calculateVelocity(dt);
+				currentObj.calculatePosition(dt);
+			}
+			System.out.println(System.currentTimeMillis() + "\t" + currentObj.getXPos() + "\t" + currentObj.getYPos());
+		}
 	}
 	
 	private CosmicObjects currentObj;

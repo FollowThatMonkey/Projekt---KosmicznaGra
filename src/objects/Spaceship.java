@@ -13,6 +13,33 @@ public class Spaceship extends CosmicObjects
 		dConsumption = dC;
 		setType(ObjectType.spaceship);
 	}
+	
+	//Movement functions
+	public void moveUp(boolean b)
+	{
+		if(b)
+		{
+			// movement available only if fuel > 0
+			if(fuel > 0)
+			{
+				fuel -= dConsumption;
+				setXVel(getXVel() + Math.sin(theta) * engineThrust);
+				setYVel(getYVel() + Math.cos(theta) * engineThrust);
+			}
+		}
+	}
+	
+	public void rotateLeft(boolean b)
+	{
+		if(b)
+			theta += Math.PI / 60;
+	}
+	
+	public void rorateRight(boolean b)
+	{
+		if(b)
+			theta -= Math.PI / 60;
+	}
 
 	//calculates spaceship's speed at the current moment
 	public double speed() 
@@ -30,6 +57,9 @@ public class Spaceship extends CosmicObjects
 		dConsumption = dC;
 	}
 	
-	double fuel = 100; // Fuel status in %%
-	double dConsumption;
+	private double engineThrust = 100;
+	// Deegrees to X axis
+	private double theta = Math.PI / 2;
+	private double fuel = 100; // Fuel status in %%
+	private double dConsumption;
 }

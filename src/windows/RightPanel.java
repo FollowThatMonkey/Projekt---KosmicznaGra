@@ -93,7 +93,8 @@ public class RightPanel extends JPanel
 			public void stateChanged(ChangeEvent e) 
 			{
 				logic.setDT(logic.initDT + slider.getValue());
-				System.out.println("dt changed to: " + logic.getDT());
+				// Sysout to see if slider works
+				//System.out.println("dt changed to: " + logic.getDT());
 			}
 		});
 		
