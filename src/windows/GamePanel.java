@@ -1,6 +1,7 @@
 package windows;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		requestFocus();
+		setSize(10, 10);
 		
 		// Starting game thread!
 		running = true;
@@ -36,6 +38,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	public void run()
 	{
 		long start, elapsed, wait;
+		
+		image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+		g2d = (Graphics2D) image.getGraphics();
 		
 		while(running)
 		{
@@ -69,12 +74,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	
 	private void draw()
 	{
+		if(image.getWidth() != getWidth() || image.getHeight() != getHeight())
+		{
+			image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+			g2d = (Graphics2D) image.getGraphics();
+		}
 		logic.draw(g2d);
 	}
 	
 	private void drawToScreen()
 	{
 		// Add drawing to screen
+		Graphics g = getGraphics();
+		g.drawImage(image, getWidth(), getHeight(), null);
+		g.dispose();
 	}
 
 	@Override

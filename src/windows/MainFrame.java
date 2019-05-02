@@ -29,11 +29,11 @@ public class MainFrame extends JFrame
 		upperPanel = new UpperPanel(logic.getShip());
 		rightPanel = new RightPanel(logic, this);
 		gamePanel = new GamePanel(logic);
-		
+
 		add(upperPanel, BorderLayout.PAGE_START);
 		add(rightPanel, BorderLayout.LINE_END);
 		add(gamePanel, BorderLayout.CENTER);
-		
+
 		setVisible(true);
 	}
 	

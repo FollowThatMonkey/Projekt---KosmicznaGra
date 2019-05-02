@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import objects.CelestialBody;
 import objects.CosmicObjects;
@@ -53,18 +54,25 @@ public class GameLogic
 	
 	public void update()
 	{
-		
-		// Here will be calculations - can be done better
-		// Probably threads will slow everything down
-		objectThreads();
-		
-		// Create similar thread for the spaceship!
+		if(!gameOver)
+		{
+			// Here will be calculations - can be done better
+			// Probably threads will slow everything down
+			objectThreads();
+		}
+		else
+		{
+			// To add gameOver things!! 
+		}
 		
 	}
 	
 	public void draw(Graphics2D g2d)
 	{
 		// Here will be drawing to buffImage
+		Random rand = new Random();
+		g2d.setBackground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+		
 	}
 	
 	public void keyPressed(int key)
@@ -137,6 +145,7 @@ public class GameLogic
 	private int dt = DAY / 15; // DT in seconds!!!
 	public final int initDT = dt;
 	private int timeLeft = 10; // Only 700 sec?! Maybe will change to more
+	private boolean gameOver = false;
 	
 	// Global constants
 	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
