@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -104,7 +105,8 @@ public class ChooseParametersPanel extends JPanel
 				double yPosition = Double.parseDouble(tempSplited[2]);
 				double xVelocity = Double.parseDouble(tempSplited[3]);
 				double yVelocity = Double.parseDouble(tempSplited[4]);
-				CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity);
+				double radius = Double.parseDouble(tempSplited[5]);
+				CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity, radius);
 				logic.getPlanetarySystem().add(celestialBody);
 			}
 			br.close();
@@ -112,7 +114,10 @@ public class ChooseParametersPanel extends JPanel
 		} 
 		catch (IOException e)
 		{
-			System.out.println(e.toString());
+			JOptionPane.showMessageDialog(null,
+				    "Wystąpił błąd. Program zostanie zamknięty.",
+				    "Wystąpił błąd",
+				    JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
@@ -134,7 +139,10 @@ public class ChooseParametersPanel extends JPanel
 		} 
 		catch (IOException e)
 		{
-			System.out.println(e.toString());
+			JOptionPane.showMessageDialog(null,
+				    "Wystąpił błąd. Program zostanie zamknięty.",
+				    "Wystąpił błąd",
+				    JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 	}

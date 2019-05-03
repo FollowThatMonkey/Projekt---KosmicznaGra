@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -93,8 +94,19 @@ public class ParametersDialog extends JDialog
 					@Override
 					public void actionPerformed(ActionEvent e) 
 					{
-						chooseParametersPanel.setParameters(logic);
-						dispose();
+						try
+						{
+							chooseParametersPanel.setParameters(logic);
+							dispose();
+						}
+						catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
+						{
+							JOptionPane.showMessageDialog(null,
+								    "Wystąpił błąd. Program zostanie zamknięty.",
+								    "Wystąpił błąd",
+								    JOptionPane.ERROR_MESSAGE);
+							System.exit(1);
+						}
 					}
 				});
 				closeButtonPanel.add(saveButton, BorderLayout.PAGE_END);
