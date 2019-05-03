@@ -1,6 +1,8 @@
 package windows;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -12,7 +14,7 @@ import game.GameLogic;
 
 // Z
 
-public class MainFrame extends JFrame 
+public class MainFrame extends JFrame implements MouseListener
 {
 	
 	public MainFrame(GameLogic logic) 
@@ -37,7 +39,39 @@ public class MainFrame extends JFrame
 		add(rightPanel, BorderLayout.LINE_END);
 		add(gamePanel, BorderLayout.CENTER);
 
+		addMouseListener(this);
 		setVisible(true);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		gamePanel.requestFocus();
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		gamePanel.requestFocus();
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e)
+	{
+		gamePanel.requestFocus();
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e)
+	{
 	}
 	
 	UpperPanel upperPanel;

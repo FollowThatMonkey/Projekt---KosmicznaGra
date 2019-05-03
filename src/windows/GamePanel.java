@@ -16,7 +16,7 @@ import game.GameLogic;
 
 // RJ
 
-public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener
+public class GamePanel extends JPanel implements Runnable, KeyListener
 {
 
 	public GamePanel(GameLogic logic) 
@@ -32,7 +32,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 		{
 			thread = new Thread(this);
 			addKeyListener(this);
-			addMouseListener(this);
 			thread.start();
 		}
 	}
@@ -128,34 +127,4 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 	// GameLogic??
 	private GameLogic logic;
 
-	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-		this.requestFocus();
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		this.requestFocus();
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e)
-	{
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e)
-	{
-		this.requestFocus();
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e)
-	{
-	}
 }
