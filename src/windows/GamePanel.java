@@ -81,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		{
 			image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 			g2d = (Graphics2D) image.getGraphics();
+			g2d.rotate(-(logic.getShip().getTheta() - Math.PI / 2), getWidth() / 2 - 20, getHeight() / 2 - 60);
 			logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
 		}
 		logic.draw(g2d);

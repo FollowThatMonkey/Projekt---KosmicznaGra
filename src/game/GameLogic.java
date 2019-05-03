@@ -76,6 +76,8 @@ public class GameLogic
 	{
 		// Here will be drawing to buffImage
 		background.draw(g2d);
+		for(CelestialBody iterator : planetarySystem)
+			iterator.draw(g2d, ship);
 		ship.draw(g2d, this);
 			//Random rand = new Random();
 			//g2d.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
@@ -160,11 +162,11 @@ public class GameLogic
 	private Background background;
 	private Dimension size;
 	
-	private Color backgroundColor = Color.GRAY;
+	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = DAY / 15; // DT in seconds!!!
+	private int dt = MONTH / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 10; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;

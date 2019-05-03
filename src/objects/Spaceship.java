@@ -78,6 +78,11 @@ public class Spaceship extends CosmicObjects
 	{
 		dConsumption = dC;
 	}
+	
+	public double getTheta()
+	{
+		return theta;
+	}
 
 	public void setParameters(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double dC)
 	{
