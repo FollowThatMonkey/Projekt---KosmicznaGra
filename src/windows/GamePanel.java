@@ -1,6 +1,7 @@
 package windows;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -42,6 +43,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) image.getGraphics();
 		
+		logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
+		
 		while(running)
 		{
 			start = System.nanoTime();
@@ -74,10 +77,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	
 	private void draw()
 	{
-		if(image.getWidth() != getWidth() || image.getHeight() != getHeight())
+		if(image.getWidth() != this.getWidth() || image.getHeight() != this.getHeight())
 		{
 			image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 			g2d = (Graphics2D) image.getGraphics();
+			logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
 		}
 		logic.draw(g2d);
 	}
@@ -88,14 +92,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		Graphics g = getGraphics();
 		g.drawImage(image, 0, 0, null);
 		g.dispose();
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g)
-	{
-		g.drawImage(image, 0, 0, null);
-		System.out.println("Wymiary buffered image:\t" + image.getWidth() + "\t" + image.getHeight());
-		super.paintComponent(g);
 	}
 
 	@Override

@@ -1,5 +1,9 @@
 package objects;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import game.GameLogic;
 import objects.CosmicObjects.ObjectType;
 
 // ZL
@@ -12,6 +16,14 @@ public class Spaceship extends CosmicObjects
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
 		setType(ObjectType.spaceship);
+	}
+	
+	public void draw(Graphics2D g2d, GameLogic logic)
+	{
+		g2d.setColor(Color.WHITE);
+		g2d.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
+		g2d.rotate(theta2, (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
+		theta2 = 0;
 	}
 	
 	//Movement functions
@@ -34,13 +46,21 @@ public class Spaceship extends CosmicObjects
 	public void rotateLeft(boolean b)
 	{
 		if(b)
+		{
 			theta += Math.PI / 60;
+			theta2 -= Math.PI / 60;
+		}
+			
 	}
 	
 	public void rorateRight(boolean b)
 	{
 		if(b)
+		{
 			theta -= Math.PI / 60;
+			theta2 += Math.PI / 60;
+		}
+			
 	}
 
 	//calculates spaceship's speed at the current moment
@@ -73,7 +93,7 @@ public class Spaceship extends CosmicObjects
 	
 	private double engineThrust = 100;
 	// Deegrees to X axis
-	private double theta = Math.PI / 2;
+	private double theta = Math.PI / 2, theta2 = 0;
 	private double fuel = 100; // Fuel status in %%
 	private double dConsumption;
 }

@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,9 @@ public class GameLogic
 	{
 		// initialize ship and stuff
 		ship = new Spaceship("", 3000000, 0, 0, 10, 40, 0.008);
+		
+		// Setting background
+		background = new Background(backgroundColor);
 	}
 	
 	// making threads
@@ -71,9 +75,11 @@ public class GameLogic
 	public void draw(Graphics2D g2d)
 	{
 		// Here will be drawing to buffImage
-		Random rand = new Random();
-		g2d.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-		g2d.fillRect(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200), rand.nextInt(200));
+		background.draw(g2d);
+		ship.draw(g2d, this);
+			//Random rand = new Random();
+			//g2d.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+			//g2d.fillRect(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200), rand.nextInt(200));	
 		
 	}
 	
@@ -124,6 +130,12 @@ public class GameLogic
 	{
 		return objectNumber;
 	}
+	
+	public Dimension getCurrentSize()
+	{
+		return size;
+	}
+	
 	// Sets
 	public void setDT(int newDT) 
 	{
@@ -140,7 +152,15 @@ public class GameLogic
 		timeLeft = newTimeLeft;
 	}
 	
-	private Color backgroundColor = Color.BLACK;
+	public void setCurrentSize(Dimension size)
+	{
+		this.size = size;
+	}
+	
+	private Background background;
+	private Dimension size;
+	
+	private Color backgroundColor = Color.GRAY;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
