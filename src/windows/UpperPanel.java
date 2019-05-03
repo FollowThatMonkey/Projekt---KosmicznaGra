@@ -1,6 +1,8 @@
 package windows;
 
 import java.awt.GridLayout;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,9 +18,9 @@ public class UpperPanel extends JPanel implements Runnable
 	public UpperPanel(Spaceship spaceship) 
 	{
 		ship = spaceship;
-		JLabel shipName = new JLabel("Nazwa statku: " + spaceship.getName(), SwingConstants.CENTER);
+		JLabel shipName = new JLabel(windowBundle.getString("shipNameString")+ " " + spaceship.getName(), SwingConstants.CENTER);
 		//shows the spaceship's name
-		shipVelocity = new JLabel(String.format("Aktualna prędkość: %.2f km/h", spaceship.speed()), SwingConstants.CENTER);
+		shipVelocity = new JLabel(String.format(windowBundle.getString("shipSpeed") + " %.2f km/h", spaceship.speed()), SwingConstants.CENTER);
 		//shows current spaceship's speed
 		setLayout(new GridLayout(2, 1));
 		add(shipName);
@@ -33,7 +35,7 @@ public class UpperPanel extends JPanel implements Runnable
 	{
 		while(true)
 		{
-			shipVelocity.setText(String.format("Aktualna prędkość: %.2f km/h", ship.speed()));
+			shipVelocity.setText(String.format(windowBundle.getString("shipSpeed") + " %.2f km/h", ship.speed()));
 			try
 			{
 				Thread.sleep(SLEEP_TIME);
@@ -45,9 +47,9 @@ public class UpperPanel extends JPanel implements Runnable
 		}
 	}
 	
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle");
 	private JLabel shipVelocity;
 	private Spaceship ship;
-	
 	// Sleep time in ms
 	final int SLEEP_TIME = 500;
 }

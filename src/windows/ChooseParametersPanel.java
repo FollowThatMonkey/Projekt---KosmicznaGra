@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -25,7 +26,7 @@ public class ChooseParametersPanel extends JPanel
 	public ChooseParametersPanel(game.GameLogic logic)
 	{
 		setLayout(new GridLayout(6,1));
-		JLabel shipNameLabel = new JLabel("Nazwa statku kosmicznego: ");
+		JLabel shipNameLabel = new JLabel(parametersBundle.getString("setShipName"));
 		add(shipNameLabel);
 		
 		JTextField shipNameField = new JTextField();
@@ -40,10 +41,10 @@ public class ChooseParametersPanel extends JPanel
 		shipNameField.addKeyListener(shipNameListener);
 		add(shipNameField);
 		
-		JLabel shipTypeLabel = new JLabel("Wybierz model statku kosmicznego: ");
+		JLabel shipTypeLabel = new JLabel(parametersBundle.getString("chooseShipType"));
 		add(shipTypeLabel);
 		//JList
-		String ships[] = {"Ship A", "Ship B", "Ship C", "Ship D", "Ship E"}; //possible options
+		String ships[] = parametersBundle.getString("ships").split(","); //possible options
 		JList<String> shipList = new JList<String>(ships);
 		shipList.setVisibleRowCount(3);
 		shipList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // blocks selecting more than one item
@@ -60,10 +61,10 @@ public class ChooseParametersPanel extends JPanel
 		JScrollPane shipsListScrollPane = new JScrollPane(shipList);
 		add(shipsListScrollPane);
 		
-		JLabel planetarySystemLabel = new JLabel("Wybierz układ planetarny: ");
+		JLabel planetarySystemLabel = new JLabel(parametersBundle.getString("chooseSystem"));
 		add(planetarySystemLabel);
 		//JList
-		String systems[] = {"Solar System", "A System", "B System", "C System"}; //possible options
+		String systems[] = parametersBundle.getString("systems").split(","); //possible options
 		JList<String> systemList = new JList<String>(systems);
 		systemList.setVisibleRowCount(3);
 		systemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // blocks selecting more than one item
@@ -115,8 +116,8 @@ public class ChooseParametersPanel extends JPanel
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog(null,
-				    "Wystąpił błąd. Program zostanie zamknięty.",
-				    "Wystąpił błąd",
+					parametersBundle.getString("errorClose"),
+				    parametersBundle.getString("errorTitle"),
 				    JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
@@ -140,8 +141,8 @@ public class ChooseParametersPanel extends JPanel
 		catch (IOException e)
 		{
 			JOptionPane.showMessageDialog(null,
-				    "Wystąpił błąd. Program zostanie zamknięty.",
-				    "Wystąpił błąd",
+					parametersBundle.getString("errorClose"),
+				    parametersBundle.getString("errorTitle"),
 				    JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
@@ -151,4 +152,5 @@ public class ChooseParametersPanel extends JPanel
 	int shipOption = 0;
 	String systemOptions[] = {"system1.txt", "system2.txt", "system3.txt", "system4.txt"};
 	String shipOptions[] = {"ship1.txt", "ship2.txt", "ship3.txt", "ship4.txt", "ship5.txt"};
+	private ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
 }

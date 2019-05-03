@@ -1,6 +1,8 @@
 package windows;
 
 import java.awt.BorderLayout;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -19,11 +21,12 @@ public class MainFrame extends JFrame
 		setSize(800, 600);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null); //centering 
-		setTitle("Kosmiczna gra");
+		ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
+		setTitle(windowBundle.getString("title"));
 		setLayout(new BorderLayout());
 		
-		// Dialog - choosing game parameters
-		ParametersDialog parametersDialog = new ParametersDialog(this, logic);
+		//Choosing language
+		LanguageDialog languageDialog= new LanguageDialog(this, logic);
 		
 		// Here to add Panels!
 		upperPanel = new UpperPanel(logic.getShip());
@@ -43,6 +46,7 @@ public class MainFrame extends JFrame
 	
 	public static void main(String[] args) 
 	{
+		Locale.setDefault(new Locale("pl", "PL"));
 		GameLogic logic = new GameLogic();
 		SwingUtilities.invokeLater(new Runnable() 
 		{

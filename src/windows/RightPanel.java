@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -29,17 +31,17 @@ public class RightPanel extends JPanel implements Runnable
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
 		massStat = setBoldLabel(String.format("%.2f", logic.getShip().getMass()) + " kg", boldTextSize);
 		timeStat = new TimeLabel(logic, boldTextSize);
-		restartButton = setGameOverButton("Rozpocznij ponownie");
-		endButton = setGameOverButton("Zakończ");
+		restartButton = setGameOverButton(windowBundle.getString("restart"));
+		endButton = setGameOverButton(windowBundle.getString("end"));
 		
 		add(setColorButton(frame.upperPanel, this));
-		add(setLabel("Skala czasu:", textSize));
+		add(setLabel(windowBundle.getString("timeScale"), textSize));
 		add(timeSlider);
-		add(setLabel("Stan paliwa:", textSize));
+		add(setLabel(windowBundle.getString("fuel"), textSize));
 		add(fuelStat);
-		add(setLabel("Aktualna masa rakiety:", textSize));
+		add(setLabel(windowBundle.getString("mass"), textSize));
 		add(massStat);
-		add(setLabel("Pozostały czas:", textSize));
+		add(setLabel(windowBundle.getString("timeLeft"), textSize));
 		add(timeStat);
 		add(restartButton);
 		add(endButton);
@@ -89,13 +91,13 @@ public class RightPanel extends JPanel implements Runnable
 	
 	JButton setColorButton(UpperPanel upperPanel, RightPanel rightPanel) 
 	{
-		JButton button = new JButton("Zmiana koloru interfejsu");
+		JButton button = new JButton(windowBundle.getString("color"));
 		button.addActionListener(new ActionListener() 
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				Color bgColor = JColorChooser.showDialog(null, "Proszę wybrać kolor", Color.WHITE);
+				Color bgColor = JColorChooser.showDialog(null, windowBundle.getString("chooseColor"), Color.WHITE);
 				
 				upperPanel.setBackground(bgColor);
 				rightPanel.setBackground(bgColor);
@@ -137,7 +139,7 @@ public class RightPanel extends JPanel implements Runnable
 	JLabel fuelStat, massStat;
 	TimeLabel timeStat;
 	JButton restartButton, endButton;
-
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows/WindowBundle", Locale.getDefault());
 	// Sleep time in ms
 	final int SLEEP_TIME = 500;
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,18 +20,19 @@ public class ParametersDialog extends JDialog
 
 	public ParametersDialog(JFrame frame, game.GameLogic logic)
 	{
-		super(frame, "Wybierz parametry gry", true);
+		super(frame, true);
+		setTitle(parametersBundle.getString("chooseTitle"));
 		setSize(400, 130);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); //to stop users from closing the dialog before choosing parameters
 		setMinimumSize(getSize());
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null); //centering 
 		
-		JLabel questionLabel = new JLabel("W jaki sposób chcesz dokonać wyboru parametrów gry?", SwingConstants.CENTER);
+		JLabel questionLabel = new JLabel(parametersBundle.getString("question"), SwingConstants.CENTER);
 		add(questionLabel, BorderLayout.PAGE_START);
 		
 		// button which closes the application
-		JButton closeButton = new JButton("Wyjdź");
+		JButton closeButton = new JButton(parametersBundle.getString("close"));
 		closeButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -45,7 +47,7 @@ public class ParametersDialog extends JDialog
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		
 		//reading parameters from file
-		JButton fileButton = new JButton("Wczytaj z pliku");
+		JButton fileButton = new JButton(parametersBundle.getString("read"));
 		fileButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -54,8 +56,8 @@ public class ParametersDialog extends JDialog
 				remove(questionLabel);
 				remove(buttonPanel);
 				revalidate();
-				setTitle("Wczytaj parametry gry z pliku");
-				JButton saveButton = new JButton("Zapisz");
+				setTitle(parametersBundle.getString("readTitle"));
+				JButton saveButton = new JButton(parametersBundle.getString("save"));
 				saveButton.setEnabled(false);
 				saveButton.addActionListener(new ActionListener() 
 				{
@@ -76,7 +78,7 @@ public class ParametersDialog extends JDialog
 		buttonPanel.add(fileButton);
 		
 		//choosing parameters via menu
-		JButton menuButton = new JButton("Wybierz za pomocą menu");
+		JButton menuButton = new JButton(parametersBundle.getString("chooseMenu"));
 		menuButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -88,7 +90,7 @@ public class ParametersDialog extends JDialog
 				ChooseParametersPanel chooseParametersPanel = new ChooseParametersPanel(logic);
 				add(chooseParametersPanel, BorderLayout.PAGE_START);
 				
-				JButton saveButton = new JButton("Zapisz");
+				JButton saveButton = new JButton(parametersBundle.getString("save"));
 				saveButton.addActionListener(new ActionListener() 
 				{
 					@Override
@@ -102,8 +104,8 @@ public class ParametersDialog extends JDialog
 						catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
 						{
 							JOptionPane.showMessageDialog(null,
-								    "Wystąpił błąd. Program zostanie zamknięty.",
-								    "Wystąpił błąd",
+									parametersBundle.getString("errorClose"),
+								    parametersBundle.getString("errorTitle"),
 								    JOptionPane.ERROR_MESSAGE);
 							System.exit(1);
 						}
@@ -121,4 +123,5 @@ public class ParametersDialog extends JDialog
 	}
 
 
+	private ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
 }
