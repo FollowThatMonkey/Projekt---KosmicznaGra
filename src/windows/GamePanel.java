@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -14,7 +16,7 @@ import game.GameLogic;
 
 // RJ
 
-public class GamePanel extends JPanel implements Runnable, KeyListener
+public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener
 {
 
 	public GamePanel(GameLogic logic) 
@@ -30,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		{
 			thread = new Thread(this);
 			addKeyListener(this);
+			addMouseListener(this);
 			thread.start();
 		}
 	}
@@ -48,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		while(running)
 		{
 			start = System.nanoTime();
-			this.requestFocus();
+			//this.requestFocus();
 			
 			update(); // calculations and stuff
 			draw(); // draw everything to buffImage
@@ -124,4 +127,35 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	
 	// GameLogic??
 	private GameLogic logic;
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		this.requestFocus();
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		this.requestFocus();
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e)
+	{
+		this.requestFocus();
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e)
+	{
+	}
 }
