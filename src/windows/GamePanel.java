@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		setSize(10, 10);
 		
 		// Starting game thread!
-		running = true;
 		if(thread == null)
 		{
 			thread = new Thread(this);
@@ -38,7 +37,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	public void run()
 	{
 		long start, elapsed, wait;
-		
+
+		running = true;
 		image = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) image.getGraphics();
 		
@@ -86,8 +86,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	{
 		// Add drawing to screen
 		Graphics g = getGraphics();
-		g.drawImage(image, getWidth(), getHeight(), null);
+		g.drawImage(image, 0, 0, null);
 		g.dispose();
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		g.drawImage(image, 0, 0, null);
+		System.out.println("Wymiary buffered image:\t" + image.getWidth() + "\t" + image.getHeight());
+		super.paintComponent(g);
 	}
 
 	@Override

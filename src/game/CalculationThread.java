@@ -34,9 +34,9 @@ public class CalculationThread extends Thread
 				currentObj.calcAcc(iterator);
 				currentObj.calculateVelocity(dt);
 				currentObj.calculatePosition(dt);
-				System.out.println("Acc (x/y) with\t" + iterator.getName() + "\t" + currentObj.getXAcc() + "\t" + currentObj.getYAcc());
+				//System.out.println("Acc (x/y) with\t" + iterator.getName() + "\t" + currentObj.getXAcc() + "\t" + currentObj.getYAcc());
 			}
-			System.out.println(System.currentTimeMillis() + "\t" + currentObj.getXPos() + "\t" + currentObj.getYPos());
+			//System.out.println(System.currentTimeMillis() + "\t" + currentObj.getXPos() + "\t" + currentObj.getYPos());
 		}
 	}
 	

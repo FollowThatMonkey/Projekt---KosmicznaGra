@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -71,7 +72,8 @@ public class GameLogic
 	{
 		// Here will be drawing to buffImage
 		Random rand = new Random();
-		g2d.setBackground(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+		g2d.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+		g2d.fillRect(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200), rand.nextInt(200));
 		
 	}
 	
