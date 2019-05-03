@@ -36,16 +36,16 @@ public class ReadParametersPanel extends JPanel
 				+ "W kolejnych N blokach po dwie linie powinny znajdować się:<br>"
 				+ "w pierwszej linii nazwa ciała niebieskiego, typu String,<br>"
 				+ "w drugiej linii, oddzielone spacjami, liczby typu double:<br>"
-				+ "masa pozycja_x pozycja_y prędkość_x prędkość_y.<br>"
-				+ "Jak pierwsza powinna być podana gwiazda centralna układu."
-				+ "<br><br>Przykładowy plik może wygladać następująco:<br>"
+				+ "masa pozycja_x pozycja_y prędkość_x prędkość_y promień.<br>"
+				+ "Jak pierwsza powinna być podana gwiazda centralna układu.<br>Masa powinna być wyrażona w kilogramach, zaś odległości w metrach."
+				+ "<br>Przykładowy plik może wygladać następująco:<br><br>"
 				+ "Falcon Millenium<br>"
-				+ "1420788	1.84e11	0	0	0	0.0008<br>"
+				+ "1420788 1.84e11 0 0 0 0.0008<br>"
 				+ "2<br>"
 				+ "Słońce<br>"
-				+ "1.98855e30	0	0	0	0<br>"
+				+ "1.98855e30 0 0 0 0 696342e3<br>"
 				+ "Ziemia<br>"
-				+ "5.97219e24	1.4959e11	0	0	29.78e3<br></html>";
+				+ "5.97219e24 1.4959e11 0 0 29.78e3 6371008<br></html>";
 		
 		JButton instructionButton = new JButton("Zobacz instrukcję");
 		instructionButton.addActionListener(new ActionListener()
@@ -78,16 +78,26 @@ public class ReadParametersPanel extends JPanel
 						{
 							isr = new InputStreamReader(new FileInputStream(fileChooser.getSelectedFile()),
 							        Charset.forName("UTF-8").newDecoder());
-							setParameters(logic, isr);
-							saveButton.setEnabled(true);
+							try
+							{
+								setParameters(logic, isr);
+								saveButton.setEnabled(true);
+							}
+							catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1) 
+							{
+								JOptionPane.showMessageDialog(null,
+									    "Wybrany plik ma nieprawidłową budowę.",
+									    "Wystąpił błąd",
+									    JOptionPane.ERROR_MESSAGE);
+							}
 							isr.close();
-						} catch (FileNotFoundException e1)
-						{
-							e1.printStackTrace();
-						}
+						} 
 						catch (IOException e1)
 						{
-							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null,
+								    "Wystąpił błąd. Spróbuj ponownie.",
+								    "Wystąpił błąd",
+								    JOptionPane.ERROR_MESSAGE);
 						}
 
 				}
@@ -128,7 +138,8 @@ public class ReadParametersPanel extends JPanel
 			yPosition = Double.parseDouble(tempSplited[2]);
 			xVelocity = Double.parseDouble(tempSplited[3]);
 			yVelocity = Double.parseDouble(tempSplited[4]);
-			CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity);
+			double radius = Double.parseDouble(tempSplited[5]);
+			CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity, radius);
 			logic.getPlanetarySystem().add(celestialBody);
 		}
 		br.close();
