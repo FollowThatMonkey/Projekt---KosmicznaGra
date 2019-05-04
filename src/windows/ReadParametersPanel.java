@@ -86,6 +86,7 @@ public class ReadParametersPanel extends JPanel
 			}
 		});
 		add(readButton, BorderLayout.PAGE_END);
+		
 	}
 	
 	public void setParameters(game.GameLogic logic, InputStreamReader isr) throws IOException
@@ -103,7 +104,9 @@ public class ReadParametersPanel extends JPanel
 		double xVelocity = Double.parseDouble(tempSplited[3]);
 		double yVelocity = Double.parseDouble(tempSplited[4]);
 		double dConsumption = Double.parseDouble(tempSplited[5]);
+		int timeLeft = Integer.parseInt(tempSplited[6]);
 		logic.getShip().setParameters(name, mass, xPosition, yPosition, xVelocity, yVelocity, dConsumption);
+		logic.setTimeLeft(timeLeft);
 		//system parameters
 		temp = br.readLine();
 		logic.setObjectNumber(Integer.parseInt(temp));

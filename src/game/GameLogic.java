@@ -138,7 +138,7 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
-	private long scale = 50000000L;
+	private long scale = 500000000L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
@@ -150,5 +150,5 @@ public class GameLogic
 	private boolean gameOver = false;
 	
 	// Global constants
-	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
+	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 }
