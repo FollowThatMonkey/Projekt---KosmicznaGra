@@ -121,7 +121,7 @@ public class GameLogic
 	
 	public Dimension getCurrentSize() { return size; }
 	
-	public int getScale() { return scale; }
+	public long getScale() { return scale; }
 	
 	// Sets
 	public void setDT(int newDT) { dt = newDT; }
