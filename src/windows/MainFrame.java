@@ -1,8 +1,12 @@
 package windows;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics2D;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -14,7 +18,7 @@ import game.GameLogic;
 
 // Z
 
-public class MainFrame extends JFrame implements MouseListener
+public class MainFrame extends JFrame implements MouseListener, ComponentListener
 {
 	
 	public MainFrame(GameLogic logic) 
@@ -39,6 +43,7 @@ public class MainFrame extends JFrame implements MouseListener
 		add(rightPanel, BorderLayout.LINE_END);
 		add(gamePanel, BorderLayout.CENTER);
 
+		addComponentListener(this);
 		addMouseListener(this);
 		setVisible(true);
 	}
@@ -90,5 +95,33 @@ public class MainFrame extends JFrame implements MouseListener
 				MainFrame frame = new MainFrame(logic);
 			}
 		});
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e)
+	{
+		gamePanel.resize();
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

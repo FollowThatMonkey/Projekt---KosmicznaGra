@@ -21,7 +21,7 @@ public class Spaceship extends CosmicObjects
 	
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
-		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_RGB);
+		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = tempImage.createGraphics();
 		g.setColor(Color.WHITE);
 		g.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
@@ -54,7 +54,6 @@ public class Spaceship extends CosmicObjects
 		if(b)
 		{
 			theta += Math.PI / 60;
-			theta2 -= Math.PI / 60;
 		}
 			
 	}
@@ -64,7 +63,6 @@ public class Spaceship extends CosmicObjects
 		if(b)
 		{
 			theta -= Math.PI / 60;
-			theta2 += Math.PI / 60;
 		}
 			
 	}
