@@ -2,6 +2,8 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import game.GameLogic;
@@ -54,7 +56,6 @@ public class Spaceship extends CosmicObjects
 		if(b)
 		{
 			theta += Math.PI / 60;
-			theta2 -= Math.PI / 60;
 		}
 			
 	}
@@ -64,7 +65,6 @@ public class Spaceship extends CosmicObjects
 		if(b)
 		{
 			theta -= Math.PI / 60;
-			theta2 += Math.PI / 60;
 		}
 			
 	}
