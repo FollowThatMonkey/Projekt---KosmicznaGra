@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -16,7 +18,7 @@ import game.GameLogic;
 
 // RJ
 
-public class GamePanel extends JPanel implements Runnable, KeyListener
+public class GamePanel extends JPanel implements Runnable, KeyListener, ComponentListener
 {
 
 	public GamePanel(GameLogic logic) 
@@ -31,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		if(thread == null)
 		{
 			thread = new Thread(this);
+			addComponentListener(this);
 			addKeyListener(this);
 			thread.start();
 		}
@@ -81,13 +84,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	
 	private void draw()
 	{
-		if(image.getWidth() != this.getWidth() || image.getHeight() != this.getHeight())
-		{
-			logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
-			image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-			g2d = (Graphics2D) image.getGraphics();
-			//g2d.rotate(-(logic.getShip().getTheta() - Math.PI / 2), getWidth() / 2 - 20, getHeight() / 2 - 60);
-		}
 		logic.draw(g2d);
 	}
 	
@@ -98,7 +94,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 		g.drawImage(image, 0, 0, null);
 		g.dispose();
 	}
-
+	
+	public void resize()
+	{
+		logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
+		image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+		g2d = (Graphics2D) image.getGraphics();
+		System.out.println("Changed windows size to " + logic.getCurrentSize());
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent key)
 	{
@@ -128,5 +132,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 	
 	// GameLogic??
 	private GameLogic logic;
+
+	@Override
+	public void componentResized(ComponentEvent e)
+	{
+		resize();
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e)
+	{
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 }
