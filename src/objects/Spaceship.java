@@ -24,9 +24,9 @@ public class Spaceship extends CosmicObjects
 		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = tempImage.createGraphics();
 		g.setColor(Color.WHITE);
-		g.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
+		g.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 7, (int)logic.getCurrentSize().getHeight() / 2 - 20, 15, 40);
 		g.setColor(Color.RED);
-		g.fillOval((int)logic.getCurrentSize().getWidth() / 2 - 5, (int)logic.getCurrentSize().getHeight() / 2 - 60, 10, 10);
+		g.fillOval((int)logic.getCurrentSize().getWidth() / 2 - 4, (int)logic.getCurrentSize().getHeight() / 2 - 20, 8, 8);
 		g.rotate(- (theta - Math.PI / 2), (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
 		
 		g2d.drawImage(tempImage, g.getTransform(), null);
@@ -41,8 +41,9 @@ public class Spaceship extends CosmicObjects
 			if(fuel > 0)
 			{
 				fuel -= dConsumption;
-				setXVel(getXVel() + Math.sin(theta) * engineThrust);
-				setYVel(getYVel() + Math.cos(theta) * engineThrust);
+				setXVel(getXVel() + Math.cos(theta) * engineThrust);
+				setYVel(getYVel() - Math.sin(theta) * engineThrust);
+				setMass(getMass() - dConsumption * 10000);
 			}
 			if(fuel < 0)
 				fuel = 0;
@@ -95,7 +96,7 @@ public class Spaceship extends CosmicObjects
 	
 	
 	
-	private double engineThrust = 100;
+	private double engineThrust = 10000;
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;
 	private double fuel = 100; // Fuel status in %%

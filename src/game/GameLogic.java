@@ -138,7 +138,7 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
-	private long scale = 50000000L;
+	private long scale = 500000000L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
