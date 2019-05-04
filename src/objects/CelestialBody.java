@@ -27,7 +27,7 @@ public class CelestialBody extends CosmicObjects
 		int scaledPosX = (int) ((double) getXPos()/logic.getScale() - CamX);
 		int scaledPosY = (int) ((double) getYPos()/logic.getScale() - CamY);
 		double scaledRadius = radius / logic.getScale();
-		g2d.fillOval(scaledPosX, scaledPosY, (int)scaledRadius, (int)scaledRadius);
+		g2d.fillOval(scaledPosX - (int)scaledRadius, scaledPosY - (int)scaledRadius, (int)scaledRadius, (int)scaledRadius);
 		g2d.setColor(Color.RED);
 		g2d.drawString(getName(), scaledPosX, scaledPosY);
 		if(Math.abs(logic.getShip().getXPos() - getXPos()) < radius && Math.abs(logic.getShip().getYPos() - getYPos()) < radius)

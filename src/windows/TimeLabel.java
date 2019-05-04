@@ -26,21 +26,28 @@ public class TimeLabel extends JLabel implements Runnable
 	@Override
 	public void run()
 	{
-		while(logic.getTimeLeft() > 0)
+		if(logic.getTimeLeft() >= 0)
 		{
+			while(logic.getTimeLeft() > 0)
+			{
+				setText(logic.getTimeLeft() + "s");
+				try
+				{
+					// Sleep for 1sec
+					Thread.sleep(1000);
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				logic.setTimeLeft(logic.getTimeLeft() - 1);
+			}
 			setText(logic.getTimeLeft() + "s");
-			try
-			{
-				// Sleep for 1sec
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			logic.setTimeLeft(logic.getTimeLeft() - 1);
 		}
-		setText(logic.getTimeLeft() + "s");
+		else
+		{
+			setText("\\u221e" + "s");
+		}
 	}
 	
 	
