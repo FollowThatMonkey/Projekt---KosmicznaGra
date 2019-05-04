@@ -109,69 +109,36 @@ public class GameLogic
 	
 	
 	// Gets
-	public Spaceship getShip() 
-	{
-		return ship;
-	}
+	public Spaceship getShip() { return ship; }
 	
-	public List<CelestialBody> getPlanetarySystem()
-	{
-		return planetarySystem;
-	}
-	public double getDT() 
-	{
-		return dt;
-	}
+	public List<CelestialBody> getPlanetarySystem() { return planetarySystem; }
 	
-	public int getTimeLeft() 
-	{
-		return timeLeft;
-	}
+	public double getDT() { return dt; }
 	
-	public int getObjectNumber()
-	{
-		return objectNumber;
-	}
+	public int getTimeLeft() { return timeLeft; }
 	
-	public Dimension getCurrentSize()
-	{
-		return size;
-	}
+	public int getObjectNumber() { return objectNumber; }
 	
-	public int getScale()
-	{
-		return scale;
-	}
+	public Dimension getCurrentSize() { return size; }
+	
+	public int getScale() { return scale; }
 	
 	// Sets
-	public void setDT(int newDT) 
-	{
-		dt = newDT;
-	}
+	public void setDT(int newDT) { dt = newDT; }
 	
-	public void setObjectNumber(int N)
-	{
-		objectNumber = N;
-	}
+	public void setObjectNumber(int N) { objectNumber = N; }
 	
-	public void setTimeLeft(int newTimeLeft)
-	{
-		timeLeft = newTimeLeft;
-	}
+	public void setTimeLeft(int newTimeLeft) { timeLeft = newTimeLeft; }
 	
-	public void setCurrentSize(Dimension size)
-	{
-		this.size = size;
-	}
+	public void setCurrentSize(Dimension size) { this.size = size; }
 	
-	public void setScale(int scale)
-	{
-		this.scale = scale;
-	}
+	public void setScale(int scale) { this.scale = scale; }
+	
+	
 	
 	private Background background;
 	private Dimension size;
-	private int scale = (int)10000000;
+	private int scale = (int)1e7;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;

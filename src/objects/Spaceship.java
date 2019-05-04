@@ -73,22 +73,15 @@ public class Spaceship extends CosmicObjects
 		return Math.sqrt(Math.pow(getXVel(), 2) + Math.pow(getYVel(), 2)) / 1000;
 	}
 	
-	public double getFuel() 
-	{
-		return fuel;
-	}
+	// Gets
+	public double getFuel() { return fuel; }
 	
-	public void setDConsumption(double dC)
-	{
-		dConsumption = dC;
-	}
+	public void setDConsumption(double dC) { dConsumption = dC; }
 	
-	public double getTheta()
-	{
-		return theta;
-	}
-
-	public void setParameters(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double dC)
+	public double getTheta() { return theta; }
+	
+	// Sets
+	public void setParameters(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double dC) 
 	{
 		super.setParameters(nn, mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
@@ -99,6 +92,8 @@ public class Spaceship extends CosmicObjects
 		super.setParameters(mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
 	}
+	
+	
 	
 	private double engineThrust = 100;
 	// Deegrees to X axis

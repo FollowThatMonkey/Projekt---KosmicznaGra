@@ -38,86 +38,38 @@ public abstract class CosmicObjects
 	}
 	
 	// Gets
-	public String getName() 
-	{
-		return name;
-	}
+	public String getName() { return name; }
 	
-	public double getMass() 
-	{
-		return mass;
-	}
+	public double getMass() { return mass; }
 	
-	public double getXPos() 
-	{
-		return xPosition;
-	}
+	public double getXPos() { return xPosition; }
 	
-	public double getXVel() 
-	{
-		return xVelocity;
-	}
+	public double getXVel() { return xVelocity; }
 	
-	public double getYPos() 
-	{
-		return yPosition;
-	}
+	public double getYPos() { return yPosition; }
 	
-	public double getYVel() 
-	{
-		return yVelocity;
-	}
+	public double getYVel() { return yVelocity; }
 	
-	public ObjectType getType()
-	{
-		return type;
-	}
+	public ObjectType getType() { return type; }
 	
-	public double getXAcc()
-	{
-		return xAcc;
-	}
+	public double getXAcc() { return xAcc; }
 	
-	public double getYAcc()
-	{
-		return yAcc;
-	}
+	public double getYAcc() { return yAcc; }
 	
 	// Sets
-	public void setName(String nn)
-	{
-		name = nn;
-	}
+	public void setName(String nn) { name = nn; }
 	
-	public void setMass(double mm) 
-	{
-		 mass = mm;
-	}
+	public void setMass(double mm) { mass = mm; }
 	
-	public void setXPos(double xPos) 
-	{
-		 xPosition = xPos;
-	}
+	public void setXPos(double xPos) { xPosition = xPos; }
 	
-	public void setXVel(double xVel) 
-	{
-		 xVelocity = xVel;
-	}
+	public void setXVel(double xVel) { xVelocity = xVel; }
 	
-	public void setYPos(double yPos) 
-	{
-		 yPosition = yPos;
-	}
+	public void setYPos(double yPos) { yPosition = yPos; }
 	
-	public void setYVel(double yVel) 
-	{
-		 yVelocity = yVel;
-	}
+	public void setYVel(double yVel) { yVelocity = yVel; }
 	
-	public void setType(ObjectType newType)
-	{
-		type = newType;
-	}
+	public void setType(ObjectType newType) { type = newType; }
 	
 	public void setParameters(String nn, double mm, double xPos, double yPos, double xVel, double yVel)
 	{
@@ -137,6 +89,8 @@ public abstract class CosmicObjects
 		xVelocity = xVel;
 		yVelocity = yVel;
 	}
+	
+	
 	
 	private String name;
 	private double mass;
