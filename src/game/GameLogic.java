@@ -138,7 +138,7 @@ public class GameLogic
 		return size;
 	}
 	
-	public int getScale()
+	public long getScale()
 	{
 		return scale;
 	}
@@ -171,15 +171,15 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
-	private int scale = (int)10000000;
+	private long scale = 50000000L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = MONTH / 60; // DT in seconds!!! -- one sec is one month
+	private int dt = DAY/2 / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
-	private int timeLeft = 10; // Only 700 sec?! Maybe will change to more
+	private int timeLeft = 60; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;
 	
 	// Global constants

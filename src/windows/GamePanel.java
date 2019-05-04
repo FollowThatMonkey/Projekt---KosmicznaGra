@@ -59,7 +59,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener
 			elapsed = System.nanoTime() - start;
 			
 			wait = (long) (targetTime - elapsed / 10e6); // wait in milisec
-			
 			try
 			{
 				Thread.sleep(wait);
