@@ -21,13 +21,15 @@ public class Spaceship extends CosmicObjects
 	
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
-		BufferedImage tempImage = new BufferedImage(40, 120, BufferedImage.TYPE_INT_RGB);
-		g2d.setColor(Color.WHITE);
-		g2d.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
-		g2d.setColor(Color.RED);
-		g2d.fillOval((int)logic.getCurrentSize().getWidth() / 2 - 5, (int)logic.getCurrentSize().getHeight() / 2 - 60, 10, 10);
-		g2d.rotate(theta2, (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
-		theta2 = 0;
+		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = tempImage.createGraphics();
+		g.setColor(Color.WHITE);
+		g.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
+		g.setColor(Color.RED);
+		g.fillOval((int)logic.getCurrentSize().getWidth() / 2 - 5, (int)logic.getCurrentSize().getHeight() / 2 - 60, 10, 10);
+		g.rotate(- (theta - Math.PI / 2), (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
+		
+		g2d.drawImage(tempImage, g.getTransform(), null);
 	}
 	
 	//Movement functions
@@ -97,7 +99,7 @@ public class Spaceship extends CosmicObjects
 	
 	private double engineThrust = 100;
 	// Deegrees to X axis
-	private double theta = Math.PI / 2, theta2 = 0;
+	private double theta = Math.PI / 2;
 	private double fuel = 100; // Fuel status in %%
 	private double dConsumption;
 }
