@@ -20,7 +20,7 @@ public class UpperPanel extends JPanel implements Runnable
 		ship = spaceship;
 		JLabel shipName = new JLabel(windowBundle.getString("shipNameString")+ " " + spaceship.getName(), SwingConstants.CENTER);
 		//shows the spaceship's name
-		shipVelocity = new JLabel(String.format(windowBundle.getString("shipSpeed") + " %.2f km/h", spaceship.speed()), SwingConstants.CENTER);
+		shipVelocity = new JLabel(String.format(windowBundle.getString("shipSpeed") + " %.2f km/s", spaceship.speed()), SwingConstants.CENTER);
 		//shows current spaceship's speed
 		setLayout(new GridLayout(2, 1));
 		add(shipName);
@@ -35,7 +35,7 @@ public class UpperPanel extends JPanel implements Runnable
 	{
 		while(true)
 		{
-			shipVelocity.setText(String.format(windowBundle.getString("shipSpeed") + " %.2f km/h", ship.speed()));
+			shipVelocity.setText(String.format(windowBundle.getString("shipSpeed") + " %.2f km/s", ship.speed()));
 			try
 			{
 				Thread.sleep(SLEEP_TIME);

@@ -77,7 +77,7 @@ public class GameLogic
 		// Here will be drawing to buffImage
 		background.draw(g2d);
 		for(CelestialBody iterator : planetarySystem)
-			iterator.draw(g2d, ship);
+			iterator.draw(g2d, this);
 		ship.draw(g2d, this);
 			//Random rand = new Random();
 			//g2d.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
@@ -138,6 +138,11 @@ public class GameLogic
 		return size;
 	}
 	
+	public int getScale()
+	{
+		return scale;
+	}
+	
 	// Sets
 	public void setDT(int newDT) 
 	{
@@ -159,8 +164,14 @@ public class GameLogic
 		this.size = size;
 	}
 	
+	public void setScale(int scale)
+	{
+		this.scale = scale;
+	}
+	
 	private Background background;
 	private Dimension size;
+	private int scale = (int)10000000;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;

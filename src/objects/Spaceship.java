@@ -2,6 +2,7 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import game.GameLogic;
 import objects.CosmicObjects.ObjectType;
@@ -20,8 +21,11 @@ public class Spaceship extends CosmicObjects
 	
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
+		BufferedImage tempImage;
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
+		g2d.setColor(Color.RED);
+		g2d.fillOval((int)logic.getCurrentSize().getWidth() / 2 - 5, (int)logic.getCurrentSize().getHeight() / 2 - 60, 10, 10);
 		g2d.rotate(theta2, (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
 		theta2 = 0;
 	}
@@ -66,7 +70,7 @@ public class Spaceship extends CosmicObjects
 	//calculates spaceship's speed at the current moment
 	public double speed() 
 	{
-		return Math.sqrt(Math.pow(getXVel(), 2) + Math.pow(getYVel(), 2));
+		return Math.sqrt(Math.pow(getXVel(), 2) + Math.pow(getYVel(), 2)) / 1000;
 	}
 	
 	public double getFuel() 
