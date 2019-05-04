@@ -21,7 +21,7 @@ public class Spaceship extends CosmicObjects
 	
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
-		BufferedImage tempImage;
+		BufferedImage tempImage = new BufferedImage(40, 120, BufferedImage.TYPE_INT_RGB);
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 20, (int)logic.getCurrentSize().getHeight() / 2 - 60, 40, 120);
 		g2d.setColor(Color.RED);
