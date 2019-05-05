@@ -37,7 +37,7 @@ public class GameLogic
 			planetsThreads[i] = new CalculationThread(planetarySystem.get(i + 1), planetarySystem, dt);
 		for(CalculationThread iterator : planetsThreads)
 			iterator.start();
-		//shipThread.start();
+		shipThread.start();
 		for(CalculationThread iterator : planetsThreads)
 		{
 			try
@@ -146,7 +146,7 @@ public class GameLogic
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = YEAR / 60; // DT in seconds!!! -- one sec is one month
+	private int dt = HOUR / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;
