@@ -23,6 +23,7 @@ public class RightPanel extends JPanel implements Runnable
 	public RightPanel(GameLogic logic, MainFrame frame) 
 	{
 		this.logic = logic;
+		this.frame = frame;
 		setPreferredSize(new Dimension((int)(frame.getWidth() / 4), getHeight()));
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -106,6 +107,7 @@ public class RightPanel extends JPanel implements Runnable
 				upperPanel.setBackground(bgColor);
 				rightPanel.setBackground(bgColor);
 				rightPanel.timeSlider.setBackground(bgColor);
+				frame.gamePanel.requestFocus();
 			}
 		});
 		
@@ -121,8 +123,7 @@ public class RightPanel extends JPanel implements Runnable
 			public void stateChanged(ChangeEvent e) 
 			{
 				logic.setDT(logic.initDT + slider.getValue());
-				// Sysout to see if slider works
-				//System.out.println("dt changed to: " + logic.getDT());
+				frame.gamePanel.requestFocus();
 			}
 		});
 		
@@ -138,6 +139,7 @@ public class RightPanel extends JPanel implements Runnable
 		return button;
 	}
 	
+	MainFrame frame;
 	GameLogic logic;
 	JSlider timeSlider;
 	JLabel fuelStat, massStat;
