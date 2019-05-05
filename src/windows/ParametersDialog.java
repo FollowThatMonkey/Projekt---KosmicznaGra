@@ -1,7 +1,6 @@
 package windows;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
@@ -57,7 +56,7 @@ public class ParametersDialog extends JDialog
 				{
 					try
 					{
-						if (chooseParametersPanel.setParameters(logic))
+						if (chooseParametersPanel.setParameters())
 							dispose();
 					}
 					catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
