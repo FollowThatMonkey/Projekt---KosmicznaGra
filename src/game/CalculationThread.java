@@ -26,8 +26,6 @@ public class CalculationThread extends Thread
 			currentObj.calcAcc(objArray.get(0));
 			currentObj.calculateVelocity(dt);
 			currentObj.calculatePosition(dt);
-			if(currentObj.getName().equals("Merkury"))
-				System.out.println("Położenie\t" + currentObj.getXPos() + "\t" + currentObj.getYPos());
 		}
 		else
 		{
