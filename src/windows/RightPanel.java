@@ -2,6 +2,7 @@ package windows;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,8 @@ public class RightPanel extends JPanel implements Runnable
 	{
 		this.logic = logic;
 		setPreferredSize(new Dimension((int)(frame.getWidth() / 4), getHeight()));
+		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new FlowLayout(FlowLayout.CENTER));
 		
 		int boldTextSize = 17;
 		int textSize = 14;
@@ -33,6 +36,7 @@ public class RightPanel extends JPanel implements Runnable
 		timeStat = new TimeLabel(logic, boldTextSize);
 		restartButton = setGameOverButton(windowBundle.getString("restart"));
 		endButton = setGameOverButton(windowBundle.getString("end"));
+		
 		
 		add(setColorButton(frame.upperPanel, this));
 		add(setLabel(windowBundle.getString("timeScale"), textSize));
