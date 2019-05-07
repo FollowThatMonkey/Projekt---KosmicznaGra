@@ -1,5 +1,6 @@
 package windows;
-
+//Z
+//exception - choosing time limit
 public class NegativeTimeException extends Exception
 {
 

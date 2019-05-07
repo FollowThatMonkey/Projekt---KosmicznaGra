@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 //Z
 public class ParametersDialog extends JDialog
 {
-
+	//constructor
 	public ParametersDialog(JFrame frame, game.GameLogic logic)
 	{
 		super(frame, true);
@@ -42,6 +42,7 @@ public class ParametersDialog extends JDialog
 		saveAndClosePanel.add(closeButton);
 		add(saveAndClosePanel, BorderLayout.PAGE_END);
 		
+		//save button - inner class action listener
 		class SaveButtonListener implements ActionListener
 		{
 
@@ -56,11 +57,12 @@ public class ParametersDialog extends JDialog
 				{
 					try
 					{
-						if (chooseParametersPanel.setParameters())
+						if (chooseParametersPanel.setParameters()) //if managed to set parameters
 							dispose();
 					}
 					catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
 					{
+						//fatal error, exit
 						JOptionPane.showMessageDialog(null,
 								parametersBundle.getString("errorClose"),
 							    parametersBundle.getString("errorTitle"),
@@ -73,40 +75,42 @@ public class ParametersDialog extends JDialog
 			
 		}
 		
+		//buttons - read parameters from file or choose (menu) - action listener
 		class ParametersButtonListener implements ActionListener
 		{
 
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				//removing components which are no longer needed
 				remove(questionLabel);
 				remove(buttonPanel);
 				remove(saveAndClosePanel);
 				revalidate();
 				
+				//instructions for "read" button
 				if (e.getActionCommand()=="read")
 				{
 					setTitle(parametersBundle.getString("readTitle"));
 
-					saveButton.setActionCommand("read");
-					saveButton.setEnabled(false);
-					saveButton.addActionListener(new SaveButtonListener());
-					saveAndClosePanel.add(saveButton);
 					readParametersPanel = new ReadParametersPanel(logic, saveButton);
 					add(readParametersPanel, BorderLayout.PAGE_START);
-					add(saveAndClosePanel, BorderLayout.PAGE_END);
+					
+					saveButton.setActionCommand("read");
+					saveButton.setEnabled(false);
 				}
+				//instructions for "choose" button
 				if (e.getActionCommand() == "choose")
 				{
 					chooseParametersPanel = new ChooseParametersPanel(logic);
 					add(chooseParametersPanel, BorderLayout.PAGE_START);
 					
 					saveButton.setActionCommand("choose");
-					saveButton.addActionListener(new SaveButtonListener());
-					saveAndClosePanel.add(saveButton);
-					add(saveAndClosePanel, BorderLayout.PAGE_END);
-					
 				}
+				
+				saveButton.addActionListener(new SaveButtonListener());
+				saveAndClosePanel.add(saveButton);
+				add(saveAndClosePanel, BorderLayout.PAGE_END);
 				pack();
 			}
 		}
