@@ -2,6 +2,8 @@ package windows;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -46,10 +48,10 @@ public class TimeLabel extends JLabel implements Runnable
 		}
 		else
 		{
-			setText("\\u221e" + "s");
+			setText(windowBundle.getString("infinity"));
 		}
 	}
 	
-	
+	ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
 	GameLogic logic;
 }

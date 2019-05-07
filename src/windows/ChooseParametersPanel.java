@@ -143,7 +143,7 @@ public class ChooseParametersPanel extends JPanel
 			try
 			{
 				setTimeLimit();
-				if (logic.getTimeLeft()<0)
+				if (logic.getTimeLeft()<=0)
 					throw (new NegativeTimeException());
 			}
 			catch (NumberFormatException|NegativeTimeException e) 

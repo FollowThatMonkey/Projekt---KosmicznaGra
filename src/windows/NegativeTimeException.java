@@ -10,6 +10,6 @@ public class NegativeTimeException extends Exception
 
 	public String toString()
 	{
-		return "Time can't be negative!";
+		return "Time has to be a positive integer!";
 	}
 }
