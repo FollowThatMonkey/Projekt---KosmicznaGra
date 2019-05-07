@@ -57,12 +57,11 @@ public class GameLogic
 		}
 	}
 	
+	// doing calculations of positions etc.
 	public void update()
 	{
 		if(!gameOver)
 		{
-			// Here will be calculations - can be done better
-			// Probably threads will slow everything down
 			objectThreads();
 			if(timeLeft == 0)
 				gameOver = true;
@@ -74,6 +73,7 @@ public class GameLogic
 		
 	}
 	
+	// drawing everything to buffImage
 	public void draw(Graphics2D g2d)
 	{
 		// Here will be drawing to buffImage
@@ -81,12 +81,10 @@ public class GameLogic
 		for(CelestialBody iterator : planetarySystem)
 			iterator.draw(g2d, this);
 		ship.draw(g2d, this);
-			//Random rand = new Random();
-			//g2d.setColor(new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
-			//g2d.fillRect(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200), rand.nextInt(200));	
 		
 	}
 	
+	// steering spaceship
 	public void keyPressed(int key)
 	{
 		if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W)

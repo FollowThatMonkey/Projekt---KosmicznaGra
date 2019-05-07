@@ -15,6 +15,7 @@ public class Background
 		MAX_HEIGHT = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	}
 	
+	// drawing background method
 	public void draw(Graphics2D g2d)
 	{
 		g2d.setColor(color);

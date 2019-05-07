@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 		}
 	}
 	
+	// the game thread
 	@Override
 	public void run()
 	{
@@ -77,24 +78,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 	}
 	
 	
+	// update func - here are calculations
 	private void update()
 	{
 		logic.update();
 	}
 	
+	// drawing to buffImage
 	private void draw()
 	{
 		logic.draw(g2d);
 	}
 	
+	// draw buffImage on screen
 	private void drawToScreen()
 	{
-		// Add drawing to screen
 		Graphics g = getGraphics();
 		g.drawImage(image, 0, 0, null);
 		g.dispose();
 	}
 	
+	// track the current size of gamePanel
 	public void resize()
 	{
 		logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
@@ -107,6 +111,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 	{
 	}
 
+	// check for pressing and releasing keys
 	@Override
 	public void keyPressed(KeyEvent key)
 	{
@@ -118,20 +123,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 	{
 		logic.keyReleased(key.getKeyCode());
 	}
-	
-	// Game Thread
-	private Thread thread;
-	private boolean running;
-	private int FPS = 60;
-	private long targetTime = 1000 / FPS;
-	
-	// Image
-	private BufferedImage image;
-	private Graphics2D g2d;
-	
-	// GameLogic??
-	private GameLogic logic;
 
+	// resize listeners methods - they track if the panel size changes
 	@Override
 	public void componentResized(ComponentEvent e)
 	{
@@ -157,5 +150,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	// Game Thread
+	private Thread thread;
+	private boolean running;
+	private int FPS = 60;
+	private long targetTime = 1000 / FPS;
+	
+	// Image
+	private BufferedImage image;
+	private Graphics2D g2d;
+	
+	// GameLogic??
+	private GameLogic logic;
 }

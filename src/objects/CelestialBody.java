@@ -17,11 +17,10 @@ public class CelestialBody extends CosmicObjects
 		setType(ObjectType.celestialBody);
 	}
 	
+	// drawing celestialbody to buffImage
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
 		g2d.setColor(Color.BLUE);
-		//int scaledPosX = (int)(logic.getShip().getXPos() - getXPos()) / logic.getScale() + (int)(logic.getCurrentSize().getWidth() / 2);
-		//int scaledPosY = (int)(logic.getShip().getYPos() - getYPos()) / logic.getScale() + (int)(logic.getCurrentSize().getHeight() / 2);
 		double CamX = logic.getShip().getXPos()/logic.getScale()-(logic.getCurrentSize().getWidth()/2);
 		double CamY = logic.getShip().getYPos()/logic.getScale()-(logic.getCurrentSize().getHeight()/2);
 		int scaledPosX = (int) ((double) getXPos()/logic.getScale() - CamX);

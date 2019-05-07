@@ -21,6 +21,7 @@ public class Spaceship extends CosmicObjects
 		setType(ObjectType.spaceship);
 	}
 	
+	// draw spaceship to buffImage
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
 		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_ARGB);
