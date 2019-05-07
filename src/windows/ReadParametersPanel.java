@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -13,17 +12,16 @@ import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import game.GameLogic;
 import objects.CelestialBody;
-
+//Z 
 public class ReadParametersPanel extends JPanel
 {
-
+	//constructor
 	public ReadParametersPanel(GameLogic logic, JButton saveButton)
 	{
 		this.logic = logic;
@@ -31,6 +29,7 @@ public class ReadParametersPanel extends JPanel
 		setMinimumSize(getSize());
 		setLayout(new BorderLayout());
 		
+		//button - read instruction
 		JButton instructionButton = new JButton(parametersBundle.getString("readInstruction"));
 		instructionButton.addActionListener(new ActionListener()
 		{
@@ -44,6 +43,8 @@ public class ReadParametersPanel extends JPanel
 			}
 		});
 		this.add(instructionButton, BorderLayout.PAGE_START);
+		
+		//button - choose file to open
 		JButton readButton = new JButton(parametersBundle.getString("chooseFile"));
 		readButton.addActionListener(new ActionListener()
 		{
@@ -69,6 +70,7 @@ public class ReadParametersPanel extends JPanel
 							}
 							catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1) 
 							{
+								//invalid file
 								JOptionPane.showMessageDialog(null,
 										parametersBundle.getString("errorFile"),
 										parametersBundle.getString("errorTitle"),
@@ -91,6 +93,8 @@ public class ReadParametersPanel extends JPanel
 		
 	}
 	
+	// function which reads from file and sets parameters; 
+	//exception handling in constructor, read button action listener
 	public void setParameters(InputStreamReader isr) throws IOException
 	{
 		BufferedReader br = new BufferedReader(isr);
@@ -99,7 +103,7 @@ public class ReadParametersPanel extends JPanel
 		String name = temp;
 		temp = br.readLine();
 		String[] tempSplited = temp.split("\\s+");
-		//setting parameters
+		//setting ship parameters
 		double mass = Double.parseDouble(tempSplited[0]);
 		double xPosition = Double.parseDouble(tempSplited[1]);
 		double yPosition = Double.parseDouble(tempSplited[2]);
@@ -112,7 +116,7 @@ public class ReadParametersPanel extends JPanel
 		//system parameters
 		temp = br.readLine();
 		logic.setObjectNumber(Integer.parseInt(temp));
-		
+		//setting ship parameters
 		for (int i=0; i<logic.getObjectNumber(); i++)
 		{
 			temp = br.readLine();

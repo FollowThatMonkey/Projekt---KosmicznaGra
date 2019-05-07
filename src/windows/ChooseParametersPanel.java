@@ -1,7 +1,6 @@
 package windows;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -9,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,12 +24,13 @@ import objects.CelestialBody;
 //Z
 public class ChooseParametersPanel extends JPanel
 {
-
+	//constructor
 	public ChooseParametersPanel(GameLogic logic)
 	{
 		this.logic = logic;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
+		//ship name block /start/
 		JPanel shipNamePanel = new JPanel(new BorderLayout());
 		JLabel shipNameLabel = new JLabel(parametersBundle.getString("setShipName"));
 		shipNamePanel.add(shipNameLabel, BorderLayout.PAGE_START);
@@ -48,7 +47,9 @@ public class ChooseParametersPanel extends JPanel
 		shipNameField.addKeyListener(shipNameListener);
 		shipNamePanel.add(shipNameField, BorderLayout.PAGE_END);
 		add(shipNamePanel);
+		//ship name block /end/
 		
+		//ship type block /start/
 		JPanel shipTypePanel = new JPanel(new BorderLayout());
 		JLabel shipTypeLabel = new JLabel(parametersBundle.getString("chooseShipType"));
 		shipTypePanel.add(shipTypeLabel, BorderLayout.PAGE_START);
@@ -70,7 +71,9 @@ public class ChooseParametersPanel extends JPanel
 		JScrollPane shipsListScrollPane = new JScrollPane(shipList);
 		shipTypePanel.add(shipsListScrollPane, BorderLayout.CENTER);
 		add(shipTypePanel);
+		//ship type block /end/
 		
+		//planetary system block /start/
 		JPanel planetarySystemPanel = new JPanel(new BorderLayout());
 		JLabel planetarySystemLabel = new JLabel(parametersBundle.getString("chooseSystem"));
 		planetarySystemPanel.add(planetarySystemLabel, BorderLayout.PAGE_START);
@@ -92,13 +95,15 @@ public class ChooseParametersPanel extends JPanel
 		JScrollPane systemListScrollPane = new JScrollPane(systemList);
 		planetarySystemPanel.add(systemListScrollPane, BorderLayout.CENTER);
 		add(planetarySystemPanel);
+		//planetary system block /end/
 		
-		// timeLimit
+		//time limit block /start/
 		JPanel timeLimitPanel = new JPanel(new BorderLayout());
 		JLabel timeLimitLabel = new JLabel(parametersBundle.getString("timeLimitLabel"));
 		timeLimitPanel.add(timeLimitLabel, BorderLayout.PAGE_START);
-		timeLimitField = new JTextField("60");
-		String timeUnits[] = {"s", "min."}; //possible options
+		timeLimitField = new JTextField("60"); //initial value
+		String timeUnits[] = {"s", "min."}; //possible units
+		//JList
 		timeUnitsList = new JList<String>(timeUnits);
 		timeUnitsList.setVisibleRowCount(1);
 		timeUnitsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // blocks selecting more than one item
@@ -107,6 +112,7 @@ public class ChooseParametersPanel extends JPanel
 		timeLimitPanel.add(timeLimitField, BorderLayout.CENTER);
 		timeLimitPanel.add(timeUnitsList, BorderLayout.LINE_END);
 		
+		//unlimited time - check box
 		unlimitedTime = new JCheckBox(parametersBundle.getString("unlimited"));
 		unlimitedTime.addActionListener(new ActionListener()
 		{
@@ -117,12 +123,14 @@ public class ChooseParametersPanel extends JPanel
 				if(unlimitedTime.isSelected())
 				{
 					logic.setTimeLeft(-1);
+					//disabling option to choose a time limit
 					timeLimitField.setEnabled(false);
 					timeLimitField.setEditable(false);
 					timeUnitsList.setEnabled(false);
 				}
 				else
 				{
+					//enabling option to choose a time limit
 					timeLimitField.setEnabled(true);
 					timeLimitField.setEditable(true);
 					timeUnitsList.setEnabled(true);
@@ -132,7 +140,7 @@ public class ChooseParametersPanel extends JPanel
 		});
 		timeLimitPanel.add(unlimitedTime, BorderLayout.PAGE_END);
 		add(timeLimitPanel);
-		
+		//time limit block /end/
 	}
 	
 	public boolean setParameters()
@@ -143,7 +151,7 @@ public class ChooseParametersPanel extends JPanel
 			try
 			{
 				setTimeLimit();
-				if (logic.getTimeLeft()<0)
+				if (logic.getTimeLeft()<=0)
 					throw (new NegativeTimeException());
 			}
 			catch (NumberFormatException|NegativeTimeException e) 
@@ -184,6 +192,8 @@ public class ChooseParametersPanel extends JPanel
 			String tempSplited[];
 			logic.setObjectNumber(Integer.parseInt(temp));
 			
+			//setting parameters
+			//exceptions handled in ParametersDialog
 			for (int i=0; i<logic.getObjectNumber(); i++)
 			{
 				temp = br.readLine();
@@ -222,6 +232,7 @@ public class ChooseParametersPanel extends JPanel
 					String temp = br.readLine();
 					String tempSplited[] = temp.split("\\s+");
 					//setting parameters
+					//exceptions handled in ParametersDialog
 					double mass = Double.parseDouble(tempSplited[0]);
 					double xPosition = Double.parseDouble(tempSplited[1]);
 					double yPosition = Double.parseDouble(tempSplited[2]);
