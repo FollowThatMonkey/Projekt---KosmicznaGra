@@ -141,13 +141,13 @@ public class GameLogic
 	private Background background;
 	private Dimension size;
 	//private long scale = 500000000L;
-	private long scale = (long)10e6;
+	private long scale = (long)10e7;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = 14 * DAY / 60; // DT in seconds!!! -- one sec is one month
+	private int dt = 2 * DAY / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;

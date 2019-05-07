@@ -100,7 +100,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 		logic.setCurrentSize(new Dimension(image.getWidth(), image.getHeight()));
 		image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		g2d = (Graphics2D) image.getGraphics();
-		System.out.println("Changed windows size to " + logic.getCurrentSize());
 	}
 	
 	@Override

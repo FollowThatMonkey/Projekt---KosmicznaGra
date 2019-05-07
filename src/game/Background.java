@@ -13,7 +13,6 @@ public class Background
 		color = bgColor;
 		MAX_WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		MAX_HEIGHT = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		System.out.println("Width - height: " + MAX_WIDTH + "\t" + MAX_HEIGHT);
 	}
 	
 	public void draw(Graphics2D g2d)
