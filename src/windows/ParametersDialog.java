@@ -1,7 +1,6 @@
 package windows;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
@@ -21,6 +20,7 @@ public class ParametersDialog extends JDialog
 	public ParametersDialog(JFrame frame, game.GameLogic logic)
 	{
 		super(frame, true);
+		setName("parametersDialog");
 		setTitle(parametersBundle.getString("chooseTitle"));
 		setSize(400, 130);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); //to stop users from closing the dialog before choosing parameters
@@ -28,11 +28,9 @@ public class ParametersDialog extends JDialog
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null); //centering 
 		
-		JLabel questionLabel = new JLabel(parametersBundle.getString("question"), SwingConstants.CENTER);
 		add(questionLabel, BorderLayout.PAGE_START);
 		
 		// button which closes the application
-		JButton closeButton = new JButton(parametersBundle.getString("close"));
 		closeButton.addActionListener(new ActionListener() 
 		{
 			@Override
@@ -41,87 +39,101 @@ public class ParametersDialog extends JDialog
 				System.exit(0);
 			}
 		});
-		JPanel closeButtonPanel = new JPanel(new FlowLayout());
-		closeButtonPanel.add(closeButton);
+		saveAndClosePanel.add(closeButton);
+		add(saveAndClosePanel, BorderLayout.PAGE_END);
 		
-		JPanel buttonPanel = new JPanel(new FlowLayout());
-		
-		//reading parameters from file
-		JButton fileButton = new JButton(parametersBundle.getString("read"));
-		fileButton.addActionListener(new ActionListener() 
+		class SaveButtonListener implements ActionListener
 		{
+
 			@Override
-			public void actionPerformed(ActionEvent e) 
+			public void actionPerformed(ActionEvent e)
+			{
+				if (e.getActionCommand() == "read")
+				{
+					dispose();
+				}
+				if(e.getActionCommand() == "choose")
+				{
+					try
+					{
+						if (chooseParametersPanel.setParameters())
+							dispose();
+					}
+					catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
+					{
+						JOptionPane.showMessageDialog(null,
+								parametersBundle.getString("errorClose"),
+							    parametersBundle.getString("errorTitle"),
+							    JOptionPane.ERROR_MESSAGE);
+						System.exit(1);
+					}
+				}
+				
+			}
+			
+		}
+		
+		class ParametersButtonListener implements ActionListener
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
 			{
 				remove(questionLabel);
 				remove(buttonPanel);
+				remove(saveAndClosePanel);
 				revalidate();
-				setTitle(parametersBundle.getString("readTitle"));
-				JButton saveButton = new JButton(parametersBundle.getString("save"));
-				saveButton.setEnabled(false);
-				saveButton.addActionListener(new ActionListener() 
+				
+				if (e.getActionCommand()=="read")
 				{
-					@Override
-					public void actionPerformed(ActionEvent e) 
-					{
-						dispose();
-					}
-				});
-				ReadParametersPanel readParametersPanel = new ReadParametersPanel(logic, saveButton);
-				add(readParametersPanel, BorderLayout.CENTER);
-				
-				
-				closeButtonPanel.add(saveButton, BorderLayout.PAGE_END);
+					setTitle(parametersBundle.getString("readTitle"));
+
+					saveButton.setActionCommand("read");
+					saveButton.setEnabled(false);
+					saveButton.addActionListener(new SaveButtonListener());
+					saveAndClosePanel.add(saveButton);
+					readParametersPanel = new ReadParametersPanel(logic, saveButton);
+					add(readParametersPanel, BorderLayout.PAGE_START);
+					add(saveAndClosePanel, BorderLayout.PAGE_END);
+				}
+				if (e.getActionCommand() == "choose")
+				{
+					chooseParametersPanel = new ChooseParametersPanel(logic);
+					add(chooseParametersPanel, BorderLayout.PAGE_START);
+					
+					saveButton.setActionCommand("choose");
+					saveButton.addActionListener(new SaveButtonListener());
+					saveAndClosePanel.add(saveButton);
+					add(saveAndClosePanel, BorderLayout.PAGE_END);
+					
+				}
 				pack();
 			}
-		});
+		}
+
+		//reading parameters from file
+		fileButton.setActionCommand("read");
+		fileButton.addActionListener(new ParametersButtonListener());
 		buttonPanel.add(fileButton);
 		
 		//choosing parameters via menu
-		JButton menuButton = new JButton(parametersBundle.getString("chooseMenu"));
-		menuButton.addActionListener(new ActionListener() 
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				remove(questionLabel);
-				remove(buttonPanel);
-				revalidate();
-				ChooseParametersPanel chooseParametersPanel = new ChooseParametersPanel(logic);
-				add(chooseParametersPanel, BorderLayout.PAGE_START);
-				
-				JButton saveButton = new JButton(parametersBundle.getString("save"));
-				saveButton.addActionListener(new ActionListener() 
-				{
-					@Override
-					public void actionPerformed(ActionEvent e) 
-					{
-						try
-						{
-							chooseParametersPanel.setParameters(logic);
-							dispose();
-						}
-						catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
-						{
-							JOptionPane.showMessageDialog(null,
-									parametersBundle.getString("errorClose"),
-								    parametersBundle.getString("errorTitle"),
-								    JOptionPane.ERROR_MESSAGE);
-							System.exit(1);
-						}
-					}
-				});
-				closeButtonPanel.add(saveButton, BorderLayout.PAGE_END);
-				pack();
-			}
-		});
+		menuButton.setActionCommand("choose");
+		menuButton.addActionListener(new ParametersButtonListener());
 		buttonPanel.add(menuButton);
 		
 		add(buttonPanel, BorderLayout.CENTER);
-		add(closeButtonPanel, BorderLayout.PAGE_END);
 		setVisible(true);
 	}
 
 
 	private ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
+	JLabel questionLabel = new JLabel(parametersBundle.getString("question"), SwingConstants.CENTER);
+	JButton closeButton = new JButton(parametersBundle.getString("close"));
+	JButton saveButton = new JButton(parametersBundle.getString("save"));
+	JPanel saveAndClosePanel = new JPanel();
+	JPanel buttonPanel = new JPanel();
+	JButton fileButton = new JButton(parametersBundle.getString("read"));
+	JButton menuButton = new JButton(parametersBundle.getString("chooseMenu"));
+	ChooseParametersPanel chooseParametersPanel;
+	ReadParametersPanel readParametersPanel;
 }

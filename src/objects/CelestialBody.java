@@ -26,8 +26,14 @@ public class CelestialBody extends CosmicObjects
 		double CamY = logic.getShip().getYPos()/logic.getScale()-(logic.getCurrentSize().getHeight()/2);
 		int scaledPosX = (int) ((double) getXPos()/logic.getScale() - CamX);
 		int scaledPosY = (int) ((double) getYPos()/logic.getScale() - CamY);
+//<<<<<<< HEAD
+		//double scaledRadius = radius / logic.getScale();
+		//double scaledRadius = 200*radius / logic.getScale();
+		//g2d.fillOval(scaledPosX, scaledPosY, (int)scaledRadius, (int)scaledRadius);
+//=======
 		double scaledRadius = radius / logic.getScale();
 		g2d.fillOval(scaledPosX - (int)scaledRadius, scaledPosY - (int)scaledRadius, (int)scaledRadius, (int)scaledRadius);
+//>>>>>>> refs/remotes/origin/rafal
 		g2d.setColor(Color.RED);
 		g2d.drawString(getName(), scaledPosX, scaledPosY);
 		if(Math.abs(logic.getShip().getXPos() - getXPos()) < radius && Math.abs(logic.getShip().getYPos() - getYPos()) < radius)

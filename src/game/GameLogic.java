@@ -153,5 +153,5 @@ public class GameLogic
 	private boolean gameOver = false;
 	
 	// Global constants
-	public static final int HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
+	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 }
