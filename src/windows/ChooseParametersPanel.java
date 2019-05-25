@@ -1,6 +1,7 @@
 package windows;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -25,10 +26,12 @@ import objects.CelestialBody;
 public class ChooseParametersPanel extends JPanel
 {
 	//constructor
-	public ChooseParametersPanel(GameLogic logic)
+	public ChooseParametersPanel(ParametersFrame parametersFrame, GameLogic logic)
 	{
 		this.logic = logic;
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout());
+		JPanel choosePanel  = new JPanel();
+		choosePanel.setLayout(new BoxLayout(choosePanel, BoxLayout.Y_AXIS));
 		
 		//ship name block /start/
 		JPanel shipNamePanel = new JPanel(new BorderLayout());
@@ -46,7 +49,7 @@ public class ChooseParametersPanel extends JPanel
 		};
 		shipNameField.addKeyListener(shipNameListener);
 		shipNamePanel.add(shipNameField, BorderLayout.PAGE_END);
-		add(shipNamePanel);
+		choosePanel.add(shipNamePanel);
 		//ship name block /end/
 		
 		//ship type block /start/
@@ -70,7 +73,7 @@ public class ChooseParametersPanel extends JPanel
 		});
 		JScrollPane shipsListScrollPane = new JScrollPane(shipList);
 		shipTypePanel.add(shipsListScrollPane, BorderLayout.CENTER);
-		add(shipTypePanel);
+		choosePanel.add(shipTypePanel);
 		//ship type block /end/
 		
 		//planetary system block /start/
@@ -94,7 +97,7 @@ public class ChooseParametersPanel extends JPanel
 		});
 		JScrollPane systemListScrollPane = new JScrollPane(systemList);
 		planetarySystemPanel.add(systemListScrollPane, BorderLayout.CENTER);
-		add(planetarySystemPanel);
+		choosePanel.add(planetarySystemPanel);
 		//planetary system block /end/
 		
 		//time limit block /start/
@@ -103,14 +106,17 @@ public class ChooseParametersPanel extends JPanel
 		timeLimitPanel.add(timeLimitLabel, BorderLayout.PAGE_START);
 		timeLimitField = new JTextField("60"); //initial value
 		String timeUnits[] = {"s", "min."}; //possible units
-		//JList
-		timeUnitsList = new JList<String>(timeUnits);
-		timeUnitsList.setVisibleRowCount(1);
-		timeUnitsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // blocks selecting more than one item
+		//JComboBox
+		timeUnitsList = new JComboBox<String>(timeUnits);
 		timeUnitsList.setSelectedIndex(0); // selects default item
 		
-		timeLimitPanel.add(timeLimitField, BorderLayout.CENTER);
-		timeLimitPanel.add(timeUnitsList, BorderLayout.LINE_END);
+		JPanel timeFieldPanel = new JPanel(new BorderLayout());
+		timeFieldPanel.add(timeLimitField, BorderLayout.PAGE_START);
+		timeLimitPanel.add(timeFieldPanel, BorderLayout.CENTER);
+		
+		JPanel timeUnitsPanel = new JPanel(new BorderLayout());
+		timeUnitsPanel.add(timeUnitsList, BorderLayout.PAGE_START);
+		timeLimitPanel.add(timeUnitsPanel, BorderLayout.LINE_END);
 		
 		//unlimited time - check box
 		unlimitedTime = new JCheckBox(parametersBundle.getString("unlimited"));
@@ -139,8 +145,69 @@ public class ChooseParametersPanel extends JPanel
 			}
 		});
 		timeLimitPanel.add(unlimitedTime, BorderLayout.PAGE_END);
-		add(timeLimitPanel);
+		choosePanel.add(timeLimitPanel);
 		//time limit block /end/
+		
+		
+		//buttons
+		JPanel buttonsPanel = new JPanel();
+		
+		//go back button
+		JButton goBackButton = new JButton(parametersBundle.getString("goBack"));
+		goBackButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				((CardLayout) parametersFrame.cardPanel.getLayout()).show(parametersFrame.cardPanel, "set");
+				parametersFrame.setSize(350, 130);
+			}
+		});
+		buttonsPanel.add(goBackButton);
+		
+		//close button
+		JButton closeButton = new JButton(parametersBundle.getString("close"));
+		closeButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.exit(0);
+			}
+		});
+		buttonsPanel.add(closeButton);
+		
+		//save button
+		JButton saveButton = new JButton(parametersBundle.getString("save"));
+		saveButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					if (setParameters()) //if managed to set parameters
+					{
+						parametersFrame.dispose();
+						MainFrame frame = new MainFrame(logic);
+					}
+				}
+				catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)
+				{
+					//fatal error, exit
+					JOptionPane.showMessageDialog(null,
+							parametersBundle.getString("errorClose"),
+						    parametersBundle.getString("errorTitle"),
+						    JOptionPane.ERROR_MESSAGE);
+					System.exit(1);
+				}
+			}
+		});
+		buttonsPanel.add(saveButton);
+		
+		
+		add(choosePanel, BorderLayout.CENTER);
+		add(buttonsPanel, BorderLayout.PAGE_END);
 	}
 	
 	public boolean setParameters()
@@ -258,7 +325,7 @@ public class ChooseParametersPanel extends JPanel
 	private String systemOptions[] = {"system1.txt", "system2.txt", "system3.txt", "system4.txt"};
 	private String shipOptions[] = {"ship1.txt", "ship2.txt", "ship3.txt", "ship4.txt", "ship5.txt"};
 	private ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
-	private JList<String> timeUnitsList;
+	private JComboBox<String> timeUnitsList;
 	private JTextField timeLimitField;
 	private JCheckBox unlimitedTime;
 }

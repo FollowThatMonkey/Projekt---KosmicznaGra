@@ -28,14 +28,13 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 		setTitle(windowBundle.getString("title"));
 		setLayout(new BorderLayout());
 		
-		//Choosing language
-		LanguageDialog languageDialog= new LanguageDialog(this, logic);
-		
 		// Here to add Panels!
 		upperPanel = new UpperPanel(logic.getShip());
 		rightPanel = new RightPanel(logic, this);
 		gamePanel = new GamePanel(logic);
 
+		logic.setRightPanel(rightPanel);
+		
 		add(upperPanel, BorderLayout.PAGE_START);
 		add(rightPanel, BorderLayout.LINE_END);
 		add(gamePanel, BorderLayout.CENTER);
@@ -117,8 +116,9 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 
 			public void run() 
 			{
-				MainFrame frame = new MainFrame(logic);
-				logic.setRightPanel(frame.rightPanel);
+				//MainFrame frame = new MainFrame(logic);
+				//logic.setRightPanel(frame.rightPanel);
+				LanguageFrame languageFrame = new LanguageFrame(logic);
 			}
 		});
 	}
