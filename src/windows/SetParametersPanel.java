@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import game.GameLogic;
+
 //Z
 public class SetParametersPanel extends JPanel
 {
