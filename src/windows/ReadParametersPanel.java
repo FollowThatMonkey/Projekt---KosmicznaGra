@@ -1,6 +1,7 @@
 package windows;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -22,37 +23,77 @@ import objects.CelestialBody;
 public class ReadParametersPanel extends JPanel
 {
 	//constructor
-	public ReadParametersPanel(GameLogic logic, JButton saveButton)
+	public ReadParametersPanel(ParametersFrame parametersFrame, GameLogic logic)
 	{
 		this.logic = logic;
-		setSize(500, 200);
-		setMinimumSize(getSize());
-		setLayout(new BorderLayout());
+		//buttons: go back, close, save
+		JPanel basicButtonsPanel = new JPanel();
+				
+		//go back button
+		JButton goBackButton = new JButton(parametersFrame.parametersBundle.getString("goBack"));
+		goBackButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				((CardLayout) parametersFrame.cardPanel.getLayout()).show(parametersFrame.cardPanel, "set");
+				parametersFrame.setSize(350, 130);
+				parametersFrame.setTitle(parametersFrame.parametersBundle.getString("chooseTitle"));
+			}
+		});
+		basicButtonsPanel.add(goBackButton);		
 		
+		//close button
+		JButton closeButton = new JButton(parametersFrame.parametersBundle.getString("close"));
+		closeButton.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.exit(0);
+			}
+		});
+		basicButtonsPanel.add(closeButton);
+				
+		//save button
+		JButton saveButton = new JButton(parametersFrame.parametersBundle.getString("save"));
+		saveButton.setEnabled(false);
+		saveButton.addActionListener(new ActionListener()
+		{	
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				parametersFrame.dispose();
+				MainFrame frame = new MainFrame(logic);
+			}
+		});
+		basicButtonsPanel.add(saveButton);
+		
+		JPanel readButtonsPanel = new JPanel();
 		//button - read instruction
-		JButton instructionButton = new JButton(parametersBundle.getString("readInstruction"));
+		JButton instructionButton = new JButton(parametersFrame.parametersBundle.getString("readInstruction"));
 		instructionButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				JOptionPane.showMessageDialog(null,
-						parametersBundle.getString("instruction"),
-						parametersBundle.getString("instructionTitle"),
+						parametersFrame.parametersBundle.getString("instruction"),
+						parametersFrame.parametersBundle.getString("instructionTitle"),
 					    JOptionPane.PLAIN_MESSAGE);
 			}
 		});
-		this.add(instructionButton, BorderLayout.PAGE_START);
+		readButtonsPanel.add(instructionButton);
 		
 		//button - choose file to open
-		JButton readButton = new JButton(parametersBundle.getString("chooseFile"));
+		JButton readButton = new JButton(parametersFrame.parametersBundle.getString("chooseFile"));
 		readButton.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setDialogTitle(parametersBundle.getString("chooseFile")); 
+				fileChooser.setDialogTitle(parametersFrame.parametersBundle.getString("chooseFile")); 
 				fileChooser.setFileFilter(new FileNameExtensionFilter("txt file","txt"));
 				int userSelection = fileChooser.showOpenDialog(null);
 				 
@@ -72,8 +113,8 @@ public class ReadParametersPanel extends JPanel
 							{
 								//invalid file
 								JOptionPane.showMessageDialog(null,
-										parametersBundle.getString("errorFile"),
-										parametersBundle.getString("errorTitle"),
+										parametersFrame.parametersBundle.getString("errorFile"),
+										parametersFrame.parametersBundle.getString("errorTitle"),
 									    JOptionPane.ERROR_MESSAGE);
 							}
 							isr.close();
@@ -81,16 +122,20 @@ public class ReadParametersPanel extends JPanel
 						catch (IOException e1)
 						{
 							JOptionPane.showMessageDialog(null,
-									parametersBundle.getString("errorAgain"),
-								    parametersBundle.getString("errorTitle"),
+									parametersFrame.parametersBundle.getString("errorAgain"),
+									parametersFrame.parametersBundle.getString("errorTitle"),
 								    JOptionPane.ERROR_MESSAGE);
 						}
 
 				}
 			}
 		});
-		add(readButton, BorderLayout.PAGE_END);
+		readButtonsPanel.add(readButton);
 		
+		JPanel buttonsPanel = new JPanel(new BorderLayout());
+		buttonsPanel.add(readButtonsPanel, BorderLayout.CENTER);
+		buttonsPanel.add(basicButtonsPanel, BorderLayout.PAGE_END);
+		add(buttonsPanel);
 	}
 	
 	// function which reads from file and sets parameters; 
@@ -137,5 +182,4 @@ public class ReadParametersPanel extends JPanel
 	}
 	
 	private GameLogic logic;
-	private ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
 }
