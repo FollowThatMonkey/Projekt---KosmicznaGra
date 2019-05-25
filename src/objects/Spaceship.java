@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RadialGradientPaint;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,16 +31,17 @@ public class Spaceship extends CosmicObjects
 		{
 			onRocket = ImageIO.read(new File("./RakietaOn.png"));
 			offRocket = ImageIO.read(new File("./RakietaOff.png"));
+			arrowImg = ImageIO.read(new File("./Arrow.png"));
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
 		
-		resize(rocketWidth, rocketHight);
+		resize(rocketWidth, rocketHight, arrowWidth, arrowHeight);
 	}
 	
-	private void resize(int newWidth, int newHeight)
+	private void resize(int newWidth, int newHeight, int newArrowWidth, int newArrowHeight)
 	{
 		Image tmp = onRocket.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 		onRocket = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
@@ -49,6 +52,12 @@ public class Spaceship extends CosmicObjects
 		offRocket = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
 		g = offRocket.createGraphics();
 		g.drawImage(tmp, 0, 0, null);
+		
+		tmp = arrowImg.getScaledInstance(newArrowWidth, newArrowHeight, Image.SCALE_SMOOTH);
+		arrowImg = new BufferedImage(newArrowWidth, newArrowHeight, BufferedImage.TYPE_INT_ARGB);
+		g = arrowImg.createGraphics();
+		g.drawImage(tmp, 0, 0, null);
+		
 		g.dispose();
 	}
 	
@@ -83,30 +92,33 @@ public class Spaceship extends CosmicObjects
 	// draw spaceship to buffImage
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
-		/*
-		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = tempImage.createGraphics();
-		g.setColor(Color.WHITE);
-		g.fillRect((int)logic.getCurrentSize().getWidth() / 2 - 7, (int)logic.getCurrentSize().getHeight() / 2 - 20, 15, 40);
-		g.setColor(Color.RED);
-		g.fillOval((int)logic.getCurrentSize().getWidth() / 2 - 4, (int)logic.getCurrentSize().getHeight() / 2 - 20, 8, 8);
-		g.rotate(- (theta - Math.PI / 2), (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
-		
-		g2d.drawImage(tempImage, g.getTransform(), null);
-		*/
 		if(accelerate && fuel > 0)
 		{
 			Graphics2D g = onRocket.createGraphics();
 			g.rotate(- (theta - Math.PI / 2), onRocket.getWidth() / 2, onRocket.getHeight() / 2);
 			g2d.drawImage(onRocket, new AffineTransformOp(g.getTransform(), AffineTransformOp.TYPE_BICUBIC), (int)logic.getCurrentSize().getWidth() / 2 + rocketWidth / 2, (int)logic.getCurrentSize().getHeight() / 2 - rocketHight / 2);
+			g.dispose();
 		}
 		else
 		{
 			Graphics2D g = offRocket.createGraphics();
 			g.rotate(- (theta - Math.PI / 2), offRocket.getWidth() / 2, offRocket.getHeight() / 2);
 			g2d.drawImage(offRocket, new AffineTransformOp(g.getTransform(), AffineTransformOp.TYPE_BICUBIC), (int)logic.getCurrentSize().getWidth() / 2 + rocketWidth / 2, (int)logic.getCurrentSize().getHeight() / 2 - rocketHight / 2);
+			g.dispose();
 		}
+		
+		CelestialBody closestBody = logic.getPlanetarySystem().get(0);
+		for(int i = 1; i < logic.getPlanetarySystem().size(); i++)
+			if(Math.pow(logic.getPlanetarySystem().get(i).getXPos() - getXPos(), 2) + Math.pow(logic.getPlanetarySystem().get(i).getYPos() - getYPos(), 2) < Math.pow(closestBody.getXPos() - getXPos(), 2) + Math.pow(closestBody.getYPos() - getYPos(), 2))
+				closestBody = logic.getPlanetarySystem().get(i);
+		
+		double phi = Math.atan2(closestBody.getYPos() - getYPos(), closestBody.getXPos() - getXPos()) + Math.PI / 2;
+		Graphics2D g = arrowImg.createGraphics();
+		g.rotate(phi, arrowWidth / 2, arrowHeight / 2);
+		g2d.drawImage(arrowImg, new AffineTransformOp(g.getTransform(), AffineTransformOp.TYPE_BICUBIC), (int)(logic.getCurrentSize().getWidth() / 2 + arrowWidth / 2 + logic.getCurrentSize().getWidth() * 0.4 * Math.sin(phi)), (int)(logic.getCurrentSize().getHeight() / 2 - arrowHeight / 2 - logic.getCurrentSize().getHeight() * 0.4 * Math.cos(phi)));
 	}
+	
+	
 	
 	//Movement functions
 	public void moveUp(boolean b)
@@ -151,12 +163,12 @@ public class Spaceship extends CosmicObjects
 	}
 	
 	
-	private final int rocketWidth = 30, rocketHight = 80;
-	private double engineThrust = 1000 / 2;
+	private final int rocketWidth = 30, rocketHight = 80, arrowWidth = 25, arrowHeight = 70;
+	private final double engineThrust = 1000 / 4;
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;
 	private double fuel = 100; // Fuel status in %%
 	private double dConsumption;
 	private boolean turnLeft = false, turnRight = false, accelerate = false;
-	private BufferedImage offRocket, onRocket;
+	private BufferedImage offRocket, onRocket, arrowImg;
 }

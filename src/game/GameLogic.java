@@ -103,6 +103,24 @@ public class GameLogic
 		
 	}
 	
+	// change scale dynamically
+	/*
+	private void changeScale()
+	{
+		double currentDistance = Math.sqrt( Math.pow(planetarySystem.get(0).getXPos() - ship.getXPos(), 2) + Math.pow(planetarySystem.get(0).getYPos() - ship.getYPos(), 2) );
+		for(int i = 1; i < planetarySystem.size(); i++)
+		{
+			double tempDistance = Math.sqrt( Math.pow(planetarySystem.get(i).getXPos() - ship.getXPos(), 2) + Math.pow(planetarySystem.get(i).getYPos() - ship.getYPos(), 2) );
+			if(tempDistance < currentDistance)
+				currentDistance = tempDistance;
+		}
+		if(currentDistance < finalDisntace && currentDistance > minDistance)
+		{
+			scale = (long) ((maxScale - minScale) / (finalDisntace - minDistance) * currentDistance + (maxScale - (maxScale - minScale) / (finalDisntace - minDistance) * finalDisntace));
+		}
+	}
+	*/
+	
 	// enabling restart and end-game buttons
 	public void enableGameOverButtons()
 	{
@@ -167,13 +185,13 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
-	private long scale = 500000000L;
-	//private long scale = (long)10e7;
+	private long scale = 50000000L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
+	//private int dt = DAY * 2 / 60; // DT in seconds!!! -- one sec is one month
 	private int dt = DAY * 2 / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
