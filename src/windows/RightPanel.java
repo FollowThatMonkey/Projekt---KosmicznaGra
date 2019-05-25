@@ -13,8 +13,12 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import game.CalculationThread;
 import game.GameLogic;
+import objects.Spaceship;
 import windows.listeners.RestartListener;
+
+import objects.CelestialBody;
 
 // RJ
 
@@ -28,6 +32,7 @@ public class RightPanel extends JPanel implements Runnable
 		setPreferredSize(new Dimension((int)(frame.getWidth() / 4), getHeight()));
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setLayout(new FlowLayout(FlowLayout.CENTER));
+		logic.SetClosestBody();
 		
 		int boldTextSize = 17;
 		int textSize = 14;
@@ -36,6 +41,8 @@ public class RightPanel extends JPanel implements Runnable
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
 		massStat = setBoldLabel(String.format("%.2f", logic.getShip().getMass()) + " kg", boldTextSize);
 		timeStat = new TimeLabel(logic, boldTextSize);
+		posStat = setBoldLabel(String.format("%.2f", calcDistance(logic.getShip(), logic.getClosestBody()) / 1000) + " km", textSize);
+		velStat = setBoldLabel(String.format("%.2f", calcVelocity(logic.getShip(), logic.getClosestBody()) / 1000) + " km/s", textSize);
 		restartButton = setGameOverButton(windowBundle.getString("restart"));
 		endButton = setGameOverButton(windowBundle.getString("end"));
 		
@@ -59,6 +66,10 @@ public class RightPanel extends JPanel implements Runnable
 		add(massStat);
 		add(setLabel(windowBundle.getString("timeLeft"), textSize));
 		add(timeStat);
+		add(setLabel("Relative distance", textSize));
+		add(posStat);
+		add(setLabel("Relative velocity", textSize));
+		add(velStat);
 		add(restartButton);
 		add(endButton);
 		
@@ -72,6 +83,8 @@ public class RightPanel extends JPanel implements Runnable
 		{
 			fuelStat.setText(String.format("%.2f", logic.getShip().getFuel()) + "%");
 			massStat.setText(String.format("%.2f", logic.getShip().getMass()) + " kg");
+			posStat.setText(String.format("%.2f", calcDistance(logic.getShip(), logic.getClosestBody()) / 1000) + " km");
+			velStat.setText(String.format("%.2f", calcVelocity(logic.getShip(), logic.getClosestBody()) / 1000) + " km/s");
 			
 			try
 			{
@@ -83,6 +96,16 @@ public class RightPanel extends JPanel implements Runnable
 			}
 		}
 		
+	}
+
+	double calcDistance(Spaceship ship, CelestialBody body)
+	{
+		return Math.sqrt( Math.pow(ship.getYPos() - body.getYPos(), 2) + Math.pow(ship.getXPos() - body.getXPos(), 2) );
+	}
+
+	double calcVelocity(Spaceship ship, CelestialBody body)
+	{
+		return Math.sqrt( Math.pow(ship.getYVel() - body.getYVel(), 2) + Math.pow(ship.getXVel() - body.getXVel(), 2) );
 	}
 	
 	// Making label with certain font size
@@ -159,7 +182,7 @@ public class RightPanel extends JPanel implements Runnable
 	private MainFrame frame;
 	private GameLogic logic;
 	private JSlider timeSlider;
-	private JLabel fuelStat, massStat;
+	private JLabel fuelStat, massStat, posStat, velStat;
 	private TimeLabel timeStat;
 	private JButton restartButton, endButton;
 	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows/WindowBundle", Locale.getDefault());

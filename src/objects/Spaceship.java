@@ -107,12 +107,8 @@ public class Spaceship extends CosmicObjects
 			g.dispose();
 		}
 		
-		CelestialBody closestBody = logic.getPlanetarySystem().get(0);
-		for(int i = 1; i < logic.getPlanetarySystem().size(); i++)
-			if(Math.pow(logic.getPlanetarySystem().get(i).getXPos() - getXPos(), 2) + Math.pow(logic.getPlanetarySystem().get(i).getYPos() - getYPos(), 2) < Math.pow(closestBody.getXPos() - getXPos(), 2) + Math.pow(closestBody.getYPos() - getYPos(), 2))
-				closestBody = logic.getPlanetarySystem().get(i);
-		
-		double phi = Math.atan2(closestBody.getYPos() - getYPos(), closestBody.getXPos() - getXPos()) + Math.PI / 2;
+		// Drawing "compass" arrow
+		double phi = Math.atan2(logic.getClosestBody().getYPos() - getYPos(), logic.getClosestBody().getXPos() - getXPos()) + Math.PI / 2;
 		Graphics2D g = arrowImg.createGraphics();
 		g.rotate(phi, arrowWidth / 2, arrowHeight / 2);
 		g2d.drawImage(arrowImg, new AffineTransformOp(g.getTransform(), AffineTransformOp.TYPE_BICUBIC), (int)(logic.getCurrentSize().getWidth() / 2 + arrowWidth / 2 + logic.getCurrentSize().getWidth() * 0.4 * Math.sin(phi)), (int)(logic.getCurrentSize().getHeight() / 2 - arrowHeight / 2 - logic.getCurrentSize().getHeight() * 0.4 * Math.cos(phi)));
@@ -163,7 +159,7 @@ public class Spaceship extends CosmicObjects
 	}
 	
 	
-	private final int rocketWidth = 30, rocketHight = 80, arrowWidth = 25, arrowHeight = 70;
+	private final int rocketWidth = 30, rocketHight = 80, arrowWidth = 25, arrowHeight = 50;
 	private final double engineThrust = 1000 / 4;
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;

@@ -89,6 +89,7 @@ public class GameLogic
 		// Here will be drawing to buffImage
 		if(!gameOver)
 		{
+			SetClosestBody();
 			background.draw(g2d);
 			for(CelestialBody iterator : planetarySystem)
 				iterator.draw(g2d, this);
@@ -101,6 +102,16 @@ public class GameLogic
 			g2d.drawString("Game Over!", getCurrentSize().width / 2, getCurrentSize().height / 2);
 		}
 		
+	}
+	
+	// check which planet is the closest to the spaceship
+	public void SetClosestBody()
+	{
+		if(closestBody == null)
+			closestBody = planetarySystem.get(0);
+		for(int i = 0; i < planetarySystem.size(); i++)
+			if(Math.pow(planetarySystem.get(i).getXPos() - ship.getXPos(), 2) + Math.pow(planetarySystem.get(i).getYPos() - ship.getYPos(), 2) < Math.pow(closestBody.getXPos() - ship.getXPos(), 2) + Math.pow(closestBody.getYPos() - ship.getYPos(), 2))
+				closestBody = planetarySystem.get(i);
 	}
 	
 	// change scale dynamically
@@ -169,6 +180,8 @@ public class GameLogic
 	
 	public boolean getGameOver() { return gameOver; }
 	
+	public CelestialBody getClosestBody() { return closestBody; }
+	
 	// Sets
 	public void setDT(int newDT) { dt = newDT; }
 	
@@ -185,18 +198,20 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
-	private long scale = 50000000L;
+	//private long scale = 50000000L;
+	private long scale = 50L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
 	//private int dt = DAY * 2 / 60; // DT in seconds!!! -- one sec is one month
-	private int dt = DAY * 2 / 60; // DT in seconds!!! -- one sec is one month
+	private int dt = HOUR * 2 / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;
 	private RightPanel rightPanel = null;
+	private CelestialBody closestBody = null;
 	
 	// Global constants
 	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
