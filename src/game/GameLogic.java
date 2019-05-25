@@ -182,6 +182,7 @@ public class GameLogic
 	
 	public void setRightPanel(RightPanel rightPanel) { if(this.rightPanel == null) this.rightPanel = rightPanel; }
 	
+	public void setGameOver(boolean newGameOver) {gameOver = newGameOver;}
 	
 	private Background background;
 	private Dimension size;

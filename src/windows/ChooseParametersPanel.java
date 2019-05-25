@@ -189,7 +189,14 @@ public class ChooseParametersPanel extends JPanel
 					if (setParameters()) //if managed to set parameters
 					{
 						parametersFrame.dispose();
-						MainFrame frame = new MainFrame(logic);
+						if (logic.getGameOver()) //restart game
+						{
+							logic.setGameOver(false);
+						}
+						else //start game
+						{
+							MainFrame frame = new MainFrame(logic);
+						}
 					}
 				}
 				catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e1)

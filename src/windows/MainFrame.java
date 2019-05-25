@@ -103,6 +103,8 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 		
 	}
 	
+	public RightPanel getRightPanel() {return rightPanel;}
+	
 	UpperPanel upperPanel;
 	RightPanel rightPanel;
 	GamePanel gamePanel;

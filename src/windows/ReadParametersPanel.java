@@ -64,7 +64,14 @@ public class ReadParametersPanel extends JPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				parametersFrame.dispose();
-				MainFrame frame = new MainFrame(logic);
+				if (logic.getGameOver()) //restart game
+				{
+					logic.setGameOver(false);
+				}
+				else //start game
+				{
+					MainFrame frame = new MainFrame(logic);
+				}
 			}
 		});
 		basicButtonsPanel.add(saveButton);
