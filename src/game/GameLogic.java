@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import objects.CelestialBody;
 import objects.CosmicObjects;
 import objects.Spaceship;
+import windows.MainFrame;
+import windows.RightPanel;
 
 // ZL & RJ?
 
@@ -63,12 +67,15 @@ public class GameLogic
 		if(!gameOver)
 		{
 			objectThreads();
+			ship.update();
 			if(timeLeft == 0)
 				gameOver = true;
 		}
 		else
 		{
-			// To add gameOver things!! 
+			// To add gameOver things!!
+			rightPanel.getRestartButton().setEnabled(true);
+			rightPanel.getEndButton().setEnabled(true);
 		}
 		
 	}
@@ -77,10 +84,19 @@ public class GameLogic
 	public void draw(Graphics2D g2d)
 	{
 		// Here will be drawing to buffImage
-		background.draw(g2d);
-		for(CelestialBody iterator : planetarySystem)
-			iterator.draw(g2d, this);
-		ship.draw(g2d, this);
+		if(!gameOver)
+		{
+			background.draw(g2d);
+			for(CelestialBody iterator : planetarySystem)
+				iterator.draw(g2d, this);
+			ship.draw(g2d, this);
+		}
+		else
+		{
+			background.draw(g2d);
+			g2d.setColor(Color.WHITE);
+			g2d.drawString("Game Over!", getCurrentSize().width / 2, getCurrentSize().height / 2);
+		}
 		
 	}
 	
@@ -123,6 +139,8 @@ public class GameLogic
 	
 	public long getScale() { return scale; }
 	
+	public boolean getGameOver() { return gameOver; }
+	
 	// Sets
 	public void setDT(int newDT) { dt = newDT; }
 	
@@ -134,21 +152,23 @@ public class GameLogic
 	
 	public void setScale(int scale) { this.scale = scale; }
 	
+	public void setRightPanel(RightPanel rightPanel) { if(this.rightPanel == null) this.rightPanel = rightPanel; }
 	
 	
 	private Background background;
 	private Dimension size;
-	//private long scale = 500000000L;
-	private long scale = (long)10e7;
+	private long scale = 500000000L;
+	//private long scale = (long)10e7;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	private int dt = 2 * DAY / 60; // DT in seconds!!! -- one sec is one month
+	private int dt = DAY * 2 / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;
+	private RightPanel rightPanel = null;
 	
 	// Global constants
 	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;

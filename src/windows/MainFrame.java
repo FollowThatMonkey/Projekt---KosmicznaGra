@@ -75,24 +75,6 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 	public void mouseExited(MouseEvent e)
 	{
 	}
-	
-	UpperPanel upperPanel;
-	RightPanel rightPanel;
-	GamePanel gamePanel;
-	
-	public static void main(String[] args) 
-	{
-		Locale.setDefault(new Locale("pl", "PL"));
-		GameLogic logic = new GameLogic();
-		SwingUtilities.invokeLater(new Runnable() 
-		{
-
-			public void run() 
-			{
-				MainFrame frame = new MainFrame(logic);
-			}
-		});
-	}
 
 	@Override
 	public void componentResized(ComponentEvent e)
@@ -120,5 +102,24 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	UpperPanel upperPanel;
+	RightPanel rightPanel;
+	GamePanel gamePanel;
+	
+	public static void main(String[] args) 
+	{
+		Locale.setDefault(new Locale("pl", "PL"));
+		GameLogic logic = new GameLogic();
+		SwingUtilities.invokeLater(new Runnable() 
+		{
+
+			public void run() 
+			{
+				MainFrame frame = new MainFrame(logic);
+				logic.setRightPanel(frame.rightPanel);
+			}
+		});
 	}
 }

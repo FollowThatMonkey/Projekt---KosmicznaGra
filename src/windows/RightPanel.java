@@ -14,6 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import game.GameLogic;
+import windows.listeners.RestartListener;
 
 // RJ
 
@@ -38,6 +39,16 @@ public class RightPanel extends JPanel implements Runnable
 		restartButton = setGameOverButton(windowBundle.getString("restart"));
 		endButton = setGameOverButton(windowBundle.getString("end"));
 		
+		endButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.exit(0);
+			}
+		});
+		
+		restartButton.addActionListener(new RestartListener(logic, frame));
 		
 		add(setColorButton(frame.upperPanel, this));
 		add(setLabel(windowBundle.getString("timeScale"), textSize));
@@ -61,6 +72,7 @@ public class RightPanel extends JPanel implements Runnable
 		{
 			fuelStat.setText(String.format("%.2f", logic.getShip().getFuel()) + "%");
 			massStat.setText(String.format("%.2f", logic.getShip().getMass()) + " kg");
+			
 			try
 			{
 				Thread.sleep(SLEEP_TIME);
@@ -139,12 +151,17 @@ public class RightPanel extends JPanel implements Runnable
 		return button;
 	}
 	
-	MainFrame frame;
-	GameLogic logic;
-	JSlider timeSlider;
-	JLabel fuelStat, massStat;
-	TimeLabel timeStat;
-	JButton restartButton, endButton;
+	// Gets
+	public JButton getEndButton() { return endButton; }
+	
+	public JButton getRestartButton() { return restartButton; }
+	
+	private MainFrame frame;
+	private GameLogic logic;
+	private JSlider timeSlider;
+	private JLabel fuelStat, massStat;
+	private TimeLabel timeStat;
+	private JButton restartButton, endButton;
 	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows/WindowBundle", Locale.getDefault());
 	// Sleep time in ms
 	final int SLEEP_TIME = 500;

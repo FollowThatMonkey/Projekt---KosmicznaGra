@@ -21,6 +21,34 @@ public class Spaceship extends CosmicObjects
 		setType(ObjectType.spaceship);
 	}
 	
+	public void update()
+	{
+
+		if(accelerate)
+		{
+			// movement available only if fuel > 0
+			if(fuel > 0)
+			{
+				fuel -= dConsumption;
+				setXVel(getXVel() + Math.cos(theta) * engineThrust);
+				setYVel(getYVel() - Math.sin(theta) * engineThrust);
+				setMass(getMass() - dConsumption * 10000);
+			}
+			if(fuel < 0)
+				fuel = 0;
+		}
+		
+		if(turnLeft)
+		{
+			theta += Math.PI / 60;
+		}
+
+		if(turnRight)
+		{
+			theta -= Math.PI / 60;
+		}
+	}
+	
 	// draw spaceship to buffImage
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
@@ -38,37 +66,17 @@ public class Spaceship extends CosmicObjects
 	//Movement functions
 	public void moveUp(boolean b)
 	{
-		if(b)
-		{
-			// movement available only if fuel > 0
-			if(fuel > 0)
-			{
-				fuel -= dConsumption;
-				setXVel(getXVel() + Math.cos(theta) * engineThrust);
-				setYVel(getYVel() - Math.sin(theta) * engineThrust);
-				setMass(getMass() - dConsumption * 10000);
-			}
-			if(fuel < 0)
-				fuel = 0;
-		}
+		accelerate = b;
 	}
 	
 	public void rotateLeft(boolean b)
 	{
-		if(b)
-		{
-			theta += Math.PI / 60;
-		}
-			
+		turnLeft = b;	
 	}
 	
 	public void rorateRight(boolean b)
 	{
-		if(b)
-		{
-			theta -= Math.PI / 60;
-		}
-			
+		turnRight = b;
 	}
 
 	//calculates spaceship's speed at the current moment
@@ -99,9 +107,10 @@ public class Spaceship extends CosmicObjects
 	
 	
 	
-	private double engineThrust = 10000;
+	private double engineThrust = 1000 / 2;
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;
 	private double fuel = 100; // Fuel status in %%
 	private double dConsumption;
+	private boolean turnLeft = false, turnRight = false, accelerate = false;
 }
