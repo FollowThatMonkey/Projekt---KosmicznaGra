@@ -2,9 +2,15 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import game.GameLogic;
 import objects.CosmicObjects.ObjectType;
@@ -19,6 +25,31 @@ public class Spaceship extends CosmicObjects
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
 		setType(ObjectType.spaceship);
+		try
+		{
+			onRocket = ImageIO.read(new File("./RakietaOn.png"));
+			offRocket = ImageIO.read(new File("./RakietaOff.png"));
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		resize(rocketWidth, rocketHight);
+	}
+	
+	private void resize(int newWidth, int newHeight)
+	{
+		Image tmp = onRocket.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+		onRocket = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = onRocket.createGraphics();
+		g.drawImage(tmp, 0, 0, null);
+		
+		tmp = offRocket.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+		offRocket = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+		g = offRocket.createGraphics();
+		g.drawImage(tmp, 0, 0, null);
+		g.dispose();
 	}
 	
 	public void update()
@@ -52,6 +83,7 @@ public class Spaceship extends CosmicObjects
 	// draw spaceship to buffImage
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
+		/*
 		BufferedImage tempImage = new BufferedImage((int)logic.getCurrentSize().getWidth(), (int)logic.getCurrentSize().getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = tempImage.createGraphics();
 		g.setColor(Color.WHITE);
@@ -61,6 +93,19 @@ public class Spaceship extends CosmicObjects
 		g.rotate(- (theta - Math.PI / 2), (int)logic.getCurrentSize().getWidth() / 2, (int)logic.getCurrentSize().getHeight() / 2);
 		
 		g2d.drawImage(tempImage, g.getTransform(), null);
+		*/
+		if(accelerate && fuel > 0)
+		{
+			Graphics2D g = onRocket.createGraphics();
+			g.rotate(- (theta - Math.PI / 2), onRocket.getWidth() / 2, onRocket.getHeight() / 2);
+			g2d.drawImage(onRocket, new AffineTransformOp(g.getTransform(), AffineTransformOp.TYPE_BICUBIC), (int)logic.getCurrentSize().getWidth() / 2 + rocketWidth / 2, (int)logic.getCurrentSize().getHeight() / 2 - rocketHight / 2);
+		}
+		else
+		{
+			Graphics2D g = offRocket.createGraphics();
+			g.rotate(- (theta - Math.PI / 2), offRocket.getWidth() / 2, offRocket.getHeight() / 2);
+			g2d.drawImage(offRocket, new AffineTransformOp(g.getTransform(), AffineTransformOp.TYPE_BICUBIC), (int)logic.getCurrentSize().getWidth() / 2 + rocketWidth / 2, (int)logic.getCurrentSize().getHeight() / 2 - rocketHight / 2);
+		}
 	}
 	
 	//Movement functions
@@ -106,11 +151,12 @@ public class Spaceship extends CosmicObjects
 	}
 	
 	
-	
+	private final int rocketWidth = 30, rocketHight = 80;
 	private double engineThrust = 1000 / 2;
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;
 	private double fuel = 100; // Fuel status in %%
 	private double dConsumption;
 	private boolean turnLeft = false, turnRight = false, accelerate = false;
+	private BufferedImage offRocket, onRocket;
 }

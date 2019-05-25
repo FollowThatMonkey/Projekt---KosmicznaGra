@@ -68,14 +68,17 @@ public class GameLogic
 		{
 			objectThreads();
 			ship.update();
+			
+			if(ship.getFuel() == 0)
+				enableGameOverButtons();
+			
 			if(timeLeft == 0)
 				gameOver = true;
 		}
 		else
 		{
 			// To add gameOver things!!
-			rightPanel.getRestartButton().setEnabled(true);
-			rightPanel.getEndButton().setEnabled(true);
+			enableGameOverButtons();
 		}
 		
 	}
@@ -98,6 +101,13 @@ public class GameLogic
 			g2d.drawString("Game Over!", getCurrentSize().width / 2, getCurrentSize().height / 2);
 		}
 		
+	}
+	
+	// enabling restart and end-game buttons
+	public void enableGameOverButtons()
+	{
+		rightPanel.getRestartButton().setEnabled(true);
+		rightPanel.getEndButton().setEnabled(true);
 	}
 	
 	// steering spaceship
