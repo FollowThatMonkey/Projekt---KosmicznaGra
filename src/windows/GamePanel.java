@@ -54,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 		while(running)
 		{
 			start = System.nanoTime();
-			//this.requestFocus();
 			
 			update(); // calculations and stuff
 			draw(); // draw everything to buffImage
@@ -150,6 +149,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, Componen
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// Sets
+	public void setLogic(GameLogic logic) { this.logic = logic; }
+	
+	public void setThread(Thread thread) { this.thread = thread; }
+	
+	public void setRunning(boolean running) { this.running = running; }
+	
+	// Gets
+	public Thread getThread() { return thread; }
 	
 	// Game Thread
 	private Thread thread;

@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -17,7 +18,6 @@ import game.CalculationThread;
 import game.GameLogic;
 import objects.Spaceship;
 import windows.listeners.RestartListener;
-
 import objects.CelestialBody;
 
 // RJ
@@ -33,9 +33,6 @@ public class RightPanel extends JPanel implements Runnable
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setLayout(new FlowLayout(FlowLayout.CENTER));
 		logic.SetClosestBody();
-		
-		int boldTextSize = 17;
-		int textSize = 14;
 		
 		timeSlider = setTimeSlider(logic);
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
@@ -55,7 +52,7 @@ public class RightPanel extends JPanel implements Runnable
 			}
 		});
 		
-		restartButton.addActionListener(new RestartListener(logic, frame));
+		restartButton.addActionListener(new RestartListener(logic));
 		
 		add(setColorButton(frame.upperPanel, this));
 		add(setLabel(windowBundle.getString("timeScale"), textSize));
@@ -73,13 +70,17 @@ public class RightPanel extends JPanel implements Runnable
 		add(restartButton);
 		add(endButton);
 		
-		new Thread(this).start();
-	}
+		if(thread == null)
+		{
+			thread = new Thread(this);
+			thread.start();	
+		}
+	}	
 	
 	@Override
 	public void run()
 	{
-		while(true)
+		while(!logic.getGameOver())
 		{
 			fuelStat.setText(String.format("%.2f", logic.getShip().getFuel()) + "%");
 			massStat.setText(String.format("%.2f", logic.getShip().getMass()) + " kg");
@@ -179,6 +180,17 @@ public class RightPanel extends JPanel implements Runnable
 	
 	public JButton getRestartButton() { return restartButton; }
 	
+	public Thread getThread() { return thread; }
+	
+	public JSlider getTimeSlider() { return timeSlider; }
+	
+	public TimeLabel getTimeStat() { return timeStat; }
+	
+	// Sets
+	public void setLogic(GameLogic logic) { this.logic = logic; }
+	
+	public void setThread(Thread thread) { this.thread = thread; }
+	
 	private MainFrame frame;
 	private GameLogic logic;
 	private JSlider timeSlider;
@@ -186,6 +198,11 @@ public class RightPanel extends JPanel implements Runnable
 	private TimeLabel timeStat;
 	private JButton restartButton, endButton;
 	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows/WindowBundle", Locale.getDefault());
+	private Thread thread = null;
 	// Sleep time in ms
 	final int SLEEP_TIME = 500;
+	
+	// Some global vars
+	public final int boldTextSize = 17;
+	public final int textSize = 14;
 }

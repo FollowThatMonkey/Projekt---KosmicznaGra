@@ -27,13 +27,12 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 		ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
 		setTitle(windowBundle.getString("title"));
 		setLayout(new BorderLayout());
+		logic.setMainFrame(this);
 		
 		// Here to add Panels!
-		upperPanel = new UpperPanel(logic.getShip());
+		upperPanel = new UpperPanel(logic);
 		rightPanel = new RightPanel(logic, this);
 		gamePanel = new GamePanel(logic);
-
-		logic.setRightPanel(rightPanel);
 		
 		add(upperPanel, BorderLayout.PAGE_START);
 		add(rightPanel, BorderLayout.LINE_END);
@@ -103,7 +102,12 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 		
 	}
 	
-	public RightPanel getRightPanel() {return rightPanel;}
+	// Essential gets'
+	public RightPanel getRightPanel() { return rightPanel; }
+	
+	public UpperPanel getUpperPanel() { return upperPanel; }
+	
+	public GamePanel getGamePanel() { return gamePanel; }
 	
 	UpperPanel upperPanel;
 	RightPanel rightPanel;

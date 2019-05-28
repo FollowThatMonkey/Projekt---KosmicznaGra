@@ -22,13 +22,17 @@ public class TimeLabel extends JLabel implements Runnable
 		setVerticalTextPosition(JLabel.TOP);
 		setVerticalAlignment(JLabel.TOP);
 		
-		new Thread(this).start();
+		if(thread == null)
+		{
+			thread = new Thread(this);
+			thread.start();
+		}
 	}
 	
 	@Override
 	public void run()
 	{
-		if(logic.getTimeLeft() >= 0)
+		if(logic.getTimeLeft() >= 0 && !logic.getGameOver())
 		{
 			while(logic.getTimeLeft() > 0)
 			{
@@ -52,6 +56,15 @@ public class TimeLabel extends JLabel implements Runnable
 		}
 	}
 	
-	ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
-	GameLogic logic;
+	// Gets
+	public Thread getThread() { return thread; }
+	
+	// Sets
+	public void setThread(Thread thread) { this.thread = thread; }
+	
+	public void setLogic(GameLogic logic) { this.logic = logic; }
+	
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
+	private GameLogic logic;
+	private Thread thread = null;
 }

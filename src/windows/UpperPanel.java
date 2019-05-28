@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import game.GameLogic;
 import objects.Spaceship;
 
 // ZL
@@ -15,27 +16,31 @@ import objects.Spaceship;
 public class UpperPanel extends JPanel implements Runnable
 {
 
-	public UpperPanel(Spaceship spaceship) 
+	public UpperPanel(GameLogic logic) 
 	{
-		ship = spaceship;
-		JLabel shipName = new JLabel(windowBundle.getString("shipNameString")+ " " + spaceship.getName(), SwingConstants.CENTER);
+		this.logic = logic;
+		shipName = new JLabel(windowBundle.getString("shipNameString")+ " " + logic.getShip().getName(), SwingConstants.CENTER);
 		//shows the spaceship's name
-		shipVelocity = new JLabel(String.format(windowBundle.getString("shipSpeed") + " %.2f km/s", spaceship.speed()), SwingConstants.CENTER);
+		shipVelocity = new JLabel(String.format(windowBundle.getString("shipSpeed") + " %.2f km/s", logic.getShip().speed()), SwingConstants.CENTER);
 		//shows current spaceship's speed
 		setLayout(new GridLayout(2, 1));
 		add(shipName);
 		add(shipVelocity);
 		
 		// Showing current velocity thread
-		new Thread(this).start();
+		if(thread == null)
+		{
+			thread = new Thread(this);
+			thread.start();	
+		}
 	}
 	
 	@Override
 	public void run()
 	{
-		while(true)
+		while(!logic.getGameOver())
 		{
-			shipVelocity.setText(String.format(windowBundle.getString("shipSpeed") + " %.2f km/s", ship.speed()));
+			shipVelocity.setText(String.format(windowBundle.getString("shipSpeed") + " %.2f km/s", logic.getShip().speed()));
 			try
 			{
 				Thread.sleep(SLEEP_TIME);
@@ -47,9 +52,23 @@ public class UpperPanel extends JPanel implements Runnable
 		}
 	}
 	
+	// Gets
+	public JLabel getShipNameLabel() { return shipName; }
+	
+	public Thread getThread() { return thread; }
+	
+	public ResourceBundle getWindowBundle() { return windowBundle; }
+	
+	// Sets
+	public void setLogic(GameLogic logic) { this.logic = logic; }
+	
+	public void setThread(Thread thread) { this.thread = thread; }
+	
 	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle");
 	private JLabel shipVelocity;
-	private Spaceship ship;
+	private GameLogic logic;
+	private JLabel shipName;
+	private Thread thread = null;
 	// Sleep time in ms
 	final int SLEEP_TIME = 500;
 }

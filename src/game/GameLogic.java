@@ -31,6 +31,20 @@ public class GameLogic
 		background = new Background(backgroundColor);
 	}
 	
+	public GameLogic(MainFrame frame)
+	{
+		// Links old window with new GameLogic
+		this.frame = frame;
+		
+		gameOver = true;
+		
+		// initialize ship and stuff
+		ship = new Spaceship("", 3000000, 0, 0, 10, 40, 0.008);
+		
+		// Setting background
+		background = new Background(backgroundColor);
+	}
+	
 	// making threads
 	private void objectThreads()
 	{
@@ -70,7 +84,7 @@ public class GameLogic
 			ship.update();
 			
 			if(ship.getFuel() == 0)
-				enableGameOverButtons();
+				enableGameOverButtons(true);
 			
 			if(timeLeft == 0)
 				gameOver = true;
@@ -78,7 +92,7 @@ public class GameLogic
 		else
 		{
 			// To add gameOver things!!
-			enableGameOverButtons();
+			enableGameOverButtons(true);
 		}
 		
 	}
@@ -114,29 +128,11 @@ public class GameLogic
 				closestBody = planetarySystem.get(i);
 	}
 	
-	// change scale dynamically
-	/*
-	private void changeScale()
-	{
-		double currentDistance = Math.sqrt( Math.pow(planetarySystem.get(0).getXPos() - ship.getXPos(), 2) + Math.pow(planetarySystem.get(0).getYPos() - ship.getYPos(), 2) );
-		for(int i = 1; i < planetarySystem.size(); i++)
-		{
-			double tempDistance = Math.sqrt( Math.pow(planetarySystem.get(i).getXPos() - ship.getXPos(), 2) + Math.pow(planetarySystem.get(i).getYPos() - ship.getYPos(), 2) );
-			if(tempDistance < currentDistance)
-				currentDistance = tempDistance;
-		}
-		if(currentDistance < finalDisntace && currentDistance > minDistance)
-		{
-			scale = (long) ((maxScale - minScale) / (finalDisntace - minDistance) * currentDistance + (maxScale - (maxScale - minScale) / (finalDisntace - minDistance) * finalDisntace));
-		}
-	}
-	*/
-	
 	// enabling restart and end-game buttons
-	public void enableGameOverButtons()
+	public void enableGameOverButtons(boolean enable)
 	{
-		rightPanel.getRestartButton().setEnabled(true);
-		rightPanel.getEndButton().setEnabled(true);
+		frame.getRightPanel().getRestartButton().setEnabled(enable);
+		frame.getRightPanel().getEndButton().setEnabled(enable);
 	}
 	
 	// steering spaceship
@@ -182,6 +178,8 @@ public class GameLogic
 	
 	public CelestialBody getClosestBody() { return closestBody; }
 	
+	public MainFrame getMainFrame() { return frame; }
+	
 	// Sets
 	public void setDT(int newDT) { dt = newDT; }
 	
@@ -193,14 +191,14 @@ public class GameLogic
 	
 	public void setScale(int scale) { this.scale = scale; }
 	
-	public void setRightPanel(RightPanel rightPanel) { if(this.rightPanel == null) this.rightPanel = rightPanel; }
+	public void setGameOver(boolean newGameOver) { gameOver = newGameOver; }
 	
-	public void setGameOver(boolean newGameOver) {gameOver = newGameOver;}
+	public void setMainFrame(MainFrame frame) { if(this.frame == null) this.frame = frame; }
 	
 	private Background background;
 	private Dimension size;
-	//private long scale = 50000000L;
-	private long scale = 50L;
+	private long scale = 50000000L;
+	//private long scale = 50L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
@@ -211,8 +209,9 @@ public class GameLogic
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false;
-	private RightPanel rightPanel = null;
 	private CelestialBody closestBody = null;
+	
+	private MainFrame frame = null;
 	
 	// Global constants
 	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;

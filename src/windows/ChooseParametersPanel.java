@@ -16,11 +16,14 @@ import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import game.GameLogic;
 import objects.CelestialBody;
+import windows.listeners.RestartListener;
 
 //Z
 public class ChooseParametersPanel extends JPanel
@@ -191,7 +194,55 @@ public class ChooseParametersPanel extends JPanel
 						parametersFrame.dispose();
 						if (logic.getGameOver()) //restart game
 						{
+							// waiting for thread to finish -- stopping thread
+							logic.getMainFrame().getGamePanel().setRunning(false);
+							try
+							{
+								logic.getMainFrame().getUpperPanel().getThread().join();
+								logic.getMainFrame().getRightPanel().getThread().join();
+								logic.getMainFrame().getGamePanel().getThread().join();
+								logic.getMainFrame().getRightPanel().getTimeStat().getThread().join();
+							} catch (InterruptedException e1)
+							{
+								e1.printStackTrace();
+							}
+							logic.getMainFrame().getGamePanel().setRunning(true);
+							
+							// assigning new logic
+							logic.getMainFrame().getUpperPanel().setLogic(logic);
+							logic.getMainFrame().getRightPanel().setLogic(logic);
+							logic.getMainFrame().getGamePanel().setLogic(logic);
+							logic.getMainFrame().getRightPanel().getTimeStat().setLogic(logic);
+							logic.SetClosestBody();
+							logic.getMainFrame().getRightPanel().getTimeSlider().removeChangeListener(logic.getMainFrame().getRightPanel().getTimeSlider().getChangeListeners()[logic.getMainFrame().getRightPanel().getTimeSlider().getChangeListeners().length - 1]);
+							logic.getMainFrame().getRightPanel().getTimeSlider().addChangeListener(new ChangeListener()
+							{
+								@Override
+								public void stateChanged(ChangeEvent e) 
+								{
+									logic.setDT(logic.initDT + logic.getMainFrame().getRightPanel().getTimeSlider().getValue());
+									logic.getMainFrame().gamePanel.requestFocus();
+								}
+							});
 							logic.setGameOver(false);
+
+							// making new threads in gamePanel
+							logic.getMainFrame().getUpperPanel().setThread(new Thread(logic.getMainFrame().getUpperPanel()));
+							logic.getMainFrame().getRightPanel().setThread(new Thread(logic.getMainFrame().getRightPanel()));
+							logic.getMainFrame().getGamePanel().setThread(new Thread(logic.getMainFrame().getGamePanel()));
+							logic.getMainFrame().getRightPanel().getTimeStat().setThread(new Thread(logic.getMainFrame().getRightPanel().getTimeStat()));
+							
+							 // restarting panels' threads
+							logic.getMainFrame().getUpperPanel().getShipNameLabel().setText(logic.getMainFrame().getUpperPanel().getWindowBundle().getString("shipNameString")+ " " + logic.getShip().getName());
+							logic.getMainFrame().getRightPanel().getRestartButton().removeActionListener(logic.getMainFrame().getRightPanel().getRestartButton().getActionListeners()[logic.getMainFrame().getRightPanel().getRestartButton().getActionListeners().length - 1]);;
+							logic.getMainFrame().getRightPanel().getRestartButton().addActionListener(new RestartListener(logic));
+							logic.getMainFrame().getGamePanel().getThread().start();
+							logic.getMainFrame().getUpperPanel().getThread().start();
+							logic.getMainFrame().getRightPanel().getThread().start();
+							logic.getMainFrame().getRightPanel().getTimeStat().getThread().start();
+							
+							// disabling restart and end buttons
+							logic.enableGameOverButtons(false);
 						}
 						else //start game
 						{
