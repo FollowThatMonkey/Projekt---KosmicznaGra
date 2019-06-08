@@ -80,6 +80,7 @@ public class RightPanel extends JPanel implements Runnable
 	@Override
 	public void run()
 	{
+		logic.SetClosestBody();
 		while(!logic.getGameOver())
 		{
 			fuelStat.setText(String.format("%.2f", logic.getShip().getFuel()) + "%");

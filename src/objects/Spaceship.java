@@ -1,21 +1,15 @@
 package objects;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RadialGradientPaint;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import game.GameLogic;
-import objects.CosmicObjects.ObjectType;
 
 // ZL
 
@@ -29,9 +23,9 @@ public class Spaceship extends CosmicObjects
 		setType(ObjectType.spaceship);
 		try
 		{
-			onRocket = ImageIO.read(new File("./RakietaOn.png"));
-			offRocket = ImageIO.read(new File("./RakietaOff.png"));
-			arrowImg = ImageIO.read(new File("./Arrow.png"));
+			onRocket = ImageIO.read(new File("RakietaOn.png"));
+			offRocket = ImageIO.read(new File("RakietaOff.png"));
+			arrowImg = ImageIO.read(new File("Arrow.png"));
 		}
 		catch(IOException e)
 		{

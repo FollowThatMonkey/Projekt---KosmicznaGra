@@ -21,7 +21,7 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 	public MainFrame(GameLogic logic) 
 	{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(800, 600);
+		setSize(800, 720);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null); //centering 
 		ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());

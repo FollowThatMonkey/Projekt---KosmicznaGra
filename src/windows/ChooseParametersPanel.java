@@ -213,7 +213,6 @@ public class ChooseParametersPanel extends JPanel
 							logic.getMainFrame().getRightPanel().setLogic(logic);
 							logic.getMainFrame().getGamePanel().setLogic(logic);
 							logic.getMainFrame().getRightPanel().getTimeStat().setLogic(logic);
-							logic.SetClosestBody();
 							logic.getMainFrame().getRightPanel().getTimeSlider().removeChangeListener(logic.getMainFrame().getRightPanel().getTimeSlider().getChangeListeners()[logic.getMainFrame().getRightPanel().getTimeSlider().getChangeListeners().length - 1]);
 							logic.getMainFrame().getRightPanel().getTimeSlider().addChangeListener(new ChangeListener()
 							{

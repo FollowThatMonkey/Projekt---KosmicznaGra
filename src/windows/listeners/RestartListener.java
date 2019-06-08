@@ -19,7 +19,6 @@ public class RestartListener implements ActionListener
 		logic.setGameOver(true);
 		// opening parametersFrame and creating new GameLogic with linked MainFrame
 		ParametersFrame parametersFrame = new ParametersFrame(new GameLogic(logic.getMainFrame()));
-		System.out.println(logic);
 	}
 	
 	GameLogic logic;
