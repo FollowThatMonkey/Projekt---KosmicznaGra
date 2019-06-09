@@ -2,6 +2,7 @@ package windows;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -204,7 +205,12 @@ public class ChooseParametersPanel extends JPanel
 								logic.getMainFrame().getRightPanel().getTimeStat().getThread().join();
 							} catch (InterruptedException e1)
 							{
-								e1.printStackTrace();
+								//fatal error, exit
+								JOptionPane.showMessageDialog(null,
+										parametersBundle.getString("errorClose"),
+									    parametersBundle.getString("errorTitle"),
+									    JOptionPane.ERROR_MESSAGE);
+								System.exit(1);
 							}
 							logic.getMainFrame().getGamePanel().setRunning(true);
 							
@@ -330,7 +336,11 @@ public class ChooseParametersPanel extends JPanel
 				double xVelocity = Double.parseDouble(tempSplited[3]);
 				double yVelocity = Double.parseDouble(tempSplited[4]);
 				double radius = Double.parseDouble(tempSplited[5]);
-				CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity, radius);
+				int R = Integer.parseInt(tempSplited[6]);
+				int G = Integer.parseInt(tempSplited[7]);
+				int B = Integer.parseInt(tempSplited[8]);
+				Color color = new Color(R, G, B);
+				CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity, radius, color);
 				logic.getPlanetarySystem().add(celestialBody);
 			}
 			br.close();
@@ -381,7 +391,7 @@ public class ChooseParametersPanel extends JPanel
 	private int shipOption = 0;
 	private String systemOptions[] = {"system1.txt", "system2.txt", "system3.txt", "system4.txt"};
 	private String shipOptions[] = {"ship1.txt", "ship2.txt", "ship3.txt", "ship4.txt", "ship5.txt"};
-	private ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
+	private ResourceBundle parametersBundle = ResourceBundle.getBundle("bundles.ParametersBundle");
 	private JComboBox<String> timeUnitsList;
 	private JTextField timeLimitField;
 	private JCheckBox unlimitedTime;

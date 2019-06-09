@@ -39,6 +39,6 @@ public class ParametersFrame extends JFrame
 		setVisible(true);
 	}
 
-	ResourceBundle parametersBundle = ResourceBundle.getBundle("windows.ParametersBundle");
+	ResourceBundle parametersBundle = ResourceBundle.getBundle("bundles.ParametersBundle");
 	JPanel cardPanel;
 }

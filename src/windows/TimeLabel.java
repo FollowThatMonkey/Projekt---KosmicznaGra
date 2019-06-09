@@ -64,7 +64,7 @@ public class TimeLabel extends JLabel implements Runnable
 	
 	public void setLogic(GameLogic logic) { this.logic = logic; }
 	
-	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles.WindowBundle", Locale.getDefault());
 	private GameLogic logic;
 	private Thread thread = null;
 }

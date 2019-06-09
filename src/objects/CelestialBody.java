@@ -10,10 +10,11 @@ import game.GameLogic;
 public class CelestialBody extends CosmicObjects 
 {
 
-	public CelestialBody(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double rad) 
+	public CelestialBody(String nn, double mm, double xPos, double yPos, double xVel, double yVel, double rad, Color col) 
 	{
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		radius = rad;
+		color = col;
 		setType(ObjectType.celestialBody);
 	}
 	
@@ -32,4 +33,5 @@ public class CelestialBody extends CosmicObjects
 	}
 	
 	double radius;
+	Color color;
 }

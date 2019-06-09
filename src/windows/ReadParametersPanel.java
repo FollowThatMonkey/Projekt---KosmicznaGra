@@ -2,6 +2,7 @@ package windows;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -79,7 +80,12 @@ public class ReadParametersPanel extends JPanel
 						logic.getMainFrame().getRightPanel().getTimeStat().getThread().join();
 					} catch (InterruptedException e1)
 					{
-						e1.printStackTrace();
+						//fatal error, exit
+						JOptionPane.showMessageDialog(null,
+								parametersFrame.parametersBundle.getString("errorClose"),
+							    parametersFrame.parametersBundle.getString("errorTitle"),
+							    JOptionPane.ERROR_MESSAGE);
+						System.exit(1);
 					}
 					logic.getMainFrame().getGamePanel().setRunning(true);
 					
@@ -232,7 +238,11 @@ public class ReadParametersPanel extends JPanel
 			xVelocity = Double.parseDouble(tempSplited[3]);
 			yVelocity = Double.parseDouble(tempSplited[4]);
 			double radius = Double.parseDouble(tempSplited[5]);
-			CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity, radius);
+			int R = Integer.parseInt(tempSplited[6]);
+			int G = Integer.parseInt(tempSplited[7]);
+			int B = Integer.parseInt(tempSplited[8]);
+			Color color = new Color(R, G, B);
+			CelestialBody celestialBody = new CelestialBody(name, mass, xPosition, yPosition, xVelocity, yVelocity, radius, color);
 			logic.getPlanetarySystem().add(celestialBody);
 		}
 		br.close();

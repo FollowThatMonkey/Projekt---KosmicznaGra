@@ -228,7 +228,7 @@ public class RightPanel extends JPanel implements Runnable
 	private JLabel fuelStat, massStat, posStat, velStat;
 	private TimeLabel timeStat;
 	private JButton restartButton, endButton;
-	private ResourceBundle windowBundle = ResourceBundle.getBundle("windows/WindowBundle", Locale.getDefault());
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles.WindowBundle", Locale.getDefault());
 	private Thread thread = null;
 	// Sleep time in ms
 	final int SLEEP_TIME = 500;
