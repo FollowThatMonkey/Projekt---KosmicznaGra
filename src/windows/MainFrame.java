@@ -21,7 +21,7 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 	public MainFrame(GameLogic logic) 
 	{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(800, 720);
+		setSize(800, 600);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null); //centering 
 		ResourceBundle windowBundle = ResourceBundle.getBundle("windows.WindowBundle", Locale.getDefault());
@@ -40,6 +40,8 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 
 		addComponentListener(this);
 		addMouseListener(this);
+		
+		pack();
 		setVisible(true);
 	}
 
@@ -122,8 +124,6 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 
 			public void run() 
 			{
-				//MainFrame frame = new MainFrame(logic);
-				//logic.setRightPanel(frame.rightPanel);
 				LanguageFrame languageFrame = new LanguageFrame(logic);
 			}
 		});
