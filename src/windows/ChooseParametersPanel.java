@@ -52,7 +52,9 @@ public class ChooseParametersPanel extends JPanel
 			}
 		};
 		shipNameField.addKeyListener(shipNameListener);
-		shipNamePanel.add(shipNameField, BorderLayout.PAGE_END);
+		JPanel nameFieldPanel = new JPanel(new BorderLayout()); 
+		nameFieldPanel.add(shipNameField, BorderLayout.PAGE_START);
+		shipNamePanel.add(nameFieldPanel, BorderLayout.CENTER);
 		choosePanel.add(shipNamePanel);
 		//ship name block /end/
 		
@@ -63,7 +65,7 @@ public class ChooseParametersPanel extends JPanel
 		//JList
 		String ships[] = parametersBundle.getString("ships").split(","); //possible options
 		JList<String> shipList = new JList<String>(ships);
-		shipList.setVisibleRowCount(3);
+		shipList.setVisibleRowCount(2);
 		shipList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // blocks selecting more than one item
 		shipList.setSelectedIndex(0); // selects default item
 		shipList.addListSelectionListener(new ListSelectionListener()
@@ -87,7 +89,7 @@ public class ChooseParametersPanel extends JPanel
 		//JList
 		String systems[] = parametersBundle.getString("systems").split(","); //possible options
 		JList<String> systemList = new JList<String>(systems);
-		systemList.setVisibleRowCount(3);
+		systemList.setVisibleRowCount(2);
 		systemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // blocks selecting more than one item
 		systemList.setSelectedIndex(0); // selects default item
 		systemList.addListSelectionListener(new ListSelectionListener()

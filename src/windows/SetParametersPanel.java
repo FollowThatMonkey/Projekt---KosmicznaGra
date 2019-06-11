@@ -45,7 +45,7 @@ public class SetParametersPanel extends JPanel
 					parametersFrame.setTitle(parametersFrame.parametersBundle.getString("readTitle"));
 				}
 				if(e.getActionCommand() == "choose")
-					parametersFrame.setSize(350, 400);
+					parametersFrame.setSize(350, 300);
 			}
 				
 		}
