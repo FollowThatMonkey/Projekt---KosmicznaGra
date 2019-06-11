@@ -393,7 +393,7 @@ public class ChooseParametersPanel extends JPanel
 	private int shipOption = 0;
 	private String systemOptions[] = {"system1.txt", "system2.txt", "system3.txt", "system4.txt"};
 	private String shipOptions[] = {"ship1.txt", "ship2.txt", "ship3.txt", "ship4.txt", "ship5.txt"};
-	private ResourceBundle parametersBundle = ResourceBundle.getBundle("bundles.ParametersBundle");
+	private ResourceBundle parametersBundle = ResourceBundle.getBundle("bundles/ParametersBundle");
 	private JComboBox<String> timeUnitsList;
 	private JTextField timeLimitField;
 	private JCheckBox unlimitedTime;
