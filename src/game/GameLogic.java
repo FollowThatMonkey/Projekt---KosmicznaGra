@@ -139,8 +139,8 @@ public class GameLogic
 		{
 			// 1/5 - one real sec == 45 game sec
 			rocketDist = Fractions.one;
-			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - (45 * SECOND / 60)));
-			frame.getRightPanel().getTimeSlider().setMaximum(-(initDT - (45 * SECOND / 60)));
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - (2 * MINUTE / 60)));
+			frame.getRightPanel().getTimeSlider().setMaximum(-(initDT - (2 * MINUTE / 60)));
 		}
 		if(getClosestBodyDistance() <= 2 * initDistnace / 4 && getClosestBodyDistance() > initDistnace / 4 && rocketDist != Fractions.two)
 		{

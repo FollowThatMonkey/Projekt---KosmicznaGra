@@ -55,46 +55,46 @@ public class RightPanel extends JPanel implements Runnable
 		
 		restartButton.addActionListener(new RestartListener(logic));
 		
-		JPanel upPanel = new JPanel(new BorderLayout());
+		upPanel = new JPanel(new BorderLayout());
 		upPanel.add(setLabel(windowBundle.getString("timeScale"), textSize), BorderLayout.PAGE_START);
 		upPanel.add(timeSlider, BorderLayout.CENTER);
 		add(upPanel, BorderLayout.PAGE_START);
 		
-		JPanel statsPanel = new JPanel();
+		statsPanel = new JPanel();
 		statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
 		
-		JPanel fuelPanel = new JPanel(new BorderLayout());
+		fuelPanel = new JPanel(new BorderLayout());
 		fuelPanel.add(setLabel(windowBundle.getString("fuel"), textSize), BorderLayout.PAGE_START);
 		fuelPanel.add(fuelStat, BorderLayout.CENTER);
 		statsPanel.add(fuelPanel);
 		
-		JPanel massPanel = new JPanel(new BorderLayout());
+		massPanel = new JPanel(new BorderLayout());
 		massPanel.add(setLabel(windowBundle.getString("mass"), textSize), BorderLayout.PAGE_START);
 		massPanel.add(massStat, BorderLayout.CENTER);
 		statsPanel.add(massPanel);
 		
-		JPanel timePanel = new JPanel(new BorderLayout());
+		timePanel = new JPanel(new BorderLayout());
 		timePanel.add(setLabel(windowBundle.getString("timeLeft"), textSize), BorderLayout.PAGE_START);
 		timePanel.add(timeStat, BorderLayout.CENTER);
 		statsPanel.add(timePanel);
 		
-		JPanel relativeStatsPanel = new JPanel();
+		relativeStatsPanel = new JPanel();
 		relativeStatsPanel.add(new JLabel(windowBundle.getString("relative")));
 		statsPanel.add(relativeStatsPanel);
 		
-		JPanel distPanel = new JPanel(new BorderLayout());
+		distPanel = new JPanel(new BorderLayout());
 		distPanel.add(setLabel(windowBundle.getString("relativeDistance"), textSize), BorderLayout.PAGE_START);
 		distPanel.add(posStat, BorderLayout.CENTER);
 		statsPanel.add(distPanel);
 		
-		JPanel velPanel = new JPanel(new BorderLayout());
+		velPanel = new JPanel(new BorderLayout());
 		velPanel.add(setLabel(windowBundle.getString("relativeVelocity"), textSize), BorderLayout.PAGE_START);
 		velPanel.add(velStat, BorderLayout.CENTER);
 		statsPanel.add(velPanel);
 		
 		add(statsPanel, BorderLayout.CENTER);
 		
-		JPanel buttonsPanel = new JPanel(new BorderLayout());
+		buttonsPanel = new JPanel(new BorderLayout());
 		buttonsPanel.add(setColorButton(frame.upperPanel, this), BorderLayout.PAGE_START);
 		buttonsPanel.add(restartButton, BorderLayout.CENTER);
 		buttonsPanel.add(endButton, BorderLayout.PAGE_END);
@@ -172,6 +172,17 @@ public class RightPanel extends JPanel implements Runnable
 				upperPanel.setBackground(bgColor);
 				rightPanel.setBackground(bgColor);
 				rightPanel.timeSlider.setBackground(bgColor);
+				//chaning color in all the subpanels
+				upPanel.setBackground(bgColor);
+				statsPanel.setBackground(bgColor);
+				fuelPanel.setBackground(bgColor);
+				massPanel.setBackground(bgColor);
+				timePanel.setBackground(bgColor);
+				relativeStatsPanel.setBackground(bgColor);
+				distPanel.setBackground(bgColor);
+				velPanel.setBackground(bgColor);
+				buttonsPanel.setBackground(bgColor);
+				
 				frame.gamePanel.requestFocus();
 			}
 		});
@@ -234,4 +245,15 @@ public class RightPanel extends JPanel implements Runnable
 	// Some global vars
 	public final int boldTextSize = 17;
 	public final int textSize = 14;
+	
+	//subpanels for fixing display issues
+	private JPanel upPanel;
+	private JPanel statsPanel;
+	private JPanel fuelPanel;
+	private JPanel massPanel;
+	private JPanel timePanel;
+	private JPanel relativeStatsPanel;
+	private JPanel distPanel;
+	private JPanel velPanel;
+	private JPanel buttonsPanel;
 }
