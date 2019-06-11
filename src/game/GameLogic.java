@@ -128,37 +128,47 @@ public class GameLogic
 			g2d.setColor(Color.WHITE);
 			g2d.drawString(frame.windowBundle.getString("success"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
 		}
-		
 	}
 	
 	// dynamically changes scale to make navigation easier
 	private void setScale()
 	{
-		if(getClosestBodyDistance() <= initDistnace / 4 && rocketDist != CurrDist.one)
+		// set timeScale according to the distance to the
+		// closest body - 5 areas
+		if(getClosestBodyDistance() <= initDistnace / 4 && rocketDist != Fractions.one)
 		{
-			rocketDist = CurrDist.one;
-			setDT(45 * SECOND / 60);
-			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
+			// 1/5 - one real sec == 45 game sec
+			rocketDist = Fractions.one;
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - (45 * SECOND / 60)));
+			frame.getRightPanel().getTimeSlider().setMaximum(-(initDT - (45 * SECOND / 60)));
 		}
-		if(getClosestBodyDistance() <= 2 * initDistnace / 4 && getClosestBodyDistance() > initDistnace / 4 && rocketDist != CurrDist.two)
+		if(getClosestBodyDistance() <= 2 * initDistnace / 4 && getClosestBodyDistance() > initDistnace / 4 && rocketDist != Fractions.two)
 		{
-			rocketDist = CurrDist.two;
-			setDT(30 * MINUTE / 60);
-			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
-			
+			// 1/5 - one real sec == 5 game min
+			rocketDist = Fractions.two;
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - (5 * MINUTE / 60)));
+			frame.getRightPanel().getTimeSlider().setMaximum(-(initDT - (5 * MINUTE / 60)));
 		}
-		if(getClosestBodyDistance() <= 3 * initDistnace / 4 && getClosestBodyDistance() > 2 * initDistnace / 4 && rocketDist != CurrDist.three)
+		if(getClosestBodyDistance() <= 3 * initDistnace / 4 && getClosestBodyDistance() > 2 * initDistnace / 4 && rocketDist != Fractions.three)
 		{
-			rocketDist = CurrDist.three;
-			setDT(HOUR / 60);
-			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
-			
+			// 1/5 - one real sec == 45 game min
+			rocketDist = Fractions.three;
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - (45 * MINUTE / 60)));
+			frame.getRightPanel().getTimeSlider().setMaximum(-(initDT - (45 * MINUTE / 60)));
 		}
-		if(getClosestBodyDistance() > 4 * initDistnace / 4 && rocketDist != CurrDist.four)
+		if(getClosestBodyDistance() <= 4 * initDistnace / 4 && getClosestBodyDistance() > 3 * initDistnace / 4 && rocketDist != Fractions.four)
 		{
-			rocketDist = CurrDist.four;
-			setDT(2 * HOUR / 60);
-			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
+			// 1/5 - one real sec == 1 game hour
+			rocketDist = Fractions.four;
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - (HOUR / 60)));
+			frame.getRightPanel().getTimeSlider().setMaximum(-(initDT - (HOUR / 60)));
+		}
+		if(getClosestBodyDistance() > 4 * initDistnace / 4 && rocketDist != Fractions.five)
+		{
+			// 1/5 - one real sec == two game hour
+			rocketDist = Fractions.five;
+			frame.getRightPanel().getTimeSlider().setValue(0);
+			frame.getRightPanel().getTimeSlider().setMaximum(0);
 		}
 	}
 	
@@ -273,8 +283,8 @@ public class GameLogic
 	private Background background;
 	private Dimension size;
 	//private final long initScale = 50000000L; 
+	//private long scale = 10L;
 	private long scale = 50000000L;
-	//private long scale = 50L;
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;
@@ -285,27 +295,13 @@ public class GameLogic
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
 	private boolean gameOver = false, success = false;
 	private CelestialBody closestBody = null;
-	private final double initDistnace = 3.441e10, halfDistance = initDistnace / 2, thirdDistance = initDistnace / 3, fourthDistance = initDistnace / 4, fifthDistance = initDistnace / 5;
-	private CurrDist rocketDist = CurrDist.ten;
+	private final double initDistnace = 3.441e10;
+	private Fractions rocketDist = Fractions.five;
 	
 	private MainFrame frame = null;
 	// Global constants
 	public static final int SECOND = 1, MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
-	
-	// how close to the closest body is currently the ship
-	// where each numeral means a fraction of initDistance
-	// ten means >= initDistance
-	private enum CurrDist
-	{
-		one, // 1/10 of initDist
-		two, // 2/10 of initDist
-		three, // 3/10 of initDist
-		four,
-		five,
-		six,
-		seven,
-		eight,
-		nine,
-		ten
-	}
+		
+	// enum to tell in what fraction of initDist is currently rocket
+	enum Fractions { one, two, three, four, five }
 }
