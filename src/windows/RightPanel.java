@@ -80,6 +80,10 @@ public class RightPanel extends JPanel implements Runnable
 		timePanel.add(timeStat, BorderLayout.CENTER);
 		statsPanel.add(timePanel);
 		
+		JPanel relativeStatsPanel = new JPanel();
+		relativeStatsPanel.add(new JLabel(windowBundle.getString("relative")));
+		statsPanel.add(relativeStatsPanel);
+		
 		JPanel distPanel = new JPanel(new BorderLayout());
 		distPanel.add(setLabel(windowBundle.getString("relativeDistance"), textSize), BorderLayout.PAGE_START);
 		distPanel.add(posStat, BorderLayout.CENTER);
@@ -93,13 +97,9 @@ public class RightPanel extends JPanel implements Runnable
 		add(statsPanel, BorderLayout.CENTER);
 		
 		JPanel buttonsPanel = new JPanel(new BorderLayout());
-		JPanel colorButtonPanel = new JPanel();
-		colorButtonPanel.add(setColorButton(frame.upperPanel, this));
-		buttonsPanel.add(colorButtonPanel, BorderLayout.PAGE_START);
-		JPanel gameButtonsPanel = new JPanel();
-		gameButtonsPanel.add(restartButton);
-		gameButtonsPanel.add(endButton);
-		buttonsPanel.add(gameButtonsPanel, BorderLayout.CENTER);
+		buttonsPanel.add(setColorButton(frame.upperPanel, this), BorderLayout.PAGE_START);
+		buttonsPanel.add(restartButton, BorderLayout.CENTER);
+		buttonsPanel.add(endButton, BorderLayout.PAGE_END);
 		add(buttonsPanel, BorderLayout.PAGE_END);
 		
 		if(thread == null)

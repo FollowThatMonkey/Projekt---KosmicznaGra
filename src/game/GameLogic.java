@@ -7,7 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
@@ -113,7 +115,7 @@ public class GameLogic
 		{
 			background.draw(g2d);
 			g2d.setColor(Color.WHITE);
-			g2d.drawString("Game Over!", getCurrentSize().width / 2, getCurrentSize().height / 2);
+			g2d.drawString(windowBundle.getString("gameOver"), getCurrentSize().width / 2, getCurrentSize().height / 2);
 		}
 		
 	}
@@ -212,7 +214,7 @@ public class GameLogic
 	private CelestialBody closestBody = null;
 	
 	private MainFrame frame = null;
-	
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles.WindowBundle", Locale.getDefault());
 	// Global constants
 	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 }
