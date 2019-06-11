@@ -24,7 +24,6 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 		setSize(800, 600);
 		setMinimumSize(getSize());
 		setLocationRelativeTo(null); //centering 
-		ResourceBundle windowBundle = ResourceBundle.getBundle("bundles/WindowBundle", Locale.getDefault());
 		setTitle(windowBundle.getString("title"));
 		setLayout(new BorderLayout());
 		logic.setMainFrame(this);
@@ -114,7 +113,7 @@ public class MainFrame extends JFrame implements MouseListener, ComponentListene
 	UpperPanel upperPanel;
 	RightPanel rightPanel;
 	GamePanel gamePanel;
-	
+	public ResourceBundle windowBundle = ResourceBundle.getBundle("bundles/WindowBundle", Locale.getDefault());
 	public static void main(String[] args) 
 	{
 		Locale.setDefault(new Locale("pl", "PL"));

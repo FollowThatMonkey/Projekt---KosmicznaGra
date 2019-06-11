@@ -119,13 +119,13 @@ public class GameLogic
 			background.draw(g2d);
 			g2d.setFont(new Font(g2d.getFont().getFontName(), g2d.getFont().getStyle(), 30));
 			g2d.setColor(Color.WHITE);
-			g2d.drawString(windowBundle.getString("gameOver"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
+			g2d.drawString(frame.windowBundle.getString("gameOver"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
 		} else // show success screen - gameOver with positive result - or whatever
 		{
 			background.draw(g2d);
 			g2d.setFont(new Font(g2d.getFont().getFontName(), g2d.getFont().getStyle(), 30));
 			g2d.setColor(Color.WHITE);
-			g2d.drawString(windowBundle.getString("success"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
+			g2d.drawString(frame.windowBundle.getString("success"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
 		}
 		
 	}
@@ -288,7 +288,6 @@ public class GameLogic
 	private CurrDist rocketDist = CurrDist.ten;
 	
 	private MainFrame frame = null;
-	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles/WindowBundle", Locale.getDefault());
 	// Global constants
 	public static final int SECOND = 1, MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 	

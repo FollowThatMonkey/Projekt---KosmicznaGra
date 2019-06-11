@@ -20,6 +20,7 @@ public class Spaceship extends CosmicObjects
 	{
 		super(nn, mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
+		initialMass = mm;
 		setType(ObjectType.spaceship);
 		try
 		{
@@ -66,7 +67,8 @@ public class Spaceship extends CosmicObjects
 				fuel -= dConsumption;
 				setXVel(getXVel() + Math.cos(theta) * engineThrust);
 				setYVel(getYVel() - Math.sin(theta) * engineThrust);
-				setMass(getMass() - dConsumption * 10000);
+				//setMass(getMass() - dConsumption * 10000);
+				setMass((0.13+0.0087*fuel)*initialMass);
 			}
 			if(fuel < 0)
 				fuel = 0;
@@ -144,12 +146,14 @@ public class Spaceship extends CosmicObjects
 	{
 		super.setParameters(nn, mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
+		initialMass = mm;
 	}
 	
 	public void setParameters(double mm, double xPos, double yPos, double xVel, double yVel, double dC)
 	{
 		super.setParameters(mm, xPos, yPos, xVel, yVel);
 		dConsumption = dC;
+		initialMass = mm;
 	}
 	
 	
@@ -158,6 +162,7 @@ public class Spaceship extends CosmicObjects
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;
 	private double fuel = 100; // Fuel status in %%
+	private double initialMass;
 	private double dConsumption;
 	private boolean turnLeft = false, turnRight = false, accelerate = false;
 	private BufferedImage offRocket, onRocket, arrowImg;

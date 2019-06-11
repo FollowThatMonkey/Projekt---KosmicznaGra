@@ -32,8 +32,6 @@ public class RightPanel extends JPanel implements Runnable
 		this.logic = logic;
 		this.frame = frame;
 		setPreferredSize(new Dimension((int)(frame.getWidth() / 4), getHeight()));
-		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		//setLayout(new FlowLayout(FlowLayout.CENTER));
 		setLayout(new BorderLayout());
 		logic.setClosestBody();
 		
