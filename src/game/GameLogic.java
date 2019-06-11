@@ -87,6 +87,7 @@ public class GameLogic
 			objectThreads();
 			ship.update();
 			setScale();
+			checkCollision();
 			
 			if(ship.getFuel() == 0)
 				enableGameOverButtons(true);
