@@ -35,7 +35,7 @@ public class RightPanel extends JPanel implements Runnable
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		//setLayout(new FlowLayout(FlowLayout.CENTER));
 		setLayout(new BorderLayout());
-		logic.SetClosestBody();
+		logic.setClosestBody();
 		
 		timeSlider = setTimeSlider(logic);
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
@@ -112,7 +112,7 @@ public class RightPanel extends JPanel implements Runnable
 	@Override
 	public void run()
 	{
-		logic.SetClosestBody();
+		logic.setClosestBody();
 		while(!logic.getGameOver())
 		{
 			fuelStat.setText(String.format("%.2f", logic.getShip().getFuel()) + "%");

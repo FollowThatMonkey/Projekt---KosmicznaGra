@@ -2,12 +2,14 @@ package game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
@@ -82,6 +84,7 @@ public class GameLogic
 		{
 			objectThreads();
 			ship.update();
+			setScale();
 			
 			if(ship.getFuel() == 0)
 				enableGameOverButtons(true);
@@ -103,23 +106,92 @@ public class GameLogic
 		// Here will be drawing to buffImage
 		if(!gameOver)
 		{
-			SetClosestBody();
+			setClosestBody();
 			background.draw(g2d);
 			for(CelestialBody iterator : planetarySystem)
 				iterator.draw(g2d, this);
 			ship.draw(g2d, this);
 		}
-		else
+		else if(!success) // show just gameOver screen
 		{
 			background.draw(g2d);
+			g2d.setFont(new Font(g2d.getFont().getFontName(), g2d.getFont().getStyle(), 30));
 			g2d.setColor(Color.WHITE);
-			g2d.drawString("Game Over!", getCurrentSize().width / 2, getCurrentSize().height / 2);
+			g2d.drawString("Game Over!", getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
+		} else // show success screen - gameOver with positive result - or whatever
+		{
+			background.draw(g2d);
+			g2d.setFont(new Font(g2d.getFont().getFontName(), g2d.getFont().getStyle(), 30));
+			g2d.setColor(Color.WHITE);
+			g2d.drawString("Success!", getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
 		}
 		
 	}
 	
+	// dynamically changes scale to make navigation easier
+	private void setScale()
+	{
+		if(getClosestBodyDistance() <= initDistnace / 4 && rocketDist != CurrDist.one)
+		{
+			rocketDist = CurrDist.one;
+			setDT(45 * SECOND / 60);
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
+		}
+		if(getClosestBodyDistance() <= 2 * initDistnace / 4 && getClosestBodyDistance() > initDistnace / 4 && rocketDist != CurrDist.two)
+		{
+			rocketDist = CurrDist.two;
+			setDT(30 * MINUTE / 60);
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
+			
+		}
+		if(getClosestBodyDistance() <= 3 * initDistnace / 4 && getClosestBodyDistance() > 2 * initDistnace / 4 && rocketDist != CurrDist.three)
+		{
+			rocketDist = CurrDist.three;
+			setDT(HOUR / 60);
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
+			
+		}
+		if(getClosestBodyDistance() > 4 * initDistnace / 4 && rocketDist != CurrDist.four)
+		{
+			rocketDist = CurrDist.four;
+			setDT(2 * HOUR / 60);
+			frame.getRightPanel().getTimeSlider().setValue((int) -(initDT - getDT()));
+		}
+	}
+	
+	// check if rocket landed on celestialBody
+	private void checkCollision()
+	{
+		if(getClosestBodyDistance() <= closestBody.getRadius())
+		{
+			// if the relative to the closes body
+			// velocity is greater than 5 km/s
+			// then the gameOver happens
+			// otherwise it's a successful landing
+			if(getClosestBodyVel() >= 5e3)
+				gameOver = true;
+			else
+			{
+				gameOver = true;
+				success = true;
+			}
+		}
+	}
+	
+	// gets the distance to the closest body
+	private double getClosestBodyDistance()
+	{
+		return Math.sqrt( Math.pow(ship.getXPos() - closestBody.getXPos(), 2) + Math.pow(ship.getYPos() - closestBody.getYPos(), 2) );
+	}
+	
+	// gets the velocity of ship relative to the closes body
+	private double getClosestBodyVel()
+	{
+		return Math.sqrt( Math.pow(ship.getXVel() - closestBody.getXVel(), 2) + Math.pow(ship.getYVel() - closestBody.getYVel(), 2) );
+	}
+	
 	// check which planet is the closest to the spaceship
-	public void SetClosestBody()
+	public void setClosestBody()
 	{
 		if(closestBody == null)
 			closestBody = planetarySystem.get(0);
@@ -189,7 +261,7 @@ public class GameLogic
 	
 	public void setCurrentSize(Dimension size) { this.size = size; }
 	
-	public void setScale(int scale) { this.scale = scale; }
+	public void setScale(long scale) { this.scale = scale; }
 	
 	public void setGameOver(boolean newGameOver) { gameOver = newGameOver; }
 	
@@ -197,6 +269,7 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
+	//private final long initScale = 50000000L; 
 	private long scale = 50000000L;
 	//private long scale = 50L;
 	
@@ -204,15 +277,33 @@ public class GameLogic
 	private Spaceship ship;
 	private List<CelestialBody> planetarySystem = new ArrayList<CelestialBody>(); // star and planets
 	private int objectNumber; // number of celestial bodies in planetarySystem (planets + star)
-	//private int dt = DAY * 2 / 60; // DT in seconds!!! -- one sec is one month
 	private int dt = HOUR * 2 / 60; // DT in seconds!!! -- one sec is one month
 	public final int initDT = dt;
 	private int timeLeft = 6000; // Only 700 sec?! Maybe will change to more
-	private boolean gameOver = false;
+	private boolean gameOver = false, success = false;
 	private CelestialBody closestBody = null;
+	private final double initDistnace = 3.441e10, halfDistance = initDistnace / 2, thirdDistance = initDistnace / 3, fourthDistance = initDistnace / 4, fifthDistance = initDistnace / 5;
+	private CurrDist rocketDist = CurrDist.ten;
 	
 	private MainFrame frame = null;
 	
 	// Global constants
-	public static final int MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
+	public static final int SECOND = 1, MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
+	
+	// how close to the closest body is currently the ship
+	// where each numeral means a fraction of initDistance
+	// ten means >= initDistance
+	private enum CurrDist
+	{
+		one, // 1/10 of initDist
+		two, // 2/10 of initDist
+		three, // 3/10 of initDist
+		four,
+		five,
+		six,
+		seven,
+		eight,
+		nine,
+		ten
+	}
 }
