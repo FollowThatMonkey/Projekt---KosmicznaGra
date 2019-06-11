@@ -21,7 +21,7 @@ public class CelestialBody extends CosmicObjects
 	// drawing celestialbody to buffImage
 	public void draw(Graphics2D g2d, GameLogic logic)
 	{
-		g2d.setColor(Color.BLUE);
+		g2d.setColor(color);
 		double CamX = logic.getShip().getXPos()/logic.getScale()-(logic.getCurrentSize().getWidth()/2);
 		double CamY = logic.getShip().getYPos()/logic.getScale()-(logic.getCurrentSize().getHeight()/2);
 		int scaledPosX = (int) ((double) getXPos()/logic.getScale() - CamX);
@@ -31,6 +31,9 @@ public class CelestialBody extends CosmicObjects
 		g2d.setColor(Color.RED);
 		g2d.drawString(getName(), scaledPosX, scaledPosY);
 	}
+	
+	// get planet radius
+	public double getRadius() { return radius; }
 	
 	double radius;
 	Color color;
