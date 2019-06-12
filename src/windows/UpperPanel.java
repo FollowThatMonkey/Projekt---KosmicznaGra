@@ -64,7 +64,7 @@ public class UpperPanel extends JPanel implements Runnable
 	
 	public void setThread(Thread thread) { this.thread = thread; }
 	
-	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles.WindowBundle");
+	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles/WindowBundle");
 	private JLabel shipVelocity;
 	private GameLogic logic;
 	private JLabel shipName;

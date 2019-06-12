@@ -120,13 +120,13 @@ public class GameLogic
 			background.draw(g2d);
 			g2d.setFont(new Font(g2d.getFont().getFontName(), g2d.getFont().getStyle(), 30));
 			g2d.setColor(Color.WHITE);
-			g2d.drawString(windowBundle.getString("gameOver"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
+			g2d.drawString(frame.windowBundle.getString("gameOver"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
 		} else // show success screen - gameOver with positive result - or whatever
 		{
 			background.draw(g2d);
 			g2d.setFont(new Font(g2d.getFont().getFontName(), g2d.getFont().getStyle(), 30));
 			g2d.setColor(Color.WHITE);
-			g2d.drawString("Success!", getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
+			g2d.drawString(frame.windowBundle.getString("success"), getCurrentSize().width / 2 - 70, getCurrentSize().height / 2);
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class GameLogic
 		return Math.sqrt( Math.pow(ship.getXPos() - closestBody.getXPos(), 2) + Math.pow(ship.getYPos() - closestBody.getYPos(), 2) );
 	}
 	
-	// gets the velocity of ship relative to the closes body
+	// gets the velocity of ship relative to the closest body
 	private double getClosestBodyVel()
 	{
 		return Math.sqrt( Math.pow(ship.getXVel() - closestBody.getXVel(), 2) + Math.pow(ship.getYVel() - closestBody.getYVel(), 2) );
@@ -299,7 +299,6 @@ public class GameLogic
 	private Fractions rocketDist = Fractions.five;
 	
 	private MainFrame frame = null;
-	private ResourceBundle windowBundle = ResourceBundle.getBundle("bundles.WindowBundle", Locale.getDefault());
 	// Global constants
 	public static final int SECOND = 1, MINUTE = 60, HOUR = 3600, DAY = 24 * HOUR, MONTH = 30 * DAY, YEAR = 365 * DAY;
 		
