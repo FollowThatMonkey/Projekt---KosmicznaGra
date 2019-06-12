@@ -268,6 +268,8 @@ public class GameLogic
 	// Sets
 	public void setDT(int newDT) { dt = newDT; }
 	
+	public void setDistanceScale(int scale) { this.scale = scale; }
+	
 	public void setObjectNumber(int N) { objectNumber = N; }
 	
 	public void setTimeLeft(int newTimeLeft) { timeLeft = newTimeLeft; }
@@ -282,9 +284,9 @@ public class GameLogic
 	
 	private Background background;
 	private Dimension size;
-	//private final long initScale = 50000000L; 
-	private long scale = 400L;
-	//private long scale = 50000000L;
+	//private long scale = 400L;
+	private long scale = 50000000L;
+	public final long initScale = scale; 
 	
 	private Color backgroundColor = Color.BLACK;
 	private Spaceship ship;

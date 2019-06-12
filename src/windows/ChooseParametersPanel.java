@@ -231,6 +231,16 @@ public class ChooseParametersPanel extends JPanel
 									logic.getMainFrame().gamePanel.requestFocus();
 								}
 							});
+							logic.getMainFrame().getRightPanel().getDistanceSlider().removeChangeListener(logic.getMainFrame().getRightPanel().getDistanceSlider().getChangeListeners()[logic.getMainFrame().getRightPanel().getDistanceSlider().getChangeListeners().length - 1]);
+							logic.getMainFrame().getRightPanel().getDistanceSlider().addChangeListener(new ChangeListener()
+							{
+								@Override
+								public void stateChanged(ChangeEvent e)
+								{
+									logic.setScale(logic.initScale + logic.getMainFrame().getRightPanel().getDistanceSlider().getValue());
+									logic.getMainFrame().gamePanel.requestFocus();
+								}
+							});
 							logic.setGameOver(false);
 
 							// making new threads in gamePanel

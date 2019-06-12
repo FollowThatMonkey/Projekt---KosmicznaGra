@@ -36,6 +36,7 @@ public class RightPanel extends JPanel implements Runnable
 		logic.setClosestBody();
 		
 		timeSlider = setTimeSlider(logic);
+		distanceSlider = setDistanceSlider(logic);
 		fuelStat = setBoldLabel(String.format("%.2f", logic.getShip().getFuel()) + "%", boldTextSize);
 		massStat = setBoldLabel(String.format("%.2f", logic.getShip().getMass()) + " kg", boldTextSize);
 		timeStat = new TimeLabel(logic, boldTextSize);
@@ -58,6 +59,7 @@ public class RightPanel extends JPanel implements Runnable
 		upPanel = new JPanel(new BorderLayout());
 		upPanel.add(setLabel(windowBundle.getString("timeScale"), textSize), BorderLayout.PAGE_START);
 		upPanel.add(timeSlider, BorderLayout.CENTER);
+		upPanel.add(distanceSlider, BorderLayout.PAGE_END);
 		add(upPanel, BorderLayout.PAGE_START);
 		
 		statsPanel = new JPanel();
@@ -206,6 +208,22 @@ public class RightPanel extends JPanel implements Runnable
 		return slider;
 	}
 	
+	JSlider setDistanceSlider(GameLogic logic)
+	{
+		JSlider slider = new JSlider((int) -(logic.getScale() - 1), 0, 0);
+		slider.addChangeListener(new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent e)
+			{
+				logic.setScale(logic.initScale + slider.getValue());
+				frame.gamePanel.requestFocus();
+			}
+		});
+		
+		return slider;
+	}
+	
 	// Setting up the game-over button
 	JButton setGameOverButton(String text) 
 	{
@@ -226,6 +244,8 @@ public class RightPanel extends JPanel implements Runnable
 	
 	public TimeLabel getTimeStat() { return timeStat; }
 	
+	public JSlider getDistanceSlider() { return distanceSlider; }
+	
 	// Sets
 	public void setLogic(GameLogic logic) { this.logic = logic; }
 	
@@ -233,7 +253,7 @@ public class RightPanel extends JPanel implements Runnable
 	
 	private MainFrame frame;
 	private GameLogic logic;
-	private JSlider timeSlider;
+	private JSlider timeSlider, distanceSlider;
 	private JLabel fuelStat, massStat, posStat, velStat;
 	private TimeLabel timeStat;
 	private JButton restartButton, endButton;
