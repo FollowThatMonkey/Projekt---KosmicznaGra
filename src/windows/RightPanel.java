@@ -134,7 +134,7 @@ public class RightPanel extends JPanel implements Runnable
 
 	double calcDistance(Spaceship ship, CelestialBody body)
 	{
-		return Math.sqrt( Math.pow(ship.getYPos() - body.getYPos(), 2) + Math.pow(ship.getXPos() - body.getXPos(), 2) );
+		return Math.sqrt( Math.pow(ship.getYPos() - body.getYPos(), 2) + Math.pow(ship.getXPos() - body.getXPos(), 2) ) - body.getRadius();
 	}
 
 	double calcVelocity(Spaceship ship, CelestialBody body)

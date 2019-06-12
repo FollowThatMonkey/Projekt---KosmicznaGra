@@ -153,7 +153,7 @@ public class Spaceship extends CosmicObjects
 	}
 	
 	
-	private final int rocketWidth = 30, rocketHight = 80, arrowWidth = 25, arrowHeight = 50;
+	private final int rocketWidth = 38, rocketHight = 100, arrowWidth = 25, arrowHeight = 50;
 	private final double engineThrust = 1000 / 4;
 	// Deegrees to X axis
 	private double theta = Math.PI / 2;
