@@ -27,6 +27,10 @@ public class Spaceship extends CosmicObjects
 			onRocket = ImageIO.read(new File("RakietaOn.png"));
 			offRocket = ImageIO.read(new File("RakietaOff.png"));
 			arrowImg = ImageIO.read(new File("Arrow.png"));
+			//onRocket = ImageIO.read(this.getClass().getResource("/RakietaOn.png"));
+			//offRocket = ImageIO.read(this.getClass().getResource("/RakietaOff.png"));
+			//arrowImg = ImageIO.read(this.getClass().getResource("/Arrow.png"));
+
 		}
 		catch(IOException e)
 		{
