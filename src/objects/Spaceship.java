@@ -71,7 +71,6 @@ public class Spaceship extends CosmicObjects
 				fuel -= dConsumption;
 				setXVel(getXVel() + Math.cos(theta) * engineThrust);
 				setYVel(getYVel() - Math.sin(theta) * engineThrust);
-				//setMass(getMass() - dConsumption * 10000);
 				setMass((0.13+0.0087*fuel)*initialMass);
 			}
 			if(fuel < 0)
